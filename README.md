@@ -9,6 +9,7 @@ This repository contains the workflows and files used in the LADP-Essentials vid
   - Prompt engineering demos: zero-shot, few-shot, chain-of-thought, and prompt chaining
 - `LADPE_Module_2_Workflows/`
   - RAG workflow demo
+  - `documents_for_rag/` contains sample source docs for ingestion
 - `LADPE_Module_3_Workflows/`
   - Agent workflows: triaging agent and report writing agent
 - `LADPE_Module_4_Files/`
