@@ -13,7 +13,10 @@ This repository contains the workflows and files used in the LADP-Essentials vid
 - `LADPE_Module_3_Workflows/`
   - Agent workflows: triaging agent and report writing agent
 - `LADPE_Module_4_Files/`
-  - Evaluation materials including a notebook, CSV inputs, and `.env.example`
+  - `LADPE_Module_4.2 - Evaluations/` includes a notebook, CSV inputs, and `.env.example`
+  - `LADPE_Module_4.3 - Deployment/` includes:
+    - `streamlit_deployment/` with Streamlit app, Docker files, and `requirements.txt`
+    - `html_deployment/` with static `flowise.html`, Docker files, and compose config
 
 ## How to Use
 
