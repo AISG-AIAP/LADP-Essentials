@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  flowise-web:
+    build: .
+    container_name: flowise-chat-app
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+
