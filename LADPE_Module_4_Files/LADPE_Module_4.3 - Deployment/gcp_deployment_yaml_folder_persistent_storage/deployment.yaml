@@ -1,0 +1,46 @@
+
+# deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flowise
+  labels:
+    app: flowise
+spec:
+  selector:
+    matchLabels:
+      app: flowise
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: flowise
+    spec:
+      containers:
+      - name: flowise
+        image: gcr.io/[ProjectID]/flowise:dev ########add project ID here #######
+        imagePullPolicy: Always
+        ########add env variables below for persistent volume mounting #######
+        env:
+        - name: DATABASE_PATH
+          value: /root/.flowise
+        - name: SECRETKEY_PATH
+          value: /root/.flowise
+        - name: LOG_PATH
+          value: /root/.flowise/logs
+        - name: BLOB_STORAGE_PATH
+          value: /root/.flowise/storage
+        volumeMounts:
+        - name: flowise-storage
+          mountPath: /root/.flowise
+        ########add env variables above for persistent volume mounting #######
+        resources: 
+          requests:
+            cpu: "1"
+            memory: "1Gi"
+      ########add volume mounts below for persistent volume mounting #######
+      volumes:
+      - name: flowise-storage
+        persistentVolumeClaim:
+          claimName: flowise-pvc
+      ########add volume mounts above for persistent volume mounting #######

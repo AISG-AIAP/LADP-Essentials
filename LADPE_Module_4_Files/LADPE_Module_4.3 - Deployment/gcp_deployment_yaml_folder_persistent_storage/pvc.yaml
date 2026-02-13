@@ -1,0 +1,12 @@
+#to create persistant volume claim
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: flowise-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 0.5Gi
+  storageClassName: standard-rwo
