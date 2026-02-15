@@ -1,4 +1,3 @@
-
 # deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -16,10 +15,20 @@ spec:
       labels:
         app: flowise
     spec:
+      initContainers: # runs before main container to prepare the PVC volume
+      - name: init-permissions
+        image: busybox
+        command: ['sh', '-c', 'mkdir -p /root/.flowise/logs /root/.flowise/storage && chmod -R 777 /root/.flowise'] # PVC mounts as empty dir with restrictive permissions; pre-create subdirs and open permissions so Flowise can write
+        volumeMounts:
+        - name: flowise-storage
+          mountPath: /root/.flowise
       containers:
       - name: flowise
         image: gcr.io/[ProjectID]/flowise:dev ########add project ID here #######
         imagePullPolicy: Always
+        securityContext: # ensures the container runs as root so it has write access to the PVC-mounted volume
+          runAsUser: 0 # run as root user
+          runAsGroup: 0 # run as root group
         ########add env variables below for persistent volume mounting #######
         env:
         - name: DATABASE_PATH
@@ -34,7 +43,7 @@ spec:
         - name: flowise-storage
           mountPath: /root/.flowise
         ########add env variables above for persistent volume mounting #######
-        resources: 
+        resources:
           requests:
             cpu: "1"
             memory: "1Gi"
