@@ -1,25 +1,45 @@
-# Stage 1: Build stage (add --platform=linux/amd64 to ensure the image runs correctly on GKE nodes regardless of the build machine's architecture)
-FROM --platform=linux/amd64 node:20-alpine AS build
+# Build local monorepo image
+# docker build --no-cache -t  flowise .
 
-USER root
+# Run image
+# docker run -d -p 3000:3000 flowise
 
-# Skip downloading Chrome for Puppeteer (saves build time)
-ENV PUPPETEER_SKIP_DOWNLOAD=true
-
-# Install latest Flowise globally (specific version can be set: flowise@1.0.0)
-RUN npm install -g flowise
-
-# Stage 2: Runtime stage (add --platform=linux/amd64 to ensure the image runs correctly on GKE nodes regardless of the build machine's architecture)
 FROM --platform=linux/amd64 node:20-alpine
 
-# Install runtime dependencies
-RUN apk add --no-cache chromium git python3 py3-pip make g++ build-base cairo-dev pango-dev curl
+# Install system dependencies and build tools
+RUN apk update && \
+    apk add --no-cache \
+        libc6-compat \
+        python3 \
+        make \
+        g++ \
+        build-base \
+        cairo-dev \
+        pango-dev \
+        chromium \
+        curl && \
+    npm install -g pnpm
 
-# Set the environment variable for Puppeteer to find Chromium
+ENV PUPPETEER_SKIP_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
-# Copy Flowise from the build stage
-COPY --from=build /usr/local/lib/node_modules /usr/local/lib/node_modules
-COPY --from=build /usr/local/bin /usr/local/bin
+ENV NODE_OPTIONS=--max-old-space-size=8192
 
-ENTRYPOINT ["flowise", "start"]
+WORKDIR /usr/src/flowise
+
+# Copy app source
+COPY . .
+
+# Install dependencies and build
+RUN pnpm install && \
+    pnpm build
+
+# Give the node user ownership of the application files
+RUN chown -R node:node .
+
+# Switch to non-root user (node user already exists in node:20-alpine)
+USER node
+
+EXPOSE 3000
+
+CMD [ "pnpm", "start" ]
