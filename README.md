@@ -4,6 +4,8 @@ This repository contains the workflows and files used in the LADP-Essentials vid
 
 ## Repository Structure
 
+- `LADPE_Module_0_Files/`
+  - Setup and prerequisites: Flowise installation, LLM API credential provisioning, and connecting credentials in Flowise
 - `LADPE_Module_1_Workflows/`
   - Intro workflows: first chatbot and first agent
   - Prompt engineering demos: zero-shot, few-shot, chain-of-thought, and prompt chaining
@@ -17,6 +19,7 @@ This repository contains the workflows and files used in the LADP-Essentials vid
   - `LADPE_Module_4.3 - Deployment/` includes:
     - `streamlit_deployment/` with Streamlit app, Docker files, and `requirements.txt`
     - `html_deployment/` with static `flowise.html`, Docker files, and compose config
+    - `gcp_deployment_yaml_folder_persistent_storage/` with Dockerfile, Kubernetes YAML configs, and a Cloud Run deployment guide
 
 ## How to Use
 
@@ -29,4 +32,5 @@ This repository contains the workflows and files used in the LADP-Essentials vid
 
 - The JSON files are Flowise exports and can be imported directly.
 - File names align with the demo names shown in the course.
+- Each module folder contains its own `README.md` with reference materials and additional details.
 - The `.env` file should not be committed to source control.
