@@ -1,0 +1,102 @@
+Title,Resource type,Learning area,Description,Link
+AI4I - Literacy in AI,Online course,Fundamentals,"Literacy in AI is a 5-hour course which introduces learners into the world of machine learning. It also explores the topic of ethics in AI.
+
+Upon completion of this course, the learner would be exposed a range of introductory topics related to AI.
+
+Upon successful completion of the course, you will receive the ""AI for Industry – Literacy in AI"" certificate.
+
+This course is a pre-requisite to ""AI for Industry – Foundations in AI"" (course purchase is required to access this course).",https://learn.aisingapore.org/courses/ai-for-industry-part-1/
+The Python Tutorial,Online course,Python programming,"This tutorial introduces the reader informally to the basic concepts and features of the Python language and system. It helps to have a Python interpreter handy for hands-on experience, but all examples are self-contained, so the tutorial can be read off-line as well.",https://docs.python.org/3/tutorial/index.html
+Crash Course on Python by Google,Online course,Python programming,"This course is designed to teach you the foundations in order to write simple programs in Python using the most common structures. No previous exposure to programming is needed. By the end of this course, you'll understand the benefits of programming in IT roles; be able to write simple programs using Python; figure out how the building blocks of programming fit together; and combine all of this knowledge to solve a complex programming problem. 
+
+We'll start off by diving into the basics of writing a computer program. Along the way, you’ll get hands-on experience with programming concepts through interactive exercises and real-world examples. You’ll quickly start to see how computers can perform a multitude of tasks — you just have to write code that tells them what to do.",https://www.coursera.org/learn/python-crash-course
+Python for Beginners (Full Course) | Programming Tutorial,Video tutorial,Python programming,"Python Tutorial, Easy Python tutorial for beginner, learn Python Programming, learn python programming with example and syntax. Download python, install python, using python IDE, IDLE, Pycharm IDE, notepad,  getting started with python, variables, functions, object, list in python, set in python, help in python, data types, operators, math function, run, debug python code, conditional statement, array, matrix in python, python by navin reddy",https://www.youtube.com/playlist?list=PLsyeobzWxl7poL9JTVyndKe62ieoN-MZ3
+Python Tutorials for Absolute Beginners by CS Dojo,Video tutorial,Python programming,-,https://www.youtube.com/playlist?list=PLBZBJbE_rGRWeh5mIBhD-hhDwSEDxogDg
+Python Programming Beginner Tutorials by Corey Schafer,Video tutorial,Python programming,"In these Python Beginner Tutorials, we will be learning the fundamentals of Python programming from the ground up. We will be learning how to: install/setup Python on Mac and Windows, work with basic data types, write conditionals, write for/while loops, write functions, import modules, and explore the standard library.",https://www.youtube.com/playlist?list=PL-osiE80TeTskrapNbzXhwoFUiLCjGgY7
+StatQuest Youtube channel by Josh Starmer,Video tutorial,Machine Learning,"StatQuest breaks down complicated Statistics and Machine Learning methods into small, bite-sized pieces that are easy to understand. StatQuest doesn't dumb down the material, instead, it builds you up so that you are smarter and have a better understanding of Statistics and Machine Learning.",https://www.youtube.com/channel/UCtYLUTtgS3k1Fg4y5tAhLbw
+Machine Learning Crash Course by Google,Online course,Machine Learning,"Google's fast-paced, practical introduction to machine learning, featuring a series of lessons with video lectures, real-world case studies, and hands-on practice exercises. ",https://developers.google.com/machine-learning/crash-course/
+"Mathematics for Machine Learning by Marc Peter Deisenroth, A. Aldo Faisal and Cheng Soon Ong",Ebook,Machine Learning,"We wrote a book on Mathematics for Machine Learning that motivates people to learn mathematical concepts. The book is not intended to cover advanced machine learning techniques because there are already plenty of books doing this. Instead, we aim to provide the necessary mathematical skills to read those other books.
+
+The book is available at published by Cambridge University Press (published April 2020).
+
+We split the book into two parts:
+
+    Mathematical foundations
+    Example machine learning algorithms that use the mathematical foundations
+
+We aimed to keep this book fairly short, so we don’t cover everything.",https://mml-book.com/
+The Data Science Design Manual lecture videos by Steven Skiena,Video tutorial,Machine Learning,"The Data Science Design Manual serves as an introduction to data science, focusing on the skills and principles needed to build systems for collection, analyzing, and interpreting data. As a discipline data science sits at the intersection of statistics, computer science, and machine learning, but it is building a distinct heft and character of its own.
+
+The book covers enough material for an ""Introduction to Data Science"" course at the undergraduate or early graduate student levels. A full set of lecture slides for teaching this course are available here, along with data resources for projects and assignments, and online video lectures.
+
+Lecture 1: Introduction to Data Science
+Lecture 2: Mathematical Preliminaries
+Lecture 3: Python for Data Science I
+Lecture 4: Python for Data Science II
+Lecture 5: Correlation
+Bonus Lecture: Lookahead for HW
+Lecture 6: Assembling Data Sets
+Lecture 7: Data Cleaning
+Lecture 8: Scores and Rankings
+Lecture 9: Statistical Distributions
+Bonus: HW Figures, Good and Bad
+Lecture 10: Statistical Significance
+Lecture 11: Principles of Visualizing Data
+Lecture 12: Practice of Data Visualization
+Bonus: Twitter/Election Data Projects
+Lecture 13: Building Models
+Lecture 14: Validating Models
+Bonus: Ranking Drawings by Peer Reviews
+Lecture 15: Linear Algebra Review
+Lecture 16: Linear Regression
+Lecture 17: Gradient Descent Search and Regularization
+Lecture 18: Logistic Regression and Classification
+Lecture 19: Nearest Neighbor Methods
+Lecture 20: Clustering
+Lecture 21: Introduction to Machine Learning
+Lecture 22: Topics in Machine Learning
+Lecture 23: Achieving Scale
+Lecture 24: Human-centric Data Science",https://www.data-manual.com/
+An Introduction to Statistical Learning with Applications in Python,Ebook,Machine Learning,"As the scale and scope of data collection continue to increase across virtually all fields, statistical learning has become a critical toolkit for anyone who wishes to understand data. An Introduction to Statistical Learning provides a broad and less technical treatment of key topics in statistical learning. This book is appropriate for anyone who wishes to use contemporary tools for data analysis.
+
+The first edition of this book, with applications in R (ISLR), was released in 2013. The Python edition (ISLP) was published in 2023.
+
+Each edition contains a lab at the end of each chapter, which demonstrates the chapter’s concepts in either R or Python.
+
+The chapters cover the following topics:
+
+    What is statistical learning?
+    Regression
+    Classification
+    Resampling methods
+    Linear model selection and regularization
+    Moving beyond linearity
+    Tree-based methods
+    Support vector machines
+    Deep learning
+    Survival analysis
+    Unsupervised learning
+    Multiple testing",https://hastie.su.domains/ISLP/ISLP_website.pdf
+Machine learning and AI by Google,Online course,Deep learning,"Did you know that the adoption of machine learning results in 2x more data-driven decisions, 5x faster decision-making, and 3x faster execution?1
+
+Learn how to implement the latest machine learning and artificial intelligence technology by exploring training on Vertex AI, BigQuery, TensorFlow, Cloud Vision, Natural Language API, and more. These courses can help you prepare for job roles like Data Scientist, Machine Learning Engineer, or Contact Center engineer. ",https://cloud.google.com/learn/training/machinelearning-ai
+Practical Deep Learning for Coders,Online course,Deep learning,"Deep Learning for Coders with Fastai and PyTorch: AI Applications Without a PhD is the book that forms the basis for this course. We recommend reading the book as you complete the course. There’s a few ways to read the book – you can buy it as a paper book or Kindle ebook, or you can read it for free online. The whole book is written as Jupyter notebooks, so you can also execute all the code in the book yourself.
+
+To go to the interactive Jupyter version of any chapter, click any of the chapter links in the Colab section immediately below. If you just want to read the book, without interacting with the code, jump to the nbviewer section.",https://course.fast.ai/Resources/book.html
+Practical Data Ethics,Online course,Ethics and Governance,"Data ethics covers an incredibly broad range of topics, many of which are urgent, making headlines daily, and causing harm to real people right now. A meta-analysis of over 100 syllabi on tech ethics, titled “What do we teach when we teach tech ethics?” found that there was huge variation in which topics are covered across tech ethics courses (law & policy, privacy & surveillance, philosophy, justice & human rights, environmental impact, civic responsibility, robots, disinformation, work & labor, design, cybersecurity, research ethics, and more– far more than any one course could cover). These courses were taught by professors from a variety of fields. The area where there was more unity was in outcomes, with abilities to critique, spot issues, and make arguments being some of the most common desired outcomes for tech ethics course.
+
+In this course, we will focus on topics that are both urgent and practical. In keeping with my teaching philosophy, we will begin with two active, real-world areas (disinformation and bias) to provide context and motivation, before stepping back in Lesson 3 to dig into foundations of data ethics and practical tools. From there we will move on to additional subject areas: privacy & surveillance, the role of the Silicon Valley ecosystem (including metrics, venture growth, & hypergrowth), and algorithmic colonialism. I realize this course still just covers a slice of what is a sprawling field, and I hope that it will be a helpful entry point for continued exploration.
+
+This class was originally taught in-person at the University of San Francisco Data Institute in January-February 2020, for a diverse mix of working professionals from a range of backgrounds (as an evening certificate courses). There are no prerequisites for the course. This course is in no way intended to be exhaustive, but hopefully will provide useful context about how data misuse is impacting society, as well as practice in critical thinking skills and questions to ask.",https://ethics.fast.ai/
+Python for Data Analysis by Wes McKinney,Ebook,Python programming,"Definitive handbook for manipulating, processing, cleaning, and crunching datasets in Python. Updated for Python 3.10 and pandas 1.4, the third edition of this hands-on guide is packed with practical case studies that show you how to solve a broad set of data analysis problems effectively. You'll learn the latest versions of pandas, NumPy, and Jupyter in the process.
+
+Written by Wes McKinney, the creator of the Python pandas project, this book is a practical, modern introduction to data science tools in Python. It's ideal for analysts new to Python and for Python programmers new to data science and scientific computing. Data files and related material are available on GitHub.
+
+    Use the Jupyter notebook and IPython shell for exploratory computing
+    Learn basic and advanced features in NumPy
+    Get started with data analysis tools in the pandas library
+    Use flexible tools to load, clean, transform, merge, and reshape data
+    Create informative visualizations with matplotlib
+    Apply the pandas groupby facility to slice, dice, and summarize datasets
+    Analyze and manipulate regular and irregular time series data
+    Learn how to solve real-world data analysis problems with thorough, detailed examples ",https://wesmckinney.com/book/
