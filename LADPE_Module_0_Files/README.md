@@ -21,6 +21,7 @@ docker run -d --name flowise -p 3000:3000 flowiseai/flowise
 ```
 
 ### References
+- [Flowise](https://flowiseai.com/) — Official Flowise website
 - [Flowise — Getting Started](https://docs.flowiseai.com/getting-started) — Official installation guide (npm, Docker, and Git clone methods)
 - [Flowise GitHub Repository](https://github.com/FlowiseAI/Flowise) — Source code, releases, and setup instructions
 - [Node.js Download](https://nodejs.org/en/download) — Install Node.js (required for npm method)
@@ -39,6 +40,7 @@ docker run -d --name flowise -p 3000:3000 flowiseai/flowise
 3. Click **Create new secret key**, name it, and copy the key immediately (it won't be shown again)
 4. Add billing details under **Settings > Billing** to activate API access
 
+- [OpenAI API](https://openai.com/api/) — OpenAI API overview and capabilities
 - [OpenAI API Keys](https://platform.openai.com/api-keys) — Manage your API keys
 - [OpenAI API Quickstart](https://platform.openai.com/docs/quickstart) — Getting started guide
 - [OpenAI Pricing](https://platform.openai.com/docs/pricing) — Current model pricing
@@ -49,6 +51,7 @@ docker run -d --name flowise -p 3000:3000 flowiseai/flowise
 3. Click **Create Key**, name it, and copy the key immediately
 4. Add billing details under **Plans & Billing** to activate API access
 
+- [Claude Platform](https://platform.claude.com/login) — Claude platform login and dashboard
 - [Anthropic Console](https://console.anthropic.com/) — Manage API keys and billing
 - [Anthropic API Quickstart](https://docs.anthropic.com/en/docs/initial-setup) — Getting started guide
 - [Anthropic Pricing](https://www.anthropic.com/pricing#anthropic-api) — Current model pricing
@@ -82,3 +85,4 @@ docker run -d --name flowise -p 3000:3000 flowiseai/flowise
 In Flowise, credentials are added via the **Credentials** section in the sidebar. Each LLM node (e.g., ChatOpenAI, ChatAnthropic) will prompt you to select or create a credential where you paste your API key.
 
 - [Leon van Zyl's Flowise Tutorial — Adding AI Models & Credentials](https://www.youtube.com/watch?v=pUnKEKz-Mdg) — How to add API keys and credentials in Flowise
+- [Leon van Zyl — How to Build a Local AI Agent With Flowise (Ollama, Postgres)](https://www.youtube.com/watch?v=GE9IlksvGiU) — Building a local AI agent using Flowise with Ollama and Postgres
