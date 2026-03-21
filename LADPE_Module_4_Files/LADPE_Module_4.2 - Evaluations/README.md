@@ -16,7 +16,7 @@ This folder contains the evaluation assets used in the LADP-Essentials Module 4.
 ## How to Use
 
 1. Copy `.env.example` to `.env` and fill in your own keys and settings.
-2. Open the notebook in your preferred environment. For the easiest setup, use Google Colab [![open the notebook in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Ic4zwQz7So6L7tvHolEbrFoxBB7WlZwU?usp=sharing), but a local notebook in Jupyter or VS Code works too.
+2. Open the notebook in your preferred environment. For the easiest setup, use Google Colab [![open the notebook in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1bb5qjSoVWxkEp0ovl0U3CDoD0qVgCQZG), but a local notebook in Jupyter or VS Code works too.
 3. Run the cells in order to load data, execute the evaluation, and review results.
 4. Replace the CSV files with your own dataset as needed.
 
