@@ -45,7 +45,7 @@ Flowise is simply the vehicle we use to teach these concepts in an accessible, v
 
 ## Repository Structure
 
-- **`LADPE_Module_0_Files/`** — Setup and prerequisites: Flowise installation, LLM API credential provisioning, and connecting credentials in Flowise
+- **`LADPE_Module_0_Files/`** — Intro module: overview of the course, then setup and prerequisites (Flowise installation, LLM API credential provisioning, and connecting credentials in Flowise)
 - **`LADPE_Module_1_Workflows/`** — Intro workflows (first chatbot and first agent) and prompt engineering demos (zero-shot, few-shot, chain-of-thought, prompt chaining)
 - **`LADPE_Module_2_Workflows/`** — RAG workflow demo; `documents_for_rag/` contains sample source docs for ingestion
 - **`LADPE_Module_3_Workflows/`** — Agent workflows: triaging agent and report writing agent

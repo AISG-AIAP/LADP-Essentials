@@ -1,5 +1,7 @@
 # Module 0: Setup and Prerequisites
 
+**Module 0** is the introductory module for this course: it gives an overview of the programme and what follows, then moves into practical setup.
+
 Reference materials for getting started — installing Flowise, accessing Flowise Cloud, and provisioning LLM API credentials.
 
 ---
