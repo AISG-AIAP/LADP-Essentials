@@ -346,17 +346,6 @@ Once approved, your instructor will merge the PR and your contribution will appe
 5. **Testing**: Test your workflow with at least 5 different queries before submission
 6. **Export**: Place the exported JSON file from Flowise into your folder under `contributions_from_learners/` (see "How to Share Your Work" above)
 
-## Grading Rubric
-
-| Criteria | Weight | Description |
-|----------|--------|-------------|
-| **Workflow Structure** | 25% | Correct node types, proper connections, complete pipeline |
-| **Prompt Design** | 25% | Clear system prompts, proper instructions, role definition |
-| **Retrieval Quality** | 25% | Appropriate chunking, relevant document retrieval, grounded answers |
-| **Functional Correctness** | 25% | The workflow produces accurate, relevant answers to test queries |
-
----
-
 ## Document Sources & Attribution
 
 The knowledge base documents used in this project are sourced from publicly available materials. They are used here strictly for **non-commercial educational purposes** as part of the LADP Essentials programme. Documents are not redistributed — learners download them directly from the original sources.
