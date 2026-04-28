@@ -26,17 +26,141 @@ Download the document for your chosen scenario from the original source:
 
 ---
 
-## What You Need to Submit
+## How to Share Your Work
 
-1. **Exported Flowise Workflow JSON** — Export your completed workflow from Flowise (`Chatflow/Agentflow > Settings > Export`) and save it as:
+You don't have direct write access to this repository, so you'll share your work by submitting a **Pull Request (PR)** from your own GitHub fork. Your contribution will go into the `contributions_from_learners/` folder inside `LADPE_Project_Phase/`.
+
+If you've never submitted a PR before, don't worry — follow the steps below in order.
+
+### Prerequisites
+
+- A free [GitHub account](https://github.com/signup)
+- [Git installed](https://git-scm.com/downloads) on your computer
+- A terminal (Terminal on macOS/Linux, Git Bash or PowerShell on Windows)
+- Tell Git who you are (one-time setup):
+  ```bash
+  git config --global user.name "Your Name"
+  git config --global user.email "your-email@example.com"
+  ```
+
+### Step 1 — Fork the repository
+
+A "fork" is your own personal copy of the repo on GitHub.
+
+1. Go to the repository on GitHub: **https://github.com/AISG-AIAP/LADP-Essentials**
+2. Click the **Fork** button in the top-right corner
+3. On the next page, leave the defaults and click **Create fork**
+4. You'll be redirected to your fork at `https://github.com/<your-github-username>/LADP-Essentials`
+
+### Step 2 — Clone your fork to your computer
+
+1. On your fork's page, click the green **Code** button → **HTTPS** tab → copy the URL
+2. In your terminal, navigate to where you want the project to live, then run:
+   ```bash
+   git clone https://github.com/<your-github-username>/LADP-Essentials.git
+   cd LADP-Essentials
+   ```
+   Replace `<your-github-username>` with your actual GitHub username.
+
+### Step 3 — Create a new branch
+
+Working on a separate branch keeps your changes isolated and is required for a clean PR.
+
+```bash
+git checkout -b add-<your_name>-contribution
+```
+
+Example: `git checkout -b add-alice-tan-contribution`
+
+### Step 4 — Add your contribution folder
+
+1. Navigate to `LADPE_Project_Phase/contributions_from_learners/`
+2. Create a new folder named after yourself, using lowercase with underscores (e.g., `alice_tan/`)
+3. Place the following two files inside your folder:
+
+   **a. Exported Flowise Workflow JSON**
+   - Export your completed workflow from Flowise (`Chatflow/Agentflow > Settings > Export`)
    - Filename: `<your_name>_scenario_<number>.json`
    - Example: `alice_tan_scenario_3.json`
 
-2. **A short write-up** (1 page max, PDF or MD) covering:
+   **b. A short write-up (`README.md`)**
+
+   A markdown file (1 page max) explaining your workflow, covering:
    - Which scenario you chose and why
    - Your design decisions (e.g., chunking strategy, model choice, prompt design)
    - Any challenges faced and how you resolved them
    - Screenshots of your workflow canvas and at least 3 sample conversations
+
+**Example folder structure:**
+
+```
+LADPE_Project_Phase/
+└── contributions_from_learners/
+    └── alice_tan/
+        ├── alice_tan_scenario_3.json
+        └── README.md
+```
+
+### Step 5 — Commit your changes
+
+Stage and commit only your own folder:
+
+```bash
+git add LADPE_Project_Phase/contributions_from_learners/<your_name>/
+git commit -m "Add <your_name> capstone contribution (scenario <number>)"
+```
+
+Verify your commit:
+```bash
+git status        # should show "nothing to commit, working tree clean"
+git log -1        # should show your commit message
+```
+
+### Step 6 — Push your branch to your fork
+
+```bash
+git push origin add-<your_name>-contribution
+```
+
+If prompted, log in to GitHub (use a [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) as the password if HTTPS asks).
+
+### Step 7 — Open the Pull Request
+
+1. Go to your fork on GitHub: `https://github.com/<your-github-username>/LADP-Essentials`
+2. You should see a yellow banner saying *"add-<your_name>-contribution had recent pushes"* with a **Compare & pull request** button — click it
+   - If you don't see the banner, click the **Pull requests** tab → **New pull request**
+3. On the "Open a pull request" page, confirm these settings:
+   - **base repository:** `AISG-AIAP/LADP-Essentials`
+   - **base:** `main`
+   - **head repository:** `<your-github-username>/LADP-Essentials`
+   - **compare:** `add-<your_name>-contribution`
+4. Set the PR **title**: `Add <your_name> capstone contribution (scenario <number>)`
+5. In the PR **description**, include:
+   - Your name
+   - Which scenario you chose
+   - One or two sentences about your approach
+6. Click **Create pull request**
+
+### Step 8 — Wait for review
+
+Your instructor will review your PR. You may be asked to make changes — if so:
+
+1. Make the requested edits locally on the same branch
+2. Commit and push again:
+   ```bash
+   git add <changed-files>
+   git commit -m "Address review feedback"
+   git push origin add-<your_name>-contribution
+   ```
+3. Your PR will update automatically — no need to open a new one
+
+Once approved, your instructor will merge the PR and your contribution will appear in the main repository. 🎉
+
+### Troubleshooting
+
+- **"Permission denied" when pushing** — make sure you cloned *your fork* (under your username), not the original `AISG-AIAP` repo
+- **PR shows files you didn't change** — your branch may be behind `main`. Run `git fetch upstream && git rebase upstream/main` (after adding the original repo as `upstream` with `git remote add upstream https://github.com/AISG-AIAP/LADP-Essentials.git`)
+- **Forgot to create a branch and committed to `main`** — create a new branch from your current state with `git checkout -b add-<your_name>-contribution`, then push that branch
 
 ---
 
@@ -220,7 +344,7 @@ Download the document for your chosen scenario from the original source:
 3. **Vector Store**: Use any vector store supported by Flowise (e.g., In-Memory, Chroma, Pinecone, etc.)
 4. **System Prompt**: Every LLM/Agent node must have a well-crafted system prompt
 5. **Testing**: Test your workflow with at least 5 different queries before submission
-6. **Export**: Submit the exported JSON file from Flowise
+6. **Export**: Place the exported JSON file from Flowise into your folder under `contributions_from_learners/` (see "How to Share Your Work" above)
 
 ## Grading Rubric
 
