@@ -52,6 +52,7 @@ Flowise is simply the vehicle we use to teach these concepts in an accessible, v
 - **`LADPE_Module_4_Files/`**
   - `LADPE_Module_4.2 - Evaluations/` — notebook, CSV inputs, and `.env.example`
   - `LADPE_Module_4.3 - Deployment/` — Streamlit app, static HTML embed, Docker files, Kubernetes configs, and a Cloud Run deployment guide
+- **`LADPE_Project_Phase/`** — Phase 2 capstone project: scenario briefs, submission instructions, and a `contributions_from_learners/` folder for learner submissions via Pull Request
 
 Each module folder contains its own `README.md` with reference materials and additional details.
 
@@ -156,6 +157,19 @@ If LLMs, RAG, and agents are all new to you, we recommend watching the course **
 | **2 — RAG** | Document processing, chunking (fixed-size, recursive, semantic), embeddings, vector databases (HNSW, LSH), cosine similarity, Euclidean distance, dot product, RAG pipeline |
 | **3 — Agentic Workflows** | Agents, tools, AgentFlow V2, multi-agent triage, prompt chaining, structured JSON output, output validation, sequential/parallel workflows |
 | **4 — Production Readiness** | RAG Triad, LLM-as-a-Judge, BLEU, BERTScore, RAGAS, DeepEval, TruLens, Docker, GKE, Cloud Run, prompt injection, jailbreaking, data leakage, bias & fairness, responsible deployment |
+
+---
+
+## Phase 2: Capstone Project
+
+After completing Modules 1–4, you'll apply what you've learned in a hands-on **capstone project**. Choose one of seven scenarios and build a working LLM application on Flowise using either a **RAG pipeline** or an **Agentic Workflow** — grounded in a real, publicly available document (HR policies, government reports, employee handbooks, academic research, and more).
+
+**How to share your work:** Submit a **Pull Request** to this repository. Your contribution goes into a folder you create under `LADPE_Project_Phase/contributions_from_learners/` containing:
+
+- Your exported Flowise workflow JSON
+- A short `README.md` describing your scenario, design decisions, and sample conversations
+
+Full project brief, scenario list, and step-by-step PR instructions (fork → branch → commit → push → open PR) are in **[`LADPE_Project_Phase/README.md`](LADPE_Project_Phase/README.md)**.
 
 ---
 
