@@ -16,7 +16,7 @@ Download the document for your chosen scenario from the original source:
 
 | # | Document | Download Link |
 |---|----------|---------------|
-| 1 | STF HR Policy | [stf.sg](https://www.stf.sg/wp-content/uploads/2022/08/STF-HR-Policy.pdf) |
+| 1 | Meridian Athletic Foundation (MAF) HR Policy | [Download from this repo](https://github.com/AISG-AIAP/LADP-Essentials/blob/main/LADPE_Project_Phase/data/MAF-HR-Policy.pdf) |
 | 2 | Singapore Investment Climate Statement (2025) | [state.gov](https://www.state.gov/wp-content/uploads/2025/09/638719_2025-Singapore-Investment-Climate-Statement.pdf) |
 | 3 | Contoso Employee Handbook | [developerscantina.com](https://www.developerscantina.com/p/kernel-memory/employee_handbook.pdf) |
 | 4 | Sample Purchasing Policy (Town of Middletown, DE) | [evogov.s3.amazonaws.com](https://evogov.s3.amazonaws.com/126/media/167512.pdf) |
@@ -167,12 +167,12 @@ Once approved, your instructor will merge the PR and your contribution will appe
 ## Scenarios
 
 ### Scenario 1 — HR Policy Q&A Assistant (RAG)
-**Document:** STF HR Policy — [Download from stf.sg](https://www.stf.sg/wp-content/uploads/2022/08/STF-HR-Policy.pdf)
+**Document:** Meridian Athletic Foundation (MAF) HR Policy — [Download from this repo](https://github.com/AISG-AIAP/LADP-Essentials/blob/main/LADPE_Project_Phase/data/MAF-HR-Policy.pdf)
 
-**Context:** The Singapore Taekwondo Federation (STF) wants to build an internal chatbot so employees can quickly find answers about HR policies — leave entitlements, medical benefits, resignation procedures, recruitment processes, and more.
+**Context:** The Meridian Athletic Foundation (MAF), a national sports body, wants to build an internal chatbot so employees can quickly find answers about HR policies — leave entitlements, medical benefits, resignation procedures, recruitment processes, and more.
 
 **Your Task:**
-- Build a **RAG Chatflow** that ingests the STF HR Policy PDF
+- Build a **RAG Chatflow** that ingests the MAF HR Policy PDF
 - The chatbot should accurately answer specific factual questions such as:
   - "How many days of annual leave does a Manager get?"
   - "What is the medical subsidy cap per year?"
@@ -352,7 +352,7 @@ The knowledge base documents used in this project are sourced from publicly avai
 
 | # | Document | Author / Publisher | Year | Notes |
 |---|----------|--------------------|------|-------|
-| 1 | STF HR Policy (Version 6) | Singapore Taekwondo Federation (STF) | 2022 | Publicly available on [stf.sg](https://www.stf.sg) |
+| 1 | Meridian Athletic Foundation (MAF) HR Policy (Version 2.0) | LADP Essentials (synthetic sample) | 2026 | Fictitious organisation — synthetic document created for this course; free to use and redistribute |
 | 2 | Singapore Investment Climate Statement | U.S. Department of State | 2025 | U.S. federal government work — public domain under [17 U.S.C. §105](https://www.law.cornell.edu/uscode/text/17/105) |
 | 3 | Contoso Electronics Employee Handbook | Microsoft Corporation | 2023 | Fictitious demo document created using Azure OpenAI for demonstration purposes |
 | 4 | Sample Purchasing Policy (Policy 1.3.1) | Town of Middletown, Delaware | 2009 | Municipal government public record |
