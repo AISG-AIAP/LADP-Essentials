@@ -20,7 +20,7 @@ Download the document for your chosen scenario from the original source:
 | 2 | Singapore Investment Climate Statement (2025) | [state.gov](https://www.state.gov/wp-content/uploads/2025/09/638719_2025-Singapore-Investment-Climate-Statement.pdf) |
 | 3 | Contoso Employee Handbook | [developerscantina.com](https://www.developerscantina.com/p/kernel-memory/employee_handbook.pdf) |
 | 4 | Sample Purchasing Policy (Town of Middletown, DE) | [evogov.s3.amazonaws.com](https://evogov.s3.amazonaws.com/126/media/167512.pdf) |
-| 5 | Singapore's Transformation into a Global Financial Hub | [lkyspp.nus.edu.sg](https://lkyspp.nus.edu.sg/docs/default-source/case-studies/entry-1516-singapores_transformation_into_a_global_financial_hub.pdf?sfvrsn=a8c9960b_2) |
+| 5 | From "Tech for Growth" to "Tech for Good" (SEA Digital Economy) | [imda.gov.sg](https://www.imda.gov.sg/assets/9bc38493-5fd4-4060-882c-323073da2487.pdf) |
 | 6 | Kopi Culture, Consumption, Conservatism | [academia.edu](https://www.academia.edu/79668210/Kopi_culture_consumption_conservatism_and_cosmopolitanism_among_Singapore_s_millennials) |
 | 7 | AI/ML Learning Resources (CSV) | [Download from GitHub repo](https://github.com/AISG-AIAP/LADP-Essentials/blob/main/LADPE_Module_2_Workflows/documents_for_rag/aiml-learning-resources.csv) |
 
@@ -264,21 +264,21 @@ Once approved, your instructor will merge the PR and your contribution will appe
 
 ---
 
-### Scenario 5 — Financial History Research & Report Agent (Agentic)
-**Document:** Singapore's Transformation into a Global Financial Hub — [Download from lkyspp.nus.edu.sg](https://lkyspp.nus.edu.sg/docs/default-source/case-studies/entry-1516-singapores_transformation_into_a_global_financial_hub.pdf?sfvrsn=a8c9960b_2)
+### Scenario 5 — Digital Economy Research & Report Agent (Agentic)
+**Document:** From "Tech for Growth" to "Tech for Good": Shaping the Next Phase of Southeast Asia's Growth through the Digital Economy — [Download from imda.gov.sg](https://www.imda.gov.sg/assets/9bc38493-5fd4-4060-882c-323073da2487.pdf)
 
-**Context:** The Lee Kuan Yew School of Public Policy wants a research assistant that helps students and researchers explore Singapore's financial history. The agent should be able to answer research questions and generate mini-reports on specific topics.
+**Context:** A policy think tank studying Southeast Asia's digital economy wants a research assistant that helps analysts and students explore this report on the SEA-6 economies (Indonesia, Malaysia, the Philippines, Singapore, Thailand, and Vietnam). The agent should be able to answer research questions and generate mini-reports on specific topics.
 
 **Your Task:**
 - Build an **Agentic Workflow (Agentflow)** with a multi-agent pipeline:
-  1. **Research Agent** — retrieves relevant information from the case study using RAG
+  1. **Research Agent** — retrieves relevant information from the report using RAG
   2. **Writer Agent** — synthesises the research into a well-structured mini-report
   3. Include a **Human-in-the-Loop** step where the user can approve or request revisions to the report
 - The system should handle research queries such as:
-  - "Write a brief report on the establishment and role of the Monetary Authority of Singapore"
-  - "Summarise Singapore's key value propositions as a financial centre"
-  - "Explain the significance of the Asian Dollar Market in Singapore's development"
-  - "What challenges does Singapore face in maintaining its position as a financial hub?"
+  - "Write a brief report on the shift from 'Tech for Growth' to 'Tech for Good' in Southeast Asia"
+  - "Summarise the SEA-6 economies' ambitions and objectives for the digital economy"
+  - "What are the key enablers for sustainable digital development identified in the report?"
+  - "What are the report's main recommendations for advancing the region's digital economy?"
 - The Writer Agent should produce output with: **Summary**, **Key Findings**, and **Conclusion** sections
 
 **Evaluation Criteria:**
@@ -356,7 +356,7 @@ The knowledge base documents used in this project are sourced from publicly avai
 | 2 | Singapore Investment Climate Statement | U.S. Department of State | 2025 | U.S. federal government work — public domain under [17 U.S.C. §105](https://www.law.cornell.edu/uscode/text/17/105) |
 | 3 | Contoso Electronics Employee Handbook | Microsoft Corporation | 2023 | Fictitious demo document created using Azure OpenAI for demonstration purposes |
 | 4 | Sample Purchasing Policy (Policy 1.3.1) | Town of Middletown, Delaware | 2009 | Municipal government public record |
-| 5 | Singapore's Transformation into a Global Financial Hub | Woo Jun Jie, Lee Kuan Yew School of Public Policy, NUS | 2017 | Academic case study, accessed via [lkyspp.nus.edu.sg](https://lkyspp.nus.edu.sg) |
+| 5 | From "Tech for Growth" to "Tech for Good": Shaping the Next Phase of Southeast Asia's Growth through the Digital Economy | Tech for Good Institute (for Asia Tech x SG / IMDA) | 2023 | Special report, publicly available on [imda.gov.sg](https://www.imda.gov.sg) |
 | 6 | Kopi Culture, Consumption, Conservatism and Cosmopolitanism among Singapore's Millennials | Cheryl Chang & Ian McGonigle, *Asian Anthropology* (Routledge / Taylor & Francis) | 2020 | Peer-reviewed journal article, accessed via the authors' [Academia.edu page](https://www.academia.edu/79668210/) |
 | 7 | AI/ML Learning Resources | Curated for LADP Essentials | 2025 | Links to publicly available courses, tutorials, and ebooks |
 
