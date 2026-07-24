@@ -1,0 +1,42 @@
+name: Outstanding PR daily notification
+
+# Runs once a day and emails ladp-team@aisingapore.org a summary of all
+# currently-open pull requests. Sends nothing when there are no open PRs.
+#
+# Requires two repository secrets (Settings -> Secrets and variables -> Actions):
+#   SMTP_USERNAME  - aisingapore.org sending address (also the From address)
+#   SMTP_PASSWORD  - Google app password for that account (needs 2FA enabled)
+
+on:
+  schedule:
+    # 01:00 UTC = 09:00 SGT, daily. Cron is always UTC on GitHub Actions.
+    - cron: '0 1 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: List open pull requests
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr list --repo "$GITHUB_REPOSITORY" --state open \
+            --json number,title,author,createdAt,url > prs.json
+          echo "Open PRs found:"
+          cat prs.json
+
+      - name: Send email if there are open PRs
+        env:
+          SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          MAIL_TO: ladp-team@aisingapore.org
+          REPO: ${{ github.repository }}
+        run: python .github/scripts/notify_open_prs.py prs.json
