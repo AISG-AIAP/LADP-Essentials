@@ -60,7 +60,7 @@ Each module folder contains its own `README.md` with reference materials and add
 
 ## Getting Started
 
-1. **Install Flowise** — Follow the setup instructions in `LADPE_Module_0_Files/`.
+1. **Install Flowise** — Follow the setup instructions in `LADPE_Module_0_Files/`. Hitting an installation error? See the **[FAQ](FAQ.md)**.
 2. **Import workflows** — Open Flowise and import the JSON files from each module folder.
 3. **Follow the videos** — Each workflow maps to a video lesson. Configure your API keys, data sources, and settings as shown.
 4. **For evaluations (Module 4.2)** — Use the notebook and CSV files provided. Copy `.env.example` to `.env` and add your own values.
