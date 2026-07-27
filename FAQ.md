@@ -4,64 +4,37 @@ A central place for common questions and fixes across the course — Flowise ins
 
 If your problem isn't covered here, please [open an issue](https://github.com/AISG-AIAP/LADP-Essentials/issues) or contact the LADP team.
 
-<!--
-──────────────────────────────────────────────────────────────────────
-MAINTAINER GUIDE — HOW TO ADD TO THIS FAQ
-This page is organised by TOPIC. Each "## Heading" is a topic section,
-and each "### N. Heading" under it is a single, numbered question.
-Adding content is meant to be a copy-paste job — follow the patterns below.
 
-▸ Questions are numbered SEQUENTIALLY across the whole FAQ (1, 2, 3, ...).
-  Append new questions at the end of a section and continue the numbering.
-  Only renumber the following questions if you must insert in the middle.
-
-▸ To add a QUESTION to an existing topic:
-    1. Under the right "## topic", add a "### N. question" heading (next
-       number in the sequence), phrased the way a learner would ask it.
-    2a. For an error / problem, use the ISSUE template:
-            ### N. <short description of the symptom>
-            **Symptom:** what the learner sees.
-            **Cause:** why it happens.
-            **Fix:** what to do (add a ```bash code block``` if useful).
-    2b. For a general question, just write a short, direct answer.
-    3. Add a matching numbered bullet to the "## Contents" list.
-
-▸ To add a NEW TOPIC (e.g. "Module 2: RAG", "Deployment",
-  "Credentials & API Keys", "Evaluation"):
-    1. Add a new "## Topic Name" section (place install/setup near the
-       top; keep "General Course Questions" last as the catch-all).
-    2. Add its questions beneath it, continuing the number sequence.
-    3. Add the topic (and its questions, nested) to "## Contents".
-
-▸ Keep every entry self-contained so topics can be reordered freely.
-▸ There is no build step — if you edit this file, mirror the change in
-  FAQ.html so the rendered page stays in sync.
-──────────────────────────────────────────────────────────────────────
--->
 
 ---
+
+
 
 ## Contents
 
 - [Installation and Setup](#installation-and-setup)
   1. [Which version of Flowise should I install?](#1-which-version-of-flowise-should-i-install)
-  2. [The install keeps looping / `ModuleNotFoundError: No module named 'distutils'`](#2-the-install-keeps-looping--modulenotfounderror-no-module-named-distutils)
+  2. [The install keeps looping /](#2-the-install-keeps-looping--modulenotfounderror-no-module-named-distutils) `ModuleNotFoundError: No module named 'distutils'`
   3. [A dependency expects Node 22, or my Node version is EOL](#3-a-dependency-expects-node-22-or-my-node-version-is-eol)
-  4. [`flowise start` fails with `Cannot find module 'turndown'` (or another module)](#4-flowise-start-fails-with-cannot-find-module-turndown-or-another-module)
+  4. `flowise start` [fails with](#4-flowise-start-fails-with-cannot-find-module-turndown-or-another-module) `Cannot find module 'turndown'` [(or another module)](#4-flowise-start-fails-with-cannot-find-module-turndown-or-another-module)
 - [General Course Questions](#general-course-questions)
-  5. [Do I need coding experience to take this course?](#5-do-i-need-coding-experience-to-take-this-course)
-  6. [Do I have to install Flowise locally? Can I use the hosted version?](#6-do-i-have-to-install-flowise-locally-can-i-use-the-hosted-version)
-  7. [Which LLM provider / API key do I need?](#7-which-llm-provider--api-key-do-i-need)
-  8. [Do I have to use Flowise? What about other tools?](#8-do-i-have-to-use-flowise-what-about-other-tools)
-  9. [How do I submit my capstone project?](#9-how-do-i-submit-my-capstone-project)
+  1. [Do I need coding experience to take this course?](#5-do-i-need-coding-experience-to-take-this-course)
+  2. [Do I have to install Flowise locally? Can I use the hosted version?](#6-do-i-have-to-install-flowise-locally-can-i-use-the-hosted-version)
+  3. [Which LLM provider / API key do I need?](#7-which-llm-provider--api-key-do-i-need)
+  4. [Do I have to use Flowise? What about other tools?](#8-do-i-have-to-use-flowise-what-about-other-tools)
+  5. [How do I submit my capstone project?](#9-how-do-i-submit-my-capstone-project)
 
 ---
+
+
 
 ## Installation and Setup
 
 For step-by-step installation instructions, see **[Module 0](LADPE_Module_0_Files/README.md)**. Most local installation problems come down to your **Node.js version**, your **Python build tools**, or a known **Flowise packaging bug** — *not* the Flowise version you picked. Installing an older Flowise version usually won't help, so work through the issues below instead.
 
 > **Tip:** If you get stuck, the fastest path to a working setup is the **Docker method** (everything is pre-installed, no local build step) or **Flowise Cloud** (nothing to install at all). Both are described in [Module 0](LADPE_Module_0_Files/README.md). The fixes below are for those who want the local npm install.
+
+
 
 ### 1. Which version of Flowise should I install?
 
@@ -70,6 +43,8 @@ The course videos use **Flowise 3.1.0** on a **Node.js / npm environment version
 - **Match the videos exactly** — follow the installation steps shown in the video but pin the Flowise version: `npm install -g flowise@3.1.0` (on Node 20.20.1).
 - **Use the latest version** — follow the [official Flowise documentation](https://docs.flowiseai.com/getting-started) to install the current release. Newer versions may require a newer Node.js (see [question 3](#3-a-dependency-expects-node-22-or-my-node-version-is-eol) below).
 - **Use Docker (simplest)** — skip the Node.js/npm setup entirely. The Docker image comes with everything pre-installed, so you avoid the version and build issues below.
+
+
 
 ### 2. The install keeps looping / `ModuleNotFoundError: No module named 'distutils'`
 
@@ -92,11 +67,13 @@ npm cache clean --force
 npm install -g flowise
 ```
 
+
+
 ### 3. A dependency expects Node 22, or my Node version is EOL
 
 **Symptom:** You see a warning that a dependency expects Node 22, or that your Node version is end-of-life (e.g. `v20.20.2 EOL`).
 
-**Cause:** A Flowise dependency requires **Node.js 22 or newer**. Older versions such as Node 20 are now end-of-life (EOL) and will trigger warnings or failures. *(Note: a message like `v20.20.2 EOL` refers to your **Node** version, not npm.)*
+**Cause:** A Flowise dependency requires **Node.js 22 or newer**. Older versions such as Node 20 are now end-of-life (EOL) and will trigger warnings or failures. *(Note: a message like* `v20.20.2 EOL` *refers to your **Node** version, not npm.)*
 
 **Fix (using [nvm](https://github.com/nvm-sh/nvm)):**
 
@@ -129,7 +106,11 @@ Then open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
+
+
 ## General Course Questions
+
+
 
 ### 5. Do I need coding experience to take this course?
 
