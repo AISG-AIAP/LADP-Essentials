@@ -14,9 +14,9 @@ If your problem isn't covered here, please [open an issue](https://github.com/AI
 
 - [Installation and Setup](#installation-and-setup)
   1. [Which version of Flowise should I install?](#1-which-version-of-flowise-should-i-install)
-  2. [The install keeps looping /](#2-the-install-keeps-looping--modulenotfounderror-no-module-named-distutils) `ModuleNotFoundError: No module named 'distutils'`
+  2. [The install keeps looping / `ModuleNotFoundError: No module named 'distutils'`](#2-the-install-keeps-looping--modulenotfounderror-no-module-named-distutils)
   3. [A dependency expects Node 22, or my Node version is EOL](#3-a-dependency-expects-node-22-or-my-node-version-is-eol)
-  4. `flowise start` [fails with](#4-flowise-start-fails-with-cannot-find-module-turndown-or-another-module) `Cannot find module 'turndown'` [(or another module)](#4-flowise-start-fails-with-cannot-find-module-turndown-or-another-module)
+  4. [`flowise start` fails with `Cannot find module 'turndown'` (or another module)](#4-flowise-start-fails-with-cannot-find-module-turndown-or-another-module)
 - [General Course Questions](#general-course-questions)
   1. [Do I need coding experience to take this course?](#5-do-i-need-coding-experience-to-take-this-course)
   2. [Do I have to install Flowise locally? Can I use the hosted version?](#6-do-i-have-to-install-flowise-locally-can-i-use-the-hosted-version)
@@ -119,6 +119,8 @@ No. LADP Essentials is a **no-code / low-code** course. You build everything vis
 ### 6. Do I have to install Flowise locally? Can I use the hosted version?
 
 You have options. You can install Flowise locally (via npm or Docker) **or** use **[Flowise Cloud](https://cloud.flowiseai.com/)**, a managed hosted version that needs no local installation (just create an account and sign in). See [Module 0](LADPE_Module_0_Files/README.md) for all three approaches.
+
+> ⚠️ **The free Flowise Cloud tier is limited.** At the time of writing, it allows only **2 flows/assistants, 100 predictions per month, and 5 MB storage**, with community-only support. That's enough to try out the course demos, but you may hit these limits as you build. See the [current Flowise Cloud pricing](https://flowiseai.com/#pricing) for the latest limits and paid tiers. A **local install (npm or Docker) has no such caps** and is free.
 
 ### 7. Which LLM provider / API key do I need?
 
