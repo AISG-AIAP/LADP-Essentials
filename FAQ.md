@@ -4,19 +4,15 @@ A central place for common questions and fixes across the course — Flowise ins
 
 If your problem isn't covered here, please [open an issue](https://github.com/AISG-AIAP/LADP-Essentials/issues) or contact the LADP team.
 
-
-
 ---
-
-
 
 ## Contents
 
 - [Installation and Setup](#installation-and-setup)
   1. [Which version of Flowise should I install?](#1-which-version-of-flowise-should-i-install)
-  2. [The install keeps looping / `ModuleNotFoundError: No module named 'distutils'`](#2-the-install-keeps-looping--modulenotfounderror-no-module-named-distutils)
+  2. [The install keeps looping / `ModuleNotFoundError: No module named 'distutils'](#2-the-install-keeps-looping--modulenotfounderror-no-module-named-distutils)`
   3. [A dependency expects Node 22, or my Node version is EOL](#3-a-dependency-expects-node-22-or-my-node-version-is-eol)
-  4. [`flowise start` fails with `Cannot find module 'turndown'` (or another module)](#4-flowise-start-fails-with-cannot-find-module-turndown-or-another-module)
+  4. `flowise start` [fails with](#4-flowise-start-fails-with-cannot-find-module-turndown-or-another-module) `Cannot find module 'turndown'` [(or another module)](#4-flowise-start-fails-with-cannot-find-module-turndown-or-another-module)
 - [General Course Questions](#general-course-questions)
   1. [Do I need coding experience to take this course?](#5-do-i-need-coding-experience-to-take-this-course)
   2. [Do I have to install Flowise locally? Can I use the hosted version?](#6-do-i-have-to-install-flowise-locally-can-i-use-the-hosted-version)
@@ -26,15 +22,11 @@ If your problem isn't covered here, please [open an issue](https://github.com/AI
 
 ---
 
-
-
 ## Installation and Setup
 
 For step-by-step installation instructions, see **[Module 0](LADPE_Module_0_Files/README.md)**. Most local installation problems come down to your **Node.js version**, your **Python build tools**, or a known **Flowise packaging bug** — *not* the Flowise version you picked. Installing an older Flowise version usually won't help, so work through the issues below instead.
 
 > **Tip:** If you get stuck, the fastest path to a working setup is the **Docker method** (everything is pre-installed, no local build step) or **Flowise Cloud** (nothing to install at all). Both are described in [Module 0](LADPE_Module_0_Files/README.md). The fixes below are for those who want the local npm install.
-
-
 
 ### 1. Which version of Flowise should I install?
 
@@ -43,8 +35,6 @@ The course videos use **Flowise 3.1.0** on a **Node.js / npm environment version
 - **Match the videos exactly** — follow the installation steps shown in the video but pin the Flowise version: `npm install -g flowise@3.1.0` (on Node 20.20.1).
 - **Use the latest version** — follow the [official Flowise documentation](https://docs.flowiseai.com/getting-started) to install the current release. Newer versions may require a newer Node.js (see [question 3](#3-a-dependency-expects-node-22-or-my-node-version-is-eol) below).
 - **Use Docker (simplest)** — skip the Node.js/npm setup entirely. The Docker image comes with everything pre-installed, so you avoid the version and build issues below.
-
-
 
 ### 2. The install keeps looping / `ModuleNotFoundError: No module named 'distutils'`
 
@@ -66,8 +56,6 @@ npm uninstall -g flowise
 npm cache clean --force
 npm install -g flowise
 ```
-
-
 
 ### 3. A dependency expects Node 22, or my Node version is EOL
 
@@ -106,11 +94,7 @@ Then open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-
-
 ## General Course Questions
-
-
 
 ### 5. Do I need coding experience to take this course?
 
@@ -120,7 +104,7 @@ No. LADP Essentials is a **no-code / low-code** course. You build everything vis
 
 You have options. You can install Flowise locally (via npm or Docker) **or** use **[Flowise Cloud](https://cloud.flowiseai.com/)**, a managed hosted version that needs no local installation (just create an account and sign in). See [Module 0](LADPE_Module_0_Files/README.md) for all three approaches.
 
-> ⚠️ **The free Flowise Cloud tier is limited.** At the time of writing, it allows only **2 flows/assistants, 100 predictions per month, and 5 MB storage**, with community-only support. That's enough to try out the course demos, but you may hit these limits as you build. See the [current Flowise Cloud pricing](https://flowiseai.com/#pricing) for the latest limits and paid tiers. A **local install (npm or Docker) has no such caps** and is free.
+> ⚠️ **The free Flowise Cloud tier is limited.** At the time of writing, it allows only **2 flows/assistants, 100 predictions per month, and 5 MB storage**, with community-only support. That's enough to try out some of the course demos, but you may hit these limits as you build. See the [current Flowise Cloud pricing](https://flowiseai.com/#pricing) for the latest limits and paid tiers. A **local install (npm or Docker) has no such caps** and is free.
 
 ### 7. Which LLM provider / API key do I need?
 
