@@ -19,11 +19,10 @@ Configuration comes from environment variables:
 
 import json
 import os
-import smtplib
 import sys
 from datetime import datetime, timezone
-from email.message import EmailMessage
-from email.utils import formataddr, formatdate
+
+from _mailer import send_email
 
 
 def load_prs(path):
@@ -95,13 +94,6 @@ def build_bodies(prs, repo):
     return text_body, html_body
 
 
-def require_env(name):
-    value = os.environ.get(name)
-    if not value:
-        sys.exit(f"ERROR: required environment variable {name} is not set.")
-    return value
-
-
 def main():
     if len(sys.argv) != 2:
         sys.exit("Usage: notify_open_prs.py <prs.json>")
@@ -112,29 +104,11 @@ def main():
         return
 
     repo = os.environ.get("REPO", "")
-    username = require_env("SMTP_USERNAME")
-    password = require_env("SMTP_PASSWORD")
-    host = os.environ.get("SMTP_HOST", "smtp.gmail.com")
-    port = int(os.environ.get("SMTP_PORT", "587"))
-    mail_to = os.environ.get("MAIL_TO", "ladp-team@aisingapore.org")
-    mail_from = os.environ.get("MAIL_FROM", username)
-
     text_body, html_body = build_bodies(prs, repo)
-
-    msg = EmailMessage()
     subject_repo = repo or "LADP-Essentials"
-    msg["Subject"] = f"[{subject_repo}] {len(prs)} outstanding pull request(s)"
-    msg["From"] = formataddr(("LADP-Essentials PR watcher", mail_from))
-    msg["To"] = mail_to
-    msg["Date"] = formatdate(localtime=False)
-    msg.set_content(text_body)
-    msg.add_alternative(html_body, subtype="html")
+    subject = f"[{subject_repo}] {len(prs)} outstanding pull request(s)"
 
-    with smtplib.SMTP(host, port, timeout=30) as server:
-        server.starttls()
-        server.login(username, password)
-        server.send_message(msg)
-
+    mail_to = send_email(subject, text_body, html_body)
     print(f"Sent notification for {len(prs)} open PR(s) to {mail_to}.")
 
 
