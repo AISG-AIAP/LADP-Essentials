@@ -1,0 +1,41 @@
+name: Issue activity notification
+
+# Emails ladp-team@aisingapore.org in real time when a user opens or reopens
+# an issue, or comments on one. Reuses the SMTP_USERNAME / SMTP_PASSWORD repo
+# secrets already configured for the PR notifier.
+
+on:
+  issues:
+    types: [opened, reopened]
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  issues: read
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    # issue_comment also fires for comments on pull requests; skip those so we
+    # only email about real issues. (For `issues` events pull_request is unset.)
+    if: ${{ !github.event.issue.pull_request }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Send issue notification
+        env:
+          SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          MAIL_TO: ladp-team@aisingapore.org
+          REPO: ${{ github.repository }}
+          # 'created' comment events map to 'commented'; issues use their action.
+          EVENT_KIND: ${{ github.event_name == 'issue_comment' && 'commented' || github.event.action }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_URL: ${{ github.event_name == 'issue_comment' && github.event.comment.html_url || github.event.issue.html_url }}
+          ACTOR: ${{ github.event.sender.login }}
+          # Passed via env (not the run line) so issue/comment text can't inject shell.
+          CONTENT_BODY: ${{ github.event_name == 'issue_comment' && github.event.comment.body || github.event.issue.body }}
+        run: python .github/scripts/notify_issue_activity.py
