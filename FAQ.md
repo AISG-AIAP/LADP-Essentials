@@ -135,7 +135,7 @@ Then open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ### 5. How do I switch to a clean Docker setup (e.g. after a broken local install)?
 
-If the local (npm) install keeps failing, the most reliable fix is to remove it and switch to **Docker**, which comes with everything pre-installed. The steps below are for **macOS (Apple Silicon)**.
+If the local (npm) install keeps failing, the most reliable fix is to remove it and switch to **Docker**, which comes with everything pre-installed. This works on **both macOS and Windows** — the Docker commands are identical; only the OS-specific setup steps are called out below. Run the commands in **Terminal** (macOS) or **PowerShell** (Windows).
 
 **Step 1 — Remove the local install** and the helper packages you may have added along the way:
 
@@ -148,11 +148,22 @@ npm uninstall -g turndown @opentelemetry/exporter-trace-otlp-proto @opentelemetr
 
 *Optional — for a completely clean slate*, remove Flowise's local data folder (safe if the local install never finished starting up):
 
-```bash
-rm -rf ~/.flowise
-```
+- **macOS** (Terminal):
 
-**Step 2 — Install [Docker Desktop for Mac](https://www.docker.com/products/docker-desktop/)** and open it once so it's running in the background (you'll see a whale icon in the top menu bar).
+  ```bash
+  rm -rf ~/.flowise
+  ```
+
+- **Windows** (PowerShell):
+
+  ```powershell
+  Remove-Item -Recurse -Force $env:USERPROFILE\.flowise
+  ```
+
+**Step 2 — Install [Docker Desktop](https://www.docker.com/products/docker-desktop/)** and open it once so it's running in the background:
+
+- **macOS:** you'll see a whale icon in the top menu bar.
+- **Windows:** Docker Desktop uses the **WSL 2** backend — if prompted, accept its one-time installation of WSL 2 (it may ask you to restart). Once it's running, you'll see a whale icon in the system tray (bottom-right corner).
 
 **Step 3 — Start Flowise in Docker:**
 
