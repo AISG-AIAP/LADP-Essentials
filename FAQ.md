@@ -201,7 +201,7 @@ docker logs -f flowise   # view logs
 
 **Programme Update:** We want to make learners aware of a recent announcement regarding Flowise, the visual AI platform used in portions of LADP. We understand some of you may have questions about what this means for the programme. The good news is that there is **no change to the learning outcomes or the value of the course**, and we've answered the most common questions below.
 
-<u>**Update: Flowise is being discontinued. Is the course still worth taking?**</u><br>
+<u>**Update: Flowise is being discontinued. Is the course still worth taking?**</u> <br>
 **Yes—absolutely**. Flowise has been the platform we use to demonstrate concepts, but it has never been the end goal of the programme. The core skills you develop in LADP—prompt engineering, Retrieval-Augmented Generation (RAG), agentic workflows, evaluation, deployment, and responsible AI—are applicable across AI platforms and frameworks. These are the capabilities that remain valuable regardless of which tools are popular in the future.
 
 **What has changed?**
@@ -213,7 +213,7 @@ docker logs -f flowise   # view logs
 While active development and official support are ending, **Flowise itself will continue to be available as open-source software under the Apache 2.0 licence**. The source code, Docker images, and npm packages remain accessible, allowing learners to continue installing and using the platform to complete the programme's hands-on exercises.
 
 **What does this mean for our LADP learners?**<br>
-Your learning outcomes remain unchanged.
+_Your learning outcomes remain unchanged._
 
 From the beginning of the programme, our focus has been on teaching the principles behind building AI applications—not on mastering a single tool. Flowise has served as a visual, low-code environment that makes it easier to understand how prompts, retrieval, agents, memory, and evaluation work together before introducing more advanced implementation approaches.
 
