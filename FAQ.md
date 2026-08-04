@@ -204,11 +204,11 @@ docker logs -f flowise   # view logs
 <ins>**Update: Flowise is being discontinued. Is the course still worth taking?**</ins> <br>
 **Yes—absolutely**. Flowise has been the platform we use to demonstrate concepts, but it has never been the end goal of the programme. The core skills you develop in LADP—prompt engineering, Retrieval-Augmented Generation (RAG), agentic workflows, evaluation, deployment, and responsible AI—are applicable across AI platforms and frameworks. These are the capabilities that remain valuable regardless of which tools are popular in the future.
 
-**What has changed?**
-- **In July 2026**, the Flowise team announced that they will be winding down active development of the project. Their published timeline is:
-- **27 July 2026** – Feature development stops (code freeze); no new pull requests will be accepted.
+**What has changed?**<br>
+**In July 2026**, the Flowise team announced that they will be winding down active development of the project. Their published timeline is:
+- **29 July 2026** – Feature development stops (code freeze); no new pull requests will be accepted.
 - **10 August 2026** – The GitHub repository will be archived, and npm packages and Docker images will be marked as deprecated.
-31 August 2026 – Official support through Discord and GitHub ends.
+- **31 August 2026** – Official support through Discord and GitHub ends.
 
 While active development and official support are ending, **Flowise itself will continue to be available as open-source software under the Apache 2.0 licence**. The source code, Docker images, and npm packages remain accessible, allowing learners to continue installing and using the platform to complete the programme's hands-on exercises.
 
