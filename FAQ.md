@@ -199,24 +199,32 @@ docker logs -f flowise   # view logs
 
 ### 6. Flowise is being discontinued. Is the course still worth taking?
 
-**Short answer: yes, absolutely.** Flowise is the *teaching vehicle*, not the subject. What you're really learning — prompt engineering, RAG, agentic workflows, evaluation, deployment, and responsible AI — is framework-agnostic and transfers to every other tool and coding framework. **Those fundamentals don't sunset.**
+**Programme Update:** We want to make learners aware of a recent announcement regarding Flowise, the visual AI platform used in portions of LADP. We understand some of you may have questions about what this means for the programme. The good news is that there is **no change to the learning outcomes or the value of the course**, and we've answered the most common questions below.
 
+<u>**Update: Flowise is being discontinued. Is the course still worth taking?**</u><br>
+**Yes—absolutely**. Flowise has been the platform we use to demonstrate concepts, but it has never been the end goal of the programme. The core skills you develop in LADP—prompt engineering, Retrieval-Augmented Generation (RAG), agentic workflows, evaluation, deployment, and responsible AI—are applicable across AI platforms and frameworks. These are the capabilities that remain valuable regardless of which tools are popular in the future.
 
+**What has changed?**
+- **In July 2026**, the Flowise team announced that they will be winding down active development of the project. Their published timeline is:
+- **27 July 2026** – Feature development stops (code freeze); no new pull requests will be accepted.
+- **10 August 2026** – The GitHub repository will be archived, and npm packages and Docker images will be marked as deprecated.
+31 August 2026 – Official support through Discord and GitHub ends.
 
-**Why we still teach with it — and why that's fine.**
+While active development and official support are ending, **Flowise itself will continue to be available as open-source software under the Apache 2.0 licence**. The source code, Docker images, and npm packages remain accessible, allowing learners to continue installing and using the platform to complete the programme's hands-on exercises.
 
-- **The concepts are the point; the tool is not.** We say this from the start of the course: *"the platform does not matter — the concepts do."* A visual, no-code tool lets you *see* how prompts, retrieval, chunking, agents, and evaluation fit together without getting lost in code. Once you understand the *why*, you can rebuild any of it anywhere.
-- **Everything you learn transfers.** The same ideas map directly onto other no-code/low-code tools (Langflow, Dify, n8n) and code frameworks (LangChain, LangGraph, CrewAI) — and onto coding agents like Claude Code and Codex. In fact, the Flowise team cites the rise of *coding agents* as the reason for winding down: the industry is shifting, and the concepts you learn here are exactly what you carry into that shift (see also [question 10](#10-do-i-have-to-use-flowise-what-about-other-tools)).
+**What does this mean for our LADP learners?**<br>
+Your learning outcomes remain unchanged.
 
-**What's actually happening.** In July 2026 the Flowise team [announced they're winding down the project](https://flowiseai.com/sunset). Their published timeline:
+From the beginning of the programme, our focus has been on teaching the principles behind building AI applications—not on mastering a single tool. Flowise has served as a visual, low-code environment that makes it easier to understand how prompts, retrieval, agents, memory, and evaluation work together before introducing more advanced implementation approaches.
 
-- **27 Jul 2026** — feature development stops (code freeze); no new pull requests accepted.
-- **10 Aug 2026** — the GitHub repository is archived; npm packages and Docker images are marked deprecated; issues and PRs are locked.
-- **31 Aug 2026** — official team support (Discord and GitHub) ends.
+These concepts transfer directly to other platforms and frameworks, including Langflow, Dify, n8n, LangChain, LangGraph, CrewAI, and coding agents such as Claude Code and Codex. As the AI ecosystem continues to evolve, the ability to understand these underlying concepts becomes even more valuable than familiarity with any individual platform.
 
-Crucially, **the software does not stop working.** Flowise stays open source (Apache 2.0) on GitHub, the npm and Docker images remain available (just deprecated), and anyone can fork the repo. You can still install it and complete every hands-on exercise in this course.
+**Why we're continuing with Flowise**<br>
+We will continue using Flowise because it remains an effective learning platform for illustrating the concepts taught throughout LADP. Learners will still be able to complete the practical exercises and gain the intended skills and knowledge.
 
-Learning on Flowise is like learning to drive in one particular car: the model may be discontinued, but your ability to drive transfers to any vehicle. The tool may go away — what you learned doesn't.
+The industry will continue to introduce new tools and retire others. Our objective is to equip you with the understanding and practical experience to adapt confidently, regardless of which platform you use in the future.
+
+A useful way to think about it is this: learning with Flowise is like learning to drive in a particular model of car. Even if that model is eventually discontinued, the driving skills you develop stay with you and transfer to any other vehicle. In the same way, the platform may evolve, but the knowledge and skills you gain through LADP remain relevant.
 
 ### 7. Do I need coding experience to take this course?
 
