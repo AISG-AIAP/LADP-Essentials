@@ -60,6 +60,11 @@ Adding content is meant to be a copy-paste job — follow the patterns below.
   - [9. Which LLM provider / API key do I need?](#9-which-llm-provider--api-key-do-i-need)
   - [10. Do I have to use Flowise? What about other tools?](#10-do-i-have-to-use-flowise-what-about-other-tools)
   - [11. How do I submit my capstone project?](#11-how-do-i-submit-my-capstone-project)
+- **Building & Running Workflows**
+  - [12. Tavily search errors in the agent](#12-tavily-search-errors-in-the-agent)
+  - [13. Adding an MCP server to Flowise when running in Docker](#13-adding-an-mcp-server-to-flowise-when-running-in-docker)
+  - [14. Azure OpenAI vs Azure AI Foundry credentials](#14-azure-openai-vs-azure-ai-foundry-credentials)
+  - [15. Azure OpenAI 429 rate-limit error](#15-azure-openai-429-rate-limit-error)
 
 ---
 
@@ -181,6 +186,12 @@ docker run -d --name flowise -p 3000:3000 -v flowise_data:/root/.flowise flowise
 >
 > Then open [http://localhost:3001](http://localhost:3001) instead. (To re-run the command, first clear the old container with `docker rm -f flowise`.)
 
+> **Container starts but Flowise won't load?** The default (`latest`) image has at times shipped a broken build — e.g. version 3.1.4 failed to start with errors like `this.db.exec is not a function`, `Package subpath './utils/uuid' is not defined`, or `Cannot find module '@smithy/eventstream-codec'` (an upstream image bug, not your machine). Pin a known-good version such as **3.1.3** instead — remove the broken container (`docker rm -f flowise`; your `flowise_data` volume is kept) and re-run with the version tag:
+>
+> ```bash
+> docker run -d --name flowise -p 3000:3000 -v flowise_data:/root/.flowise flowiseai/flowise:3.1.3
+> ```
+
 That's the whole setup. **Open Docker Desktop each time** you want to start Flowise. Everything in the course works exactly the same once Flowise is open in the browser — only the way you start it up changes.
 
 Handy commands for later:
@@ -205,8 +216,8 @@ docker logs -f flowise   # view logs
 **Yes—absolutely**. Flowise has been the platform we use to demonstrate concepts, but it has never been the end goal of the programme. The core skills you develop in LADP—prompt engineering, Retrieval-Augmented Generation (RAG), agentic workflows, evaluation, deployment, and responsible AI—are applicable across AI platforms and frameworks. These are the capabilities that remain valuable regardless of which tools are popular in the future.
 
 **What has changed?**<br>
-**In July 2026**, the Flowise team announced that they will be winding down active development of the project. Their published timeline is:
-- **29 July 2026** – Feature development stops (code freeze); no new pull requests will be accepted.
+**In July 2026**, the Flowise team [announced](https://flowiseai.com/sunset) that they will be winding down active development of the project. Their published timeline is:
+- **27 July 2026** – Feature development stops (code freeze); no new pull requests will be accepted.
 - **10 August 2026** – The GitHub repository will be archived, and npm packages and Docker images will be marked as deprecated.
 - **31 August 2026** – Official support through Discord and GitHub ends.
 
@@ -249,6 +260,115 @@ Flowise is the vehicle we use to teach the concepts in an accessible, visual way
 ### 11. How do I submit my capstone project?
 
 Submit a **Pull Request** to this repository, adding your work to a new folder under `LADPE_Project_Phase/contributions_from_learners/`. Full scenario briefs and step-by-step PR instructions (fork → branch → commit → push → open PR) are in **[LADPE_Project_Phase/README.md](LADPE_Project_Phase/README.md)**.
+
+---
+
+## Building & Running Workflows
+
+*Errors learners have hit while building and running workflows, with concise fixes. The code patches below apply to **Flowise 3.1.x running in Docker** — run the commands in Terminal (macOS) or PowerShell (Windows) with the container running.*
+
+### 12. Tavily search errors in the agent
+
+Two known bugs in Flowise 3.1.x's Tavily/Agent nodes (still present in 3.1.4). First confirm your Tavily API credential is set on the Tavily tool node; if the error persists, apply the matching in-container patch and restart.
+
+**"Tavily API key not found…"** — Flowise passes `apiKey`, but the Tavily library expects `tavilyApiKey`:
+
+```bash
+docker exec flowise find /usr/local/lib/node_modules -path "*/TavilyAPI/TavilyAPI.js" -exec sed -i "s/apiKey: tavilyApiKey/tavilyApiKey/" "{}" ";"
+docker restart flowise
+```
+
+**"message.content.map is not a function"** — Tavily returns an object, but the agent passes it on as-is; convert it to text:
+
+```bash
+docker exec flowise find /usr/local/lib/node_modules -path "*/nodes/agentflow/Agent/Agent.js" -exec sed -i "s/content: toolOutput,/content: typeof toolOutput === 'string' ? toolOutput : JSON.stringify(toolOutput),/g" "{}" ";"
+docker restart flowise
+```
+
+After the second patch, **clear the agent's chat** before retesting. These patches live inside the container: they survive `docker restart` but are lost if you remove/recreate the container or change its image — run `docker commit flowise <your-image-name>` to bake them into a saved image.
+
+### 13. Adding an MCP server to Flowise when running in Docker
+
+You can't paste a GitHub URL into Flowise. A **stdio** (local-command) MCP server runs as a process *inside* the Flowise container, so its runtime and package must be installed there. General recipe for Flowise 3.1.3 (a Python MCP server as the example):
+
+1. **Enable local MCP:** set the env var `CUSTOM_MCP_PROTOCOL=stdio` (otherwise 3.1.3 only accepts a remote URL). To keep your existing data, commit the container to an image carrying the var, then recreate from it with the same volume:
+
+   ```bash
+   docker commit --change "ENV CUSTOM_MCP_PROTOCOL=stdio" flowise flowise-local
+   docker rm -f flowise
+   docker run -d --name flowise -p 3000:3000 -v flowise_data:/root/.flowise flowise-local
+   ```
+
+2. **Install the server in the container:** e.g. `docker exec -u 0 flowise python3 -m pip install --break-system-packages <package>`. If it needs the MCP SDK 1.x, pin it (`mcp[cli]<2.0`) — SDK 2.0 breaks some servers.
+3. **Add it in Flowise:** Agent node → Tools → Add Tool → **Custom MCP**. The command validator allows `python3` but **not** `uvx` or `-m`, so use:
+
+   ```json
+   { "command": "python3", "args": ["<entrypoint-command>"] }
+   ```
+
+4. Click the **refresh** icon under *Available Actions*, select the tools, and save.
+
+**Security:** stdio MCP lets Flowise launch local processes — keep Flowise bound to `127.0.0.1` and limit who can edit flows.
+
+<details>
+<summary><strong>Worked example: adding <code>takashiishida/arxiv-latex-mcp</code> (Flowise 3.1.3 in Docker, Windows / PowerShell)</strong></summary>
+
+Run each command separately in PowerShell, with the `flowise` container running.
+
+**1. Install the server and pin the MCP SDK to 1.x** (inside the current container). `arxiv-latex-mcp` needs MCP SDK 1.x; SDK 2.0 fails at startup with `AttributeError: 'Server' object has no attribute 'set_logging_level'`:
+
+```powershell
+docker exec -u 0 flowise python3 -m pip install --no-cache-dir --break-system-packages arxiv-latex-mcp==0.2.2
+docker exec -u 0 flowise python3 -m pip install --no-cache-dir --break-system-packages --force-reinstall "mcp[cli]==1.29.0"
+```
+
+Verify: `docker exec flowise python3 -c "from importlib.metadata import version; print(version('mcp'))"` should print `1.29.0` (not `2.0.0`).
+
+**2. Create a launcher and confirm the package imports.** (PowerShell breaks the nested `$(command -v ...)` form — use a variable instead.)
+
+```powershell
+$mcpPath = (docker exec flowise which arxiv-latex-mcp).Trim()
+docker exec -u 0 flowise ln -sf $mcpPath /arxiv-latex-mcp
+docker exec flowise python3 -c "import arxiv_latex_mcp; print('OK')"
+```
+
+**3. Enable stdio and bake everything into a saved image, then recreate on the same volume** (so the installs and env var survive container recreation):
+
+```powershell
+docker commit --change "ENV CUSTOM_MCP_PROTOCOL=stdio" flowise flowise-local:arxiv
+docker rm -f flowise
+docker run -d --name flowise -p 3000:3000 -v flowise_data:/root/.flowise flowise-local:arxiv
+```
+
+Confirm: `docker exec flowise printenv CUSTOM_MCP_PROTOCOL` prints `stdio`.
+
+**4. Add it in Flowise.** Agent node → Tools → Add Tool → **Custom MCP**, with this config (do **not** use the repo's `uvx` config — Flowise's validator allows `python3` but blocks `uvx` and `-m`):
+
+```json
+{ "command": "python3", "args": ["arxiv-latex-mcp"] }
+```
+
+Click the **refresh** icon under *Available Actions*, then select all four tools — `get_paper_abstract`, `get_paper_prompt`, `get_paper_section`, `list_paper_sections` — and save.
+
+**5. Test:**
+
+> Use `get_paper_abstract` to retrieve the abstract of arXiv paper 2202.00395 and summarize it in simple English.
+
+**If "No Available Actions" appears:** check `docker logs --since 5m flowise`. Common causes — `CUSTOM_MCP_PROTOCOL` not set to `stdio`; a `uvx`/`-m` config (use the `python3` config above); or MCP SDK still on 2.0 (redo step 1). The first paper request can be slow (it downloads and parses LaTeX), and some arXiv papers have no usable LaTeX source.
+
+</details>
+
+### 14. Azure OpenAI vs Azure AI Foundry credentials
+
+Azure now steers new users toward **Azure AI Foundry**, but Flowise's **Azure OpenAI** model node needs **Azure OpenAI API** credentials — a Foundry credential won't map onto the Model / Connect Credential fields (Foundry support in Flowise is still limited). Create an **Azure OpenAI** resource, deploy your model in the Azure Portal, then connect those credentials. *(Azure OpenAI API works only with OpenAI models; Azure AI Foundry spans multiple providers.)*
+
+> If you get stuck on the Azure setup, the simplest path is to use a plain **OpenAI** or **Anthropic (Claude)** key instead — the course videos walk through those step by step, and either works for every exercise. Azure is optional.
+
+### 15. Azure OpenAI 429 rate-limit error
+
+A **"429 … exceeded rate limit"** means your deployment's per-minute request/token (TPM) quota was exceeded — common when an agent fans out many parallel tool calls. Fixes: slow the workflow down (fewer parallel tool calls / retries), wait and retry, or raise the deployment's TPM quota in the Azure portal (or request a quota increase).
+
+> If the rate limit keeps blocking you, switch to a plain **OpenAI** or **Anthropic (Claude)** key — set up as shown in the course videos. Either avoids the Azure per-deployment quotas and works for every exercise.
 
 ---
 

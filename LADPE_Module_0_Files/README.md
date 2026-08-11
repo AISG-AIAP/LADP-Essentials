@@ -11,7 +11,7 @@ Reference materials for getting started — installing Flowise, accessing Flowis
 > **Which version should I install?** The course videos use **Flowise 3.1.0** on a **Node.js / npm environment version 20.20.1**. By the time you watch this, there will likely be a newer release. You have a few options:
 >
 > - **Match the videos exactly** — follow the installation steps shown in the video but pin the Flowise version: `npm install -g flowise@3.1.0` (on Node 20.20.1).
-> - **Use the latest version** — follow the [official Flowise documentation](https://docs.flowiseai.com/getting-started) to install the current release. Newer versions may require a newer Node.js (see the [FAQ](../FAQ.md#a-dependency-expects-node-22-or-my-node-version-is-eol)).
+> - **Use the latest version** — follow the [official Flowise documentation](https://docs.flowiseai.com/getting-started) to install the current release. Newer versions may require a newer Node.js (see the [FAQ](../FAQ.md#3-a-dependency-expects-node-22-or-my-node-version-is-eol)).
 > - **Use Docker (simplest)** — skip the Node.js/npm setup entirely and use the [Docker method](#local-installation-via-docker) below. The image comes with everything pre-installed, so you avoid the version and build issues covered in Troubleshooting.
 
 ### Local Installation (via npm)
