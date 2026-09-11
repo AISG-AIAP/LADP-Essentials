@@ -107,3 +107,4 @@ federal funding, and a question the policy cannot answer.
 ---
 
 The policy PDF is not included. It is downloaded from the original source in the project brief.
+If you use any of these documents beyond this course, please cite the original authors and publishers appropriately.
