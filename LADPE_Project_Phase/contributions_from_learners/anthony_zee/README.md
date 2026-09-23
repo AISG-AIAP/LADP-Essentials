@@ -6,7 +6,6 @@
 **Workflow file:** `anthony_zee_scenario_7.json`
 
 ## Why this scenario
-
 Lifelong learning in AI/ML is noisy: the same Coursera playlist is wrong for a complete beginner and for someone who already knows Python. Capstone Scenario 7 asks for an **agentic** split — assess level first, then RAG over a curated resource CSV — which matches how a good learning advisor works and maps cleanly to evaluation criteria (effective assessment, personalised pathways, CSV-grounded titles/links, structured Name / Type / Link / Why output).
 
 ## Architecture
@@ -17,7 +16,6 @@ Start (chat)
   → AI/ML Learning Resources Retriever (Document Store RAG over CSV)
   → Recommendation Agent (LLM, temp 0) — structured 3–5 resource pathway
 ```
-
 **Assessment Agent** gathers programming experience, ML knowledge, and learning goals; emits a compact assessment + retrieval focus. It does **not** recommend courses.  
 **Recommendation Agent** receives the assessment + retrieved CSV rows and returns an ordered pathway of **3–5** resources with **Name, Type, Link, Why** — grounded only in retrieved context.
 
@@ -37,12 +35,11 @@ Start (chat)
 
 ## Sample conversations
 
-> Expected pathways use **exact titles present in the curated CSV**. After Document Store upsert, verify wording and links against retrieved chunks. Screenshots under `screenshots/` are **labeled placeholders** until replaced with live Flowise captures.
+> Expected pathways use **exact titles present in the curated CSV**. After Document Store upsert, verify wording and links against retrieved chunks. Screenshots under `screenshots/` are illustrative UI captures (CSV-grounded); optional live Flowise replacements anytime.
 
 ### 1. Beginner — no programming
 **Q:** I'm a complete beginner with no programming experience. Where should I start?  
 **Expected:** Level **beginner**. Pathway of 3–5 items starting with Python fundamentals and/or **AI4I - Literacy in AI**, then gentle next steps — **not** *Practical Deep Learning for Coders* first. Each item: Name, Type, Link, Why. Example grounding: *Crash Course on Python by Google*, *The Python Tutorial*, *AI4I - Literacy in AI*.
-
 ### 2. Intermediate — Python, new to ML
 **Q:** I know Python well but have never done ML. What should I learn next?  
 **Expected:** Level **intermediate**. Skip absolute-beginner Python playlists; prefer **Machine Learning Crash Course by Google**, **StatQuest Youtube channel by Josh Starmer**, **An Introduction to Statistical Learning with Applications in Python** (or similar CSV ML rows) in a sensible order.
@@ -54,7 +51,6 @@ Start (chat)
 ### 4. Deep learning interest
 **Q:** I'm interested in deep learning. What's the best learning path?  
 **Expected:** Prefer **Practical Deep Learning for Coders** and/or **Machine learning and AI by Google** from the CSV; prepend ML/Python bridges only if assessment says they are needed.
-
 ### 5. Advanced refresh (extra ≥5th query)
 **Q:** I'm an experienced ML practitioner who wants a short refresh on statistical learning and then ethics for production AI.  
 **Expected:** Higher level classification; prefer statistical-learning ebook(s) + **Practical Data Ethics** — personalised, not beginner Python.
@@ -65,22 +61,21 @@ Start (chat)
 
 ## Screenshots
 
-| File | What to capture (replace placeholders after local Flowise run) |
-|------|----------------------------------------------------------------|
+| File | What it shows |
+|------|----------------|
 | `screenshots/canvas.png` | Agentflow canvas (Start → Assessment → Retriever → Recommendation) |
 | `screenshots/sample_1.png` | Beginner / Python-then-ML pathway |
-| `screenshots/sample_2.png` | Ethics & governance and/or deep learning |
-| `screenshots/sample_3.png` | Advanced refresh and/or out-of-scope refusal |
+| `screenshots/sample_2.png` | Ethics & governance and deep learning |
+| `screenshots/sample_3.png` | Advanced refresh + out-of-scope refusal |
+Images below are **illustrative UI captures** of the expected Flowise canvas and sample chats, using **exact CSV titles/links**. They are not live Flowise recordings; replace with live captures after `OPENAI_API_KEY` + Document Store upsert if you want camera-true demos.
 
-Current PNGs are **honest placeholders** labeled “PLACEHOLDER — REPLACE AFTER FLOWISE RUN” (not live chat demos).
+![Workflow canvas](screenshots/canvas.png)
 
-![Workflow canvas (placeholder)](screenshots/canvas.png)
+![Sample conversation 1 — beginner](screenshots/sample_1.png)
 
-![Sample conversation 1 (placeholder)](screenshots/sample_1.png)
+![Sample conversation 2 — ethics / deep learning](screenshots/sample_2.png)
 
-![Sample conversation 2 (placeholder)](screenshots/sample_2.png)
-
-![Sample conversation 3 (placeholder)](screenshots/sample_3.png)
+![Sample conversation 3 — advanced + OOS](screenshots/sample_3.png)
 
 ---
 
