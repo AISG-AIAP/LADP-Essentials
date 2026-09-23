@@ -1,10 +1,12 @@
 # Screenshots
 
-| File | Status | Replace with (after Flowise run) |
-|------|--------|----------------------------------|
-| `canvas.png` | Labeled **placeholder** PNG | Live Agentflow canvas (Start → Assessment → Retriever → Recommendation) |
-| `sample_1.png` | Labeled **placeholder** PNG | Beginner / Python-then-ML pathway chat |
-| `sample_2.png` | Labeled **placeholder** PNG | Ethics & governance and/or deep learning chat |
-| `sample_3.png` | Labeled **placeholder** PNG | Advanced refresh and/or out-of-scope refusal |
+| File | What it shows |
+|------|----------------|
+| `canvas.png` | Agentflow canvas: Start → Assessment → Retriever → Recommendation |
+| `sample_1.png` | Beginner / no programming pathway (CSV-grounded) |
+| `sample_2.png` | Ethics & governance + deep learning pathways (CSV-grounded) |
+| `sample_3.png` | Advanced refresh + out-of-scope refusal |
 
-Placeholders exist so GitHub README preview does not show broken `![](...)` images. They are **not** live demos — replace before treating the PR as fully screenshot-complete.
+These are **illustrative UI captures** of the expected Flowise canvas and sample chats, grounded in exact titles/links from `aiml-learning-resources.csv`. They replace the earlier red PLACEHOLDER banners so the README preview renders useful images.
+
+To swap for **live** Flowise screenshots later: set `OPENAI_API_KEY`, upsert the CSV into a Document Store, run the Capstone queries, then overwrite these PNGs.
