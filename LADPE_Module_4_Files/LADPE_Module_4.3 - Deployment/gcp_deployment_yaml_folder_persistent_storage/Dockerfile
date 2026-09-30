@@ -18,7 +18,7 @@ RUN apk update && \
         pango-dev \
         chromium \
         curl && \
-    npm install -g pnpm
+    npm install -g pnpm@9
 
 ENV PUPPETEER_SKIP_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
