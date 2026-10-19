@@ -1,4 +1,5 @@
 # Procurement Compliance Checker — AISG LADP Scenario 4
+By Rei Cheong Wai Hwa
 
 **Platform:** Flowise Agentflow V2 · **Policy:** [Town of Middletown Purchasing Policy 1.3.1](https://evogov.s3.amazonaws.com/126/media/167512.pdf)
 
