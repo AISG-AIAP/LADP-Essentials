@@ -30,6 +30,18 @@ Reference materials for Module 3 — covering AI agents, tool integration, multi
 - [CrewAI](https://www.crewai.com/) — Framework for orchestrating multi-agent workflows
 - [AutoGen (Microsoft)](https://github.com/microsoft/autogen) — Multi-agent conversation framework
 
+### Connecting a Custom MCP Server to Claude and ChatGPT
+You can expose your own workflow as a remote MCP server (e.g., with n8n's **MCP Server Trigger** node, as in `n8n_workflows/Claude MCP Server Trigger for Report Writing Agent.json`) and then add it to Claude or ChatGPT. Both need a public **HTTPS** URL (a server running only on localhost won't work), and only connect servers you trust.
+
+- **Claude (custom connector):** Customize > Connectors > **+ Add** > add custom connector > enter a name and the remote MCP server URL > set up authentication (OAuth, or an API key in request headers) > **Add**. In a chat, click **+** > Connectors to turn it on. Available on all plans (Free is limited to one custom connector); on Team/Enterprise an Owner adds it in Organization settings > Connectors first.
+- **ChatGPT (custom MCP plugin):** add a custom MCP server from the **Plugins** page and acknowledge the risk warning (developer mode is no longer required). Full read/write MCP is for Business and Enterprise/Edu on ChatGPT web; Pro can connect custom servers with read/fetch permissions only.
+
+> Menu names change often, so check the guides below for the latest steps.
+
+- [Claude — Get Started with Custom Connectors Using Remote MCP](https://support.claude.com/en/articles/11175166) — Official steps for adding a remote MCP server to Claude
+- [OpenAI — Connecting Custom MCP Servers in ChatGPT](https://help.openai.com/en/articles/12584461-developer-mode-and-mcp-apps-in-chatgpt-beta) — Official steps and plan availability for ChatGPT
+- [n8n — MCP Server Trigger Node](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-langchain.mcptrigger/) — Expose n8n tools as an MCP server URL
+
 ---
 
 ## 3.2 Agentic Workflows Demo

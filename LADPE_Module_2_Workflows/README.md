@@ -78,3 +78,18 @@ Reference materials for Module 2 — covering RAG fundamentals, embeddings, and 
 - [Qdrant](https://qdrant.tech/) — Open-source vector database with filtering and hybrid search
 - [Milvus](https://milvus.io/) — Scalable open-source vector database for production workloads
 - [Malkov & Yashunin — HNSW Paper (2018)](https://arxiv.org/abs/1603.09320) — The original HNSW algorithm paper
+
+### Qdrant Vector Store (used in the n8n demos)
+- **Qdrant** — an open-source vector database (uses HNSW indexing, supports metadata filtering and hybrid search). Run it locally with Docker or use the free tier of **Qdrant Cloud**
+- **Collection** — Qdrant's equivalent of a table; this course uses one per document (`barbie`, `oppenheimer`)
+- **Vector size must match your embedding model** — e.g., OpenAI `text-embedding-3-large` produces 3072-dimensional vectors, `text-embedding-3-small` produces 1536. Use the same embedding model for ingestion and retrieval
+- **n8n demo workflows** — `n8n_workflows/create_qdrant_vectorstore.json` uploads a PDF via a form, chunks it, embeds it, and inserts it into a Qdrant collection; `n8n_workflows/rag_workflow_qdrant.json` is an AI Agent that uses the Barbie and Oppenheimer collections as retrieval tools
+- **Credentials** — in n8n, create a **Qdrant API** credential with your cluster URL and API key
+
+- [Qdrant — Cloud Quickstart](https://qdrant.tech/documentation/cloud-quickstart/) — Create a free Qdrant Cloud cluster and get your URL and API key
+- [Qdrant — Local Quickstart (Docker)](https://qdrant.tech/documentation/quickstart/) — Run Qdrant on your own machine with Docker
+- [Qdrant — Collections](https://qdrant.tech/documentation/concepts/collections/) — How collections, vector size and distance metrics work
+- [Qdrant — Hybrid Queries](https://qdrant.tech/documentation/concepts/hybrid-queries/) — Combining dense and sparse (keyword) search in Qdrant
+- [n8n — Qdrant Vector Store Node](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.vectorstoreqdrant/) — Insert, retrieve, and use Qdrant as an agent tool in n8n
+- [n8n — Qdrant Credentials](https://docs.n8n.io/integrations/builtin/credentials/qdrant/) — Connecting n8n to your Qdrant cluster
+- [Flowise — Qdrant](https://docs.flowiseai.com/integrations/langchain/vector-stores/qdrant) — Using Qdrant as the vector store in Flowise

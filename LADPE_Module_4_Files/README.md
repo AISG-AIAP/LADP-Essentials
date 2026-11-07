@@ -32,17 +32,31 @@ Reference materials for Module 4 — covering RAG evaluation, deployment strateg
 ## 4.2 & 4.3 Deployment
 
 ### Key Concepts
-- **Local development** — Flowise runs on localhost, accessible only to local users
+- **Local development** — Flowise and self-hosted n8n run on localhost, accessible only to local users
 - **Network tunnelling** — services that create public URLs to expose local applications (used in demos with Google Colab)
-- **Cloud deployment** — both the client-facing app and backend (e.g., Flowise) need public endpoints for production use
+- **Cloud deployment** — both the client-facing app and backend (e.g., Flowise or n8n) need public endpoints for production use
+
+### Deployment Guides in this Repo
+
+**Flowise**
+- [HTML Deployment](LADPE_Module_4.3%20-%20Deployment/flowise_deployment/html_deployment) — Embed a Flowise chatbot in a static web page, served with Docker
+- [Streamlit Deployment](LADPE_Module_4.3%20-%20Deployment/flowise_deployment/streamlit_deployment) — Streamlit frontend that calls the Flowise API, served with Docker
+- [Google Cloud Deployment](LADPE_Module_4.3%20-%20Deployment/flowise_deployment/gcp_deployment_yaml_folder_persistent_storage) — Run Flowise itself on Google Cloud with persistent storage
+
+**n8n**
+- [n8n Deployment (Flask + Docker + Cloud Run)](LADPE_Module_4.3%20-%20Deployment/n8n_deployment/n8n_app_deployment) — A web app that sends questions to an n8n AI agent via a webhook, run locally, in Docker, then deployed to Google Cloud Run. Includes Docker install steps for Mac and Windows, and how to clean up cloud resources afterwards
+- [Host n8n on Google Cloud Run](LADPE_Module_4.3%20-%20Deployment/n8n_deployment/n8n_cloud_run) — Host your own n8n instance on Google Cloud Run (easy mode, kept at 1 always-on instance) so webhooks and chat triggers get a public HTTPS URL. Covers fixing webhook URLs that show localhost:5678, the limits of easy mode vs durable mode, and deleting the resources afterwards
 
 ### Further Reading
 - [Flowise — Deployment Guide](https://docs.flowiseai.com/configuration/deployment) — Options for deploying Flowise to various cloud platforms
+- [n8n — Hosting Documentation](https://docs.n8n.io/hosting/) — Self-hosting and deployment options for n8n
+- [n8n — Webhook Node](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.webhook/) — Exposing n8n workflows as HTTP endpoints
 - [Google Cloud Run](https://cloud.google.com/run/docs) — Serverless container deployment
 - [Railway](https://railway.app/) — Simple cloud platform for deploying apps (supports Flowise)
 - [Render](https://render.com/) — Cloud platform with free tier for deploying web services
 - [Localtunnel GitHub](https://github.com/localtunnel/localtunnel) - GitHub repo for localtunnel
 - [Pinggy - Localtunnel - Easiest way to create a local tunnel](https://pinggy.io/blog/local_tunnel/) - Blog on localtunnel
+- [ngrok — Getting Started](https://ngrok.com/docs/getting-started/) — Create a public HTTPS URL for an app running on localhost (e.g., `ngrok http 5678` for n8n, `ngrok http 3000` for Flowise)
 - [Streamlit Documentation](https://docs.streamlit.io/) - Guide on Streamlit Documentation
 - [Docker Desktop Manuals](https://docs.docker.com/desktop/) - Guide on Docker Desktop Installation
 

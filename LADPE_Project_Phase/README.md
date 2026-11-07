@@ -2,7 +2,9 @@
 
 ## Overview
 
-In this capstone project, you will build a working LLM application on **Flowise** using either a **RAG (Retrieval Augmented Generation)** pipeline or an **Agentic Workflow** — applying the concepts you learned in Modules 1–4.
+In this capstone project, you will build a working LLM application using either a **RAG (Retrieval Augmented Generation)** pipeline or an **Agentic Workflow** — applying the concepts you learned in Modules 1–4.
+
+**Choose your framework:** You may use **Flowise** or **n8n** (both covered in the course), or another low-code / LLM framework you're comfortable with. The scenarios describe *what* to build, not which tool to build it in.
 
 Choose **one** of the 7 scenarios below. Each scenario uses a publicly available knowledge base document — download the document you need from the source links below.
 
@@ -78,15 +80,20 @@ Example: `git checkout -b add-alice-tan-contribution`
 2. Create a new folder named after yourself, using lowercase with underscores (e.g., `alice_tan/`)
 3. Place the following two files inside your folder:
 
-   **a. Exported Flowise Workflow JSON**
-   - Export your completed workflow from Flowise (`Chatflow/Agentflow > Settings > Export`)
-   - Filename: `<your_name>_scenario_<number>.json`
+   **a. Exported Workflow File**
+   - Export your completed workflow from the framework you used:
+     - **Flowise:** `Chatflow/Agentflow > Settings > Export`
+     - **n8n:** open the workflow → `...` menu (beside workflow name) → `Export JSON`
+     - **Other frameworks:** export the workflow file in its native format (or include your source code if there's no export option)
+   - Filename: `<your_name>_scenario_<number>.json` (use the matching extension if your framework doesn't export JSON)
    - Example: `alice_tan_scenario_3.json`
+   - **Remove any API keys or credentials** from the file before committing
 
    **b. A short write-up (`README.md`)**
 
    A markdown file (1 page max) explaining your workflow, covering:
    - Which scenario you chose and why
+   - Which framework you used (Flowise, n8n, etc.)
    - Your design decisions (e.g., chunking strategy, model choice, prompt design)
    - Any challenges faced and how you resolved them
    - Screenshots of your workflow canvas and at least 3 sample conversations
@@ -172,7 +179,7 @@ Once approved, your instructor will merge the PR and your contribution will appe
 **Context:** The Meridian Athletic Foundation (MAF), a national sports body, wants to build an internal chatbot so employees can quickly find answers about HR policies — leave entitlements, medical benefits, resignation procedures, recruitment processes, and more.
 
 **Your Task:**
-- Build a **RAG Chatflow** that ingests the MAF HR Policy PDF
+- Build a **RAG chatbot** that ingests the MAF HR Policy PDF
 - The chatbot should accurately answer specific factual questions such as:
   - "How many days of annual leave does a Manager get?"
   - "What is the medical subsidy cap per year?"
@@ -195,7 +202,7 @@ Once approved, your instructor will merge the PR and your contribution will appe
 **Context:** A consulting firm advises foreign companies looking to invest in Singapore. They need an AI agent that can answer complex, multi-faceted questions about Singapore's investment environment by reasoning over a detailed 64-page government report.
 
 **Your Task:**
-- Build an **Agentic Workflow (Agentflow)** that:
+- Build an **Agentic Workflow** that:
   1. Takes a user's investment query
   2. Uses a **RAG tool** to retrieve relevant sections from the Investment Climate Statement
   3. Has an **Analyst Agent** that synthesises retrieved information and provides structured analysis
@@ -220,7 +227,7 @@ Once approved, your instructor will merge the PR and your contribution will appe
 **Context:** Contoso Electronics, a leading aerospace company, wants a chatbot for new hires to quickly find information about company policies, values, safety procedures, and reporting channels during their onboarding.
 
 **Your Task:**
-- Build a **RAG Chatflow** that ingests the Contoso Employee Handbook
+- Build a **RAG chatbot** that ingests the Contoso Employee Handbook
 - The chatbot should accurately answer questions such as:
   - "What are Contoso's core values?"
   - "How do I report a whistleblower concern? What channels are available?"
@@ -245,7 +252,7 @@ Once approved, your instructor will merge the PR and your contribution will appe
 **Context:** The Town of Middletown, Delaware wants to build an AI assistant that helps department supervisors determine the correct procurement process for their purchases — whether they need formal bidding, how many vendor quotes are required, what approval levels are needed, and what exceptions apply.
 
 **Your Task:**
-- Build an **Agentic Workflow (Agentflow)** with at least two stages:
+- Build an **Agentic Workflow** with at least two stages:
   1. **Classification Agent** — determines the type and value of the purchase to classify which procurement path applies
   2. **Advisory Agent** — provides step-by-step guidance on the required process, approvals, and documentation based on the classification
 - The system should handle queries such as:
@@ -270,7 +277,7 @@ Once approved, your instructor will merge the PR and your contribution will appe
 **Context:** A policy think tank studying Southeast Asia's digital economy wants a research assistant that helps analysts and students explore this report on the SEA-6 economies (Indonesia, Malaysia, the Philippines, Singapore, Thailand, and Vietnam). The agent should be able to answer research questions and generate mini-reports on specific topics.
 
 **Your Task:**
-- Build an **Agentic Workflow (Agentflow)** with a multi-agent pipeline:
+- Build an **Agentic Workflow** with a multi-agent pipeline:
   1. **Research Agent** — retrieves relevant information from the report using RAG
   2. **Writer Agent** — synthesises the research into a well-structured mini-report
   3. Include a **Human-in-the-Loop** step where the user can approve or request revisions to the report
@@ -295,7 +302,7 @@ Once approved, your instructor will merge the PR and your contribution will appe
 **Context:** The National Heritage Board of Singapore wants a chatbot that helps visitors and students learn about Singapore's unique kopi culture through an accessible Q&A interface based on an academic research paper.
 
 **Your Task:**
-- Build a **RAG Chatflow** that ingests the academic paper on kopi culture
+- Build a **RAG chatbot** that ingests the academic paper on kopi culture
 - The chatbot should make academic content accessible to a general audience by answering questions such as:
   - "What is the difference between traditional kopi and third-wave specialty coffee?"
   - "What is a kopitiam and where does the word come from?"
@@ -319,7 +326,7 @@ Once approved, your instructor will merge the PR and your contribution will appe
 **Context:** AI Singapore wants an intelligent learning advisor that recommends personalised AI/ML learning resources to users based on their experience level, interests, and learning goals.
 
 **Your Task:**
-- Build an **Agentic Workflow (Agentflow)** with at least two stages:
+- Build an **Agentic Workflow** with at least two stages:
   1. **Assessment Agent** — asks the user about their background (programming experience, ML knowledge, learning goals) and classifies their level (beginner / intermediate / advanced)
   2. **Recommendation Agent** — uses RAG over the CSV of learning resources to recommend a personalised learning pathway of 3–5 resources with explanations for why each resource is relevant
 - The system should handle interactions such as:
@@ -339,12 +346,13 @@ Once approved, your instructor will merge the PR and your contribution will appe
 
 ## General Requirements (All Scenarios)
 
-1. **Model**: Use any LLM available in Flowise (e.g., OpenAI GPT-4o-mini, Azure OpenAI, etc.)
-2. **Embeddings**: Use an appropriate embedding model for RAG scenarios
-3. **Vector Store**: Use any vector store supported by Flowise (e.g., In-Memory, Chroma, Pinecone, etc.)
-4. **System Prompt**: Every LLM/Agent node must have a well-crafted system prompt
-5. **Testing**: Test your workflow with at least 5 different queries before submission
-6. **Export**: Place the exported JSON file from Flowise into your folder under `contributions_from_learners/` (see "How to Share Your Work" above)
+1. **Framework**: Use Flowise, n8n, or another framework of your choice
+2. **Model**: Use any LLM available in your chosen framework (e.g., OpenAI GPT-4o-mini, Azure OpenAI, etc.)
+3. **Embeddings**: Use an appropriate embedding model for RAG scenarios
+4. **Vector Store**: Use any vector store supported by your framework (e.g., In-Memory, Chroma, Qdrant, Pinecone, etc.)
+5. **System Prompt**: Every LLM/Agent node must have a well-crafted system prompt
+6. **Testing**: Test your workflow with at least 5 different queries before submission
+7. **Export**: Place your exported workflow file into your folder under `contributions_from_learners/` (see "How to Share Your Work" above)
 
 ## Document Sources & Attribution
 

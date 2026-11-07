@@ -175,7 +175,7 @@ npm uninstall -g turndown @opentelemetry/exporter-trace-otlp-proto @opentelemetr
 **Step 3 — Start Flowise in Docker:**
 
 ```bash
-docker run -d --name flowise -p 3000:3000 -v flowise_data:/root/.flowise flowiseai/flowise
+docker run -d --name flowise -p 3000:3000 -v flowise_data:/root/.flowise flowiseai/flowise:3.1.3
 ```
 
 **Step 4 — Give it about a minute** (the first run downloads the image), then open [http://localhost:3000](http://localhost:3000) in your browser.
@@ -183,12 +183,12 @@ docker run -d --name flowise -p 3000:3000 -v flowise_data:/root/.flowise flowise
 > **Port already in use?** If the command reports that port 3000 is taken, switch the **left-hand** number to 3001:
 >
 > ```bash
-> docker run -d --name flowise -p 3001:3000 -v flowise_data:/root/.flowise flowiseai/flowise
+> docker run -d --name flowise -p 3001:3000 -v flowise_data:/root/.flowise flowiseai/flowise:3.1.3
 > ```
 >
 > Then open [http://localhost:3001](http://localhost:3001) instead. (To re-run the command, first clear the old container with `docker rm -f flowise`.)
 
-> **Container starts but Flowise won't load?** The default (`latest`) image has at times shipped a broken build — e.g. version 3.1.4 failed to start with errors like `this.db.exec is not a function`, `Package subpath './utils/uuid' is not defined`, or `Cannot find module '@smithy/eventstream-codec'` (an upstream image bug, not your machine). Pin a known-good version such as **3.1.3** instead — remove the broken container (`docker rm -f flowise`; your `flowise_data` volume is kept) and re-run with the version tag:
+> **Container starts but Flowise won't load?** The default (`latest`) image has at times shipped a broken build — e.g. version 3.1.4 failed to start with errors like `this.db.exec is not a function`, `Package subpath './utils/uuid' is not defined`, or `Cannot find module '@smithy/eventstream-codec'` (an upstream image bug, not your machine). The commands above already pin the known-good version **3.1.3** for this reason. If you started from an untagged or `latest` image, remove the broken container (`docker rm -f flowise`; your `flowise_data` volume is kept) and re-run with the version tag:
 >
 > ```bash
 > docker run -d --name flowise -p 3000:3000 -v flowise_data:/root/.flowise flowiseai/flowise:3.1.3
@@ -204,7 +204,7 @@ docker start flowise     # start it again
 docker logs -f flowise   # view logs
 ```
 
-**Why the `-v flowise_data:/root/.flowise` part?** It saves your work. Flowise keeps its database, your saved chatflows, and an encryption key in `/root/.flowise`. Without the volume, that folder lives *inside* the container: it survives `docker stop` / `docker start`, but it is **lost the moment the container is removed or recreated** — which happens on upgrades, on the port-conflict fix above (`docker rm -f flowise`), and during most "let me start over" troubleshooting. The `-v flowise_data:/root/.flowise` flag moves that folder to a **named volume on the host**, independent of the container, so you can remove, recreate, or upgrade the container as often as you like and your chatflows persist. It also preserves the encryption key, so previously-saved credentials (API keys, etc.) stay decryptable. One extra flag, no silent data loss — worth it for coursework you want to keep.
+**Why the `-v flowise_data:/root/.flowise` part?** It saves your work. Flowise keeps its database, your saved chatflows, and an encryption key in `/root/.flowise` (for Flowise 3.1.3, which runs as the root user; from 3.1.4 the image runs as the `node` user and the folder is `/home/node/.flowise`, so match the path to the version you run). Without the volume, that folder lives *inside* the container: it survives `docker stop` / `docker start`, but it is **lost the moment the container is removed or recreated** — which happens on upgrades, on the port-conflict fix above (`docker rm -f flowise`), and during most "let me start over" troubleshooting. The `-v flowise_data:/root/.flowise` flag moves that folder to a **named volume on the host**, independent of the container, so you can remove, recreate, or upgrade the container as often as you like and your chatflows persist. It also preserves the encryption key, so previously-saved credentials (API keys, etc.) stay decryptable. One extra flag, no silent data loss — worth it for coursework you want to keep.
 
 ---
 
