@@ -5,11 +5,11 @@
 
 ---
 
-Welcome to LADP Essentials! This course takes you from understanding how Large Language Models (LLMs) communicate, all the way to deploying and securing your own LLM-powered applications — without needing to write much code. You build everything visually in a drag-and-drop workflow tool: **n8n** is now the primary tool for the hands-on demos, and the current course videos use **Flowise**.
+Welcome to LADP Essentials! This course takes you from understanding how Large Language Models (LLMs) communicate, all the way to deploying and securing your own LLM-powered applications — without needing to write much code. You build everything visually in a drag-and-drop workflow tool: the current course videos and demos use **Flowise**, and we are moving the hands-on demos to **n8n**.
 
 This repository contains the workflows and files used in the LADP Essentials videos and demos, for both n8n and Flowise.
 
-> **Course update: n8n demo videos coming soon.** Flowise reached end of life on 31 August 2026, so we are moving the hands-on demos to **n8n**. The n8n demo videos have not been released yet, and this repository is being updated gradually (n8n workflows, setup guides and deployment guides are being added module by module). Until the videos are out, you can follow the existing Flowise videos and build the exercises in n8n using the workflow files provided. Please stay tuned for updates, and see the [FAQ](FAQ.md) for more details.
+> **Course update: n8n demo videos coming soon.** Flowise reached end of life on 31 August 2026, so we are moving the hands-on demos to **n8n**. The n8n demo videos have not been released yet, and this repository is being updated gradually (n8n workflows, setup guides and deployment guides are being added module by module). Until the n8n videos are released, please **continue to follow the Flowise videos and use the Flowise demo workflows** (in each module's `flowise_workflows/` folder). The n8n workflow files are already available if you'd like to try n8n early. Please stay tuned for updates, and see the [FAQ](FAQ.md) for more details.
 
 ---
 
@@ -39,7 +39,7 @@ Each module builds directly on the previous one. RAG uses prompting skills from 
 
 ### A Note on Tools vs Concepts
 
-We build everything hands-on using **n8n** (and **Flowise** in the current videos), but the platform does not matter — the concepts do. Once you understand the fundamentals (prompt engineering, RAG, agentic workflows, evaluation, deployment, and responsible AI), you can apply them on any platform: other no-code/low-code tools like Dify; coding frameworks like LangChain, LangGraph, or CrewAI; or even coding assistants like Claude Code or Codex.
+We build everything hands-on using **Flowise** in the current videos (moving to **n8n** soon), but the platform does not matter — the concepts do. Once you understand the fundamentals (prompt engineering, RAG, agentic workflows, evaluation, deployment, and responsible AI), you can apply them on any platform: other no-code/low-code tools like Dify; coding frameworks like LangChain, LangGraph, or CrewAI; or even coding assistants like Claude Code or Codex.
 
 n8n and Flowise are simply the vehicles we use to teach these concepts in an accessible, visual way. Focus on the *why* behind each concept, and you'll transfer that knowledge to whatever tools you choose.
 
@@ -66,9 +66,9 @@ Each module folder contains its own `README.md` with reference materials and add
 
 ## Getting Started
 
-1. **Set up your tool** — Follow [Module 0](LADPE_Module_0_Files/README.md) to set up **n8n** (recommended: Docker or n8n Cloud) or **Flowise** (Docker or npm), and get an LLM API key (free options available). Hitting an installation error? See the **[FAQ](FAQ.md)**.
-2. **Import workflows** — Import the JSON files from each module's `n8n_workflows/` folder into n8n (**…** menu → **Import from File**), or from `flowise_workflows/` into Flowise.
-3. **Follow the videos** — Each workflow maps to a video lesson. The current videos use Flowise; if you're building in n8n, use the Flowise-to-n8n table in [Module 0](LADPE_Module_0_Files/README.md). n8n demo videos are coming soon, so stay tuned. Configure your API keys, data sources, and settings as shown.
+1. **Set up your tool** — Follow [Module 0](LADPE_Module_0_Files/README.md) to set up **Flowise** (Docker or npm), which the current videos use, and get an LLM API key (free options available). Module 0 also covers n8n setup if you'd like to try it early. Hitting an installation error? See the **[FAQ](FAQ.md)**.
+2. **Import workflows** — Import the JSON files from each module's `flowise_workflows/` folder into Flowise. The n8n versions are in `n8n_workflows/` (import in n8n via **…** menu → **Import from File**).
+3. **Follow the videos** — Each workflow maps to a video lesson. Please continue with the Flowise videos and demos until the n8n demo videos are released (coming soon, so stay tuned). If you try n8n early, the Flowise-to-n8n table in [Module 0](LADPE_Module_0_Files/README.md) helps you find the equivalent pieces. Configure your API keys, data sources, and settings as shown.
 4. **For evaluations (Module 4.2)** — Use the notebook and CSV files provided. Copy `.env.example` to `.env` and add your own values.
 
 > The JSON files are n8n and Flowise exports and can be imported directly. File names align with the demo names shown in the course. Credentials are never included in the exported files, so you'll add your own after importing. The `.env` file should not be committed to source control.
@@ -89,7 +89,7 @@ If LLMs, RAG, and agents are all new to you, we recommend watching the course **
 
 **Pass 2 — Go Deep (Build Mode)**
 - Go through the course again, module by module.
-- **Pause the videos and follow along** with every hands-on exercise in n8n (or Flowise).
+- **Pause the videos and follow along** with every hands-on exercise in Flowise (or n8n once the n8n videos are released).
 - Experiment! Change settings, try different prompts, break things on purpose. This is where real learning happens.
 - Use the resources and references in each module folder to go deeper.
 
@@ -103,7 +103,7 @@ If LLMs, RAG, and agents are all new to you, we recommend watching the course **
 
 ### For Learners with Technical / Coding Backgrounds
 
-- You'll move faster through the conceptual sections, but pay attention to **tool-specific** implementation patterns and trade-offs in n8n or Flowise.
+- You'll move faster through the conceptual sections, but pay attention to **tool-specific** implementation patterns and trade-offs in Flowise or n8n.
 - **RAG evaluation frameworks** (RAGAS, DeepEval, TruLens) and **bias/fairness definitions** may offer new perspectives.
 - Use the hands-on exercises to prototype quickly before writing custom code.
 
@@ -150,7 +150,7 @@ If LLMs, RAG, and agents are all new to you, we recommend watching the course **
 1. **Build something real.** Pick a use case that matters to you — a chatbot for your team, a document Q&A system, an agent that automates a tedious task — and build it alongside the course.
 2. **Break things intentionally.** Don't just follow the steps. Change parameters, use different models, feed in unexpected input. Understanding failure modes is as valuable as understanding success.
 3. **Take notes on connections.** How does chunking strategy (Module 2) affect RAG evaluation scores (Module 4)? How does system prompt design (Module 1) impact agent reliability (Module 3)?
-4. **Use n8n (or Flowise) as a playground.** Test ideas quickly before committing to a full implementation.
+4. **Use Flowise (or n8n) as a playground.** Test ideas quickly before committing to a full implementation.
 5. **Revisit earlier modules after finishing.** You'll understand Module 1 much better after completing Module 4.
 
 ---

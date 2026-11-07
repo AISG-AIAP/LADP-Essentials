@@ -4,7 +4,7 @@ A central place for common questions and fixes across the course — n8n and Flo
 
 If your problem isn't covered here, please [open an issue](https://github.com/AISG-AIAP/LADP-Essentials/issues) or contact the LADP team.
 
-> **Course update: n8n demo videos coming soon.** We are preparing new demo videos that walk through the hands-on exercises in **n8n**, and this repository is being updated gradually to match (n8n workflows, setup guides and deployment guides are being added module by module). In the meantime, you can already follow along using the n8n workflow files and the setup steps in [Module 0](LADPE_Module_0_Files/README.md). Please stay tuned for more updates.
+> **Course update: n8n demo videos coming soon.** We are preparing new demo videos that walk through the hands-on exercises in **n8n**, and this repository is being updated gradually to match (n8n workflows, setup guides and deployment guides are being added module by module). Until the n8n videos are released, please **continue to follow the Flowise videos and use the Flowise demo workflows** (in each module's `flowise_workflows/` folder). The n8n workflow files are already available if you'd like to try n8n early. Setup steps for both are in [Module 0](LADPE_Module_0_Files/README.md). Please stay tuned for more updates.
 
 <!--
 ──────────────────────────────────────────────────────────────────────
@@ -233,24 +233,24 @@ From the beginning of the programme, our focus has been on teaching the principl
 These concepts transfer directly to other platforms and frameworks, including Langflow, Dify, n8n, LangChain, LangGraph, CrewAI, and coding agents such as Claude Code and Codex. As the AI ecosystem continues to evolve, the ability to understand these underlying concepts becomes even more valuable than familiarity with any individual platform.
 
 **Moving the hands-on demos to n8n**<br>
-The current course videos use Flowise, and it remains an effective way to see how the concepts fit together, so you can still follow those videos and complete the exercises in Flowise. However, because Flowise no longer receives updates, **n8n is now the primary tool for the hands-on demos**. Ready-made n8n versions of the demo workflows are provided in each module, and setup steps are in [Module 0](LADPE_Module_0_Files/README.md). Either way, you will gain the intended skills and knowledge.
+The current course videos use Flowise, and it remains an effective way to see how the concepts fit together, so you can still follow those videos and complete the exercises in Flowise. However, because Flowise no longer receives updates, we are **moving the hands-on demos to n8n**, and n8n will become the primary tool once the n8n demo videos are released. Until then, please continue with the Flowise videos and demos. Ready-made n8n versions of the demo workflows are already provided in each module if you'd like to try n8n early (setup steps are in [Module 0](LADPE_Module_0_Files/README.md)). Either way, you will gain the intended skills and knowledge.
 
 The industry will continue to introduce new tools and retire others. Our objective is to equip you with the understanding and practical experience to adapt confidently, regardless of which platform you use in the future.
 
 A useful way to think about it is this: learning with Flowise is like learning to drive in a particular model of car. Even if that model is eventually discontinued, the driving skills you develop stay with you and transfer to any other vehicle. In the same way, the platform may evolve, but the knowledge and skills you gain through LADP remain relevant.
 
 **What's next: n8n demo videos**<br>
-We are adding **n8n** versions of the hands-on demos. The n8n demo videos **have not been released yet** and are coming soon, and the repository is being updated gradually with n8n workflows and guides. Until the videos are out, you can follow the existing videos and build the exercises in n8n using the workflow files provided in each module. Stay tuned for updates.
+We are adding **n8n** versions of the hands-on demos. The n8n demo videos **have not been released yet** and are coming soon, and the repository is being updated gradually with n8n workflows and guides. Until the n8n videos are released, please **continue to follow the Flowise videos and use the Flowise demo workflows** (in each module's `flowise_workflows/` folder). The n8n workflow files are already available if you'd like to try n8n early. Stay tuned for updates.
 
 ### 7. Do I need coding experience to take this course?
 
-No. LADP Essentials is a **no-code / low-code** course. You build everything visually in **n8n** (or in Flowise, as shown in the current videos), so you can focus on the concepts (prompt engineering, RAG, agents, evaluation, deployment) rather than writing application code. A few later exercises (e.g. Module 4 evaluations) involve running a provided notebook, but no prior coding is required.
+No. LADP Essentials is a **no-code / low-code** course. You build everything visually in **Flowise**, as shown in the current videos (and in **n8n** once the n8n demo videos are released), so you can focus on the concepts (prompt engineering, RAG, agents, evaluation, deployment) rather than writing application code. A few later exercises (e.g. Module 4 evaluations) involve running a provided notebook, but no prior coding is required.
 
 ### 8. Do I have to install Flowise locally? Can I use the hosted version?
 
 **Flowise Cloud, the hosted version of Flowise, has been shut down** as part of the Flowise sunset (see [question 6](#6-flowise-is-being-discontinued-is-the-course-still-worth-taking)), so it is no longer an option. To use Flowise, install it locally. **Docker is the primary way** (everything is pre-installed), and the npm method shown in the course videos also works. Both are described in [Module 0](LADPE_Module_0_Files/README.md).
 
-If you don't want to install anything, use **n8n Cloud** instead. n8n is now the primary tool for the hands-on demos, and new users get a free trial (see the n8n Setup section of [Module 0](LADPE_Module_0_Files/README.md)). n8n can also be run locally for free with Docker. Note that the n8n demo videos have not been released yet, so please stay tuned. Until then, follow the existing Flowise videos and build in n8n using the workflow files provided.
+Until the n8n demo videos are released, please continue with the Flowise videos and demos using a local Flowise install. If you'd like to try n8n early without installing anything, **n8n Cloud** offers new users a free trial (see the n8n Setup section of [Module 0](LADPE_Module_0_Files/README.md)), and n8n can also be run locally for free with Docker. As the trial is time-limited, you may want to wait until the n8n videos are released before signing up.
 
 ### 9. Which LLM provider / API key do I need?
 
@@ -262,7 +262,7 @@ Step-by-step instructions for every option (OpenAI, Anthropic, Azure OpenAI / Mi
 
 ### 10. Do I have to use Flowise? What about other tools?
 
-No. **n8n is now the primary tool** for the hands-on demos, with ready-made n8n workflow files in each module (see [Module 0](LADPE_Module_0_Files/README.md) for setup). The current videos use Flowise, and you can still follow along in Flowise if you prefer. The n8n demo videos have not been released yet, so please stay tuned for them.
+For now, yes: please **continue with the Flowise videos and demos** until the n8n demo videos are released. We are moving the hands-on demos to **n8n**, which will become the primary tool once those videos are out, so please stay tuned. Ready-made n8n workflow files are already in each module (see [Module 0](LADPE_Module_0_Files/README.md) for setup) if you'd like to try n8n early.
 
 The tool is only the vehicle for teaching the concepts. Once you understand prompt engineering, RAG, agentic workflows, evaluation, deployment, and responsible AI, you can apply them on other no-code/low-code tools (e.g., Dify) or coding frameworks (LangChain, LangGraph, CrewAI). Your capstone project can also be built in any framework (see [question 11](#11-how-do-i-submit-my-capstone-project)).
 
