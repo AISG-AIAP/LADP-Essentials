@@ -1,4 +1,4 @@
-# 🎬 Barbenheimer Q&A — n8n + Docker + Cloud Run
+# Barbenheimer Q&A — n8n + Docker + Cloud Run
 
 A tiny web app that sends your question to an **n8n AI agent** (which searches a
 Barbie and an Oppenheimer vector store) and shows the answer plus the source text it used.
@@ -36,21 +36,21 @@ You need 3 tools:
 
 - Python → https://www.python.org/downloads/ (Windows: on the first installer screen, **tick "Add python.exe to PATH"**)
 - Google Cloud CLI → https://cloud.google.com/sdk/docs/install
-- Docker Desktop → follow the guide below 👇
+- Docker Desktop → follow the guide below
 
-### 🐳 Installing Docker Desktop (first time using Docker? start here)
+### Installing Docker Desktop (first time using Docker? start here)
 
 **What is Docker?** Think of a container as a **lunchbox**: it holds your app *plus* everything it
 needs (Python, libraries, settings). A lunchbox packed on your laptop opens the same way on Google's
 servers, so "it works on my machine" becomes "it works everywhere".
 **Docker Desktop** is the free app that builds and runs these lunchboxes on your computer.
 
-> 💡 Docker Desktop is free for personal use, education, and small businesses
+> Docker Desktop is free for personal use, education, and small businesses
 > (under 250 employees and under US$10M revenue). Larger companies need a paid plan.
 
 ---
 
-#### 🍎 Mac
+#### Mac
 
 **1. Find out which chip your Mac has**
 Click the  **Apple menu** (top-left) → **About This Mac**. Look at the **Chip** (or **Processor**) line:
@@ -63,7 +63,7 @@ choose **Mac – Apple Silicon** or **Mac – Intel chip** to match step 1.
 
 **3. Install**
 - Open the downloaded **`Docker.dmg`** file (it's in your **Downloads** folder).
-- In the window that appears, **drag the whale icon 🐳 into the Applications folder**.
+- In the window that appears, **drag the whale icon into the Applications folder**.
 
 **4. Open Docker for the first time**
 - Open **Applications** → double-click **Docker**.
@@ -73,14 +73,14 @@ choose **Mac – Apple Silicon** or **Mac – Intel chip** to match step 1.
 - If it asks you to **sign in or create an account** → you can click **Skip** / **Continue without signing in**.
 
 **5. Wait for it to be ready**
-Look for the **whale icon 🐳 in the menu bar** (top-right of your screen). When the Docker
+Look for the **whale icon in the menu bar** (top-right of your screen). When the Docker
 Desktop window says **"Engine running"** (green, bottom-left), you're ready.
 
-👉 Jump to **"Test that Docker works"** below.
+Jump to **"Test that Docker works"** below.
 
 ---
 
-#### 🪟 Windows
+#### Windows
 
 **1. Check your Windows version**
 Press **Windows key + R**, type `winver`, press Enter. You need **Windows 10 (version 22H2 or newer)
@@ -104,7 +104,7 @@ Only pick **Windows – ARM64** if you have an ARM laptop (e.g. Surface with Sna
 
 **4. Install**
 - Double-click **`Docker Desktop Installer.exe`** (in your **Downloads** folder). Click **Yes** if Windows asks for permission.
-- On the configuration screen, make sure **"Use WSL 2 instead of Hyper-V"** is **ticked** ✅.
+- On the configuration screen, make sure **"Use WSL 2 instead of Hyper-V"** is **ticked**.
 - Click **OK** and wait. When it says **Installation succeeded**, click **Close and restart** (or restart yourself).
 
 **5. Open Docker for the first time**
@@ -112,16 +112,16 @@ Only pick **Windows – ARM64** if you have an ARM laptop (e.g. Surface with Sna
 - Click **Accept** on the service agreement.
 - If it asks you to **sign in or create an account** → you can click **Skip** / **Continue without signing in**.
 - Wait until the window says **"Engine running"** (green, bottom-left). You'll also see the
-  whale icon 🐳 in the system tray (bottom-right, you may need to click the **^** arrow).
+  whale icon in the system tray (bottom-right, you may need to click the **^** arrow).
 
-> 💡 **Windows users, everywhere in this guide:** use `python` instead of `python3`, and activate the
+> **Windows users, everywhere in this guide:** use `python` instead of `python3`, and activate the
 > Python environment with `.venv\Scripts\activate` instead of `source .venv/bin/activate`.
 > If PowerShell says *"running scripts is disabled on this system"*, run this once, then try again:
 > `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` (type **Y** if asked).
 
 ---
 
-#### ✅ Test that Docker works (Mac & Windows)
+#### Test that Docker works (Mac & Windows)
 
 Open a **new** terminal (Mac: **Terminal** app · Windows: **PowerShell**) and run:
 
@@ -134,12 +134,12 @@ Then run Docker's built-in test:
 ```bash
 docker run hello-world
 ```
-You should see **"Hello from Docker!"** 🎉 This means Docker downloaded a tiny test container and ran it.
+You should see **"Hello from Docker!"** This means Docker downloaded a tiny test container and ran it.
 
-> 🔑 **Remember:** Docker Desktop must be **open and running** whenever you use `docker` commands.
+> **Remember:** Docker Desktop must be **open and running** whenever you use `docker` commands.
 > If you restart your computer, open Docker Desktop again first.
 
-#### 🛠️ Docker install problems?
+#### Docker install problems?
 
 | Problem | Fix |
 |---|---|
@@ -152,7 +152,7 @@ You should see **"Hello from Docker!"** 🎉 This means Docker downloaded a tiny
 
 ---
 
-✅ When all 3 tools pass their checks, open a terminal **in this project folder** for every step below.
+When all 3 tools pass their checks, open a terminal **in this project folder** for every step below.
 
 > **How to open a terminal in this folder:**
 > - **Mac:** open **Terminal**, type `cd ` (with a space), drag the project folder into the window, press Enter.
@@ -170,7 +170,7 @@ You should see **"Hello from Docker!"** 🎉 This means Docker downloaded a tiny
 ```python
 WEBHOOK_URL = os.environ.get(
     "N8N_WEBHOOK_URL",
-    "https://YOUR-N8N.app.n8n.cloud/webhook/xxxxxxxx",   # 👈 paste here
+    "https://YOUR-N8N.app.n8n.cloud/webhook/xxxxxxxx",   # paste here
 )
 ```
 
@@ -179,14 +179,14 @@ WEBHOOK_URL = os.environ.get(
 
 **Quick check that the webhook works** (optional):
 
-🍎 **Mac (Terminal):**
+**Mac (Terminal):**
 ```bash
 curl -X POST -H "Content-Type: application/json" \
   -d '{"question":"Who directed Oppenheimer?"}' \
   https://YOUR-N8N.app.n8n.cloud/webhook/xxxxxxxx
 ```
 
-🪟 **Windows (PowerShell):**
+**Windows (PowerShell):**
 ```powershell
 Invoke-RestMethod -Method Post -ContentType "application/json" -Body '{"question":"Who directed Oppenheimer?"}' -Uri "https://YOUR-N8N.app.n8n.cloud/webhook/xxxxxxxx"
 ```
@@ -197,7 +197,7 @@ You should get back an `answer` and some `chunks`.
 
 ## Step 2 — Run it locally (no Docker yet)
 
-🍎 **Mac (Terminal):**
+**Mac (Terminal):**
 ```bash
 python3 -m venv .venv                 # create an isolated Python environment
 source .venv/bin/activate             # switch it on
@@ -205,7 +205,7 @@ pip install -r requirements.txt       # install Flask + requests
 python app.py                         # start the app
 ```
 
-🪟 **Windows (PowerShell):**
+**Windows (PowerShell):**
 ```powershell
 python -m venv .venv                  # create an isolated Python environment
 .venv\Scripts\activate                # switch it on
@@ -213,11 +213,11 @@ pip install -r requirements.txt       # install Flask + requests
 python app.py                         # start the app
 ```
 
-> ✅ When the environment is on, your prompt starts with **`(.venv)`**.
+> When the environment is on, your prompt starts with **`(.venv)`**.
 > Windows: if you see *"running scripts is disabled on this system"*, run
 > `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`, type **Y**, then activate again.
 
-Open **http://localhost:8080** → click a suggestion or type a question. 🎉
+Open **http://localhost:8080** → click a suggestion or type a question.
 
 Stop the app with **Ctrl + C**.
 
@@ -263,7 +263,7 @@ gcloud services enable run.googleapis.com cloudbuild.googleapis.com artifactregi
 ```
 > Your project needs **billing enabled**. Cloud Run has a generous free tier.
 
-### 4c. Deploy 🚀
+### 4c. Deploy
 
 ```bash
 gcloud run deploy barbenheimer --source . --allow-unauthenticated
@@ -279,7 +279,7 @@ After 2–4 minutes you'll see:
 Service URL: https://barbenheimer-xxxxxxxx.asia-southeast1.run.app
 ```
 
-Open that link — your app is live on the internet! 🎉
+Open that link — your app is live on the internet!
 
 ### Updating the app later
 Change any file, then run the **same** deploy command again. Cloud Run rolls out the new version.
@@ -306,7 +306,7 @@ gcloud run services update barbenheimer --set-env-vars N8N_WEBHOOK_URL=https://Y
 
 ---
 
-## Step 5 — Destroy everything when you're done 🧹
+## Step 5 — Destroy everything when you're done
 
 Deploying with `--source .` creates **3 things** in Google Cloud. Delete all 3 so nothing is left
 behind (Cloud Run itself costs nothing when idle, but stored images and files can add small charges).
@@ -328,7 +328,7 @@ Type **Y** to confirm. The Service URL stops working right away.
 gcloud artifacts repositories delete cloud-run-source-deploy --location asia-southeast1
 ```
 Type **Y** to confirm.
-> ⚠️ If you used `--source .` deploys for **other** apps in this region, their images live in this repo too.
+> If you used `--source .` deploys for **other** apps in this region, their images live in this repo too.
 > In that case skip this step, or delete only this app's images in the Console
 > (**Artifact Registry → cloud-run-source-deploy → barbenheimer → Delete**).
 
@@ -341,7 +341,7 @@ Delete it (replace with the name you found):
 ```bash
 gcloud storage rm --recursive gs://BUCKET_NAME
 ```
-> ⚠️ Only delete the bucket created by the deploy. Leave any other buckets alone.
+> Only delete the bucket created by the deploy. Leave any other buckets alone.
 
 ### 5d. Check everything is gone
 ```bash
@@ -349,28 +349,28 @@ gcloud run services list
 gcloud artifacts repositories list
 gcloud storage buckets list
 ```
-If `barbenheimer`, `cloud-run-source-deploy` and the source bucket no longer appear, you're done. ✅
+If `barbenheimer`, `cloud-run-source-deploy` and the source bucket no longer appear, you're done.
 
 ### 5e. Clean up your laptop (optional)
-🍎 **Mac:**
+**Mac:**
 ```bash
 docker rmi barbenheimer        # delete the local Docker image
 deactivate                     # leave the Python environment (if it's active)
 rm -rf .venv                   # delete the Python environment folder
 ```
 
-🪟 **Windows (PowerShell):**
+**Windows (PowerShell):**
 ```powershell
 docker rmi barbenheimer                   # delete the local Docker image
 deactivate                                # leave the Python environment (if it's active)
 Remove-Item -Recurse -Force .venv         # delete the Python environment folder
 ```
 
-### 🧨 The nuclear option: delete the whole project
+### The nuclear option: delete the whole project
 If you made a Google Cloud project **just for this workshop**, the easiest cleanup is to delete
 the whole project. This removes everything inside it and stops all billing for it:
 ```bash
 gcloud projects delete YOUR_PROJECT_ID
 ```
-> ⚠️ This deletes **everything** in the project. Only do this if nothing else lives in it.
+> This deletes **everything** in the project. Only do this if nothing else lives in it.
 > Google keeps it for 30 days in case you change your mind (`gcloud projects undelete YOUR_PROJECT_ID`).
