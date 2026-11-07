@@ -1,0 +1,238 @@
+{
+  "name": "Rag_workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        0,
+        0
+      ],
+      "id": "0621b137-1cd9-4350-ba1d-14329bf77ed0",
+      "name": "When chat message received",
+      "webhookId": "7925e884-5619-4541-8996-0bf0948d7f9d"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a helpful assistant that search for AI courses in the pinecone vectorstore."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        384,
+        0
+      ],
+      "id": "36036b96-7ce0-43ab-a012-ecda08ccc1cd",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-6-luna",
+          "mode": "list",
+          "cachedResultName": "gpt-6-luna"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        256,
+        208
+      ],
+      "id": "bd2e6496-63ae-454d-946b-659ae3b61e38",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "H4cKTvKaksp13ujE",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "AI Courses in Pinecone Vector Store",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "n8n-csv",
+          "mode": "list",
+          "cachedResultName": "n8n-csv"
+        },
+        "topK": 5,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        752,
+        16
+      ],
+      "id": "09e9107b-b5c1-4b52-8c09-5643d2cc7006",
+      "name": "Pinecone Vector Store",
+      "credentials": {
+        "pineconeApi": {
+          "id": "4JF7xDEV6f7FShlY",
+          "name": "Pinecone account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "text-embedding-3-large",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        752,
+        224
+      ],
+      "id": "528c7ebc-6023-43f1-ab68-9ee076aef090",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "H4cKTvKaksp13ujE",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "Info on Barbie Movie",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "n8n-pdf",
+          "mode": "list",
+          "cachedResultName": "n8n-pdf"
+        },
+        "topK": 5,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        496,
+        224
+      ],
+      "id": "d957db61-5404-4f65-b976-8c43fcf535c2",
+      "name": "Pinecone Vector Store1",
+      "credentials": {
+        "pineconeApi": {
+          "id": "4JF7xDEV6f7FShlY",
+          "name": "Pinecone account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "text-embedding-3-large",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        592,
+        432
+      ],
+      "id": "acaffd15-75ad-4b09-9cd1-c7b3058a15a2",
+      "name": "Embeddings OpenAI1",
+      "credentials": {
+        "openAiApi": {
+          "id": "H4cKTvKaksp13ujE",
+          "name": "OpenAI account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pinecone Vector Store": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pinecone Vector Store1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store1",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "631a4aa1-1cb1-4ced-a44c-ad64445e80ec",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6363fa3d1ba2cceb8fc1707436de58e15821bf9f7bd4185a585b4fb047705ba0"
+  },
+  "nodeGroups": [],
+  "id": "EdxfvfNvgeyfmEb8",
+  "tags": []
+}

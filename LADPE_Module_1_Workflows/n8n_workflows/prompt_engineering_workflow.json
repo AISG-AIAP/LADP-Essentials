@@ -1,0 +1,98 @@
+{
+  "name": "prompt_engineering_workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        0,
+        0
+      ],
+      "id": "078db3a8-edbc-4329-bca5-1b60152098d5",
+      "name": "When chat message received",
+      "webhookId": "ef45ea59-65f5-4415-80f7-17165c10b494"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a helpful assist who help learners solve their math problems. Just reply with the final answer as shown in the examples below.\n\nExamples:-\n\nProblem: John has 4 bags of marbles. \nEach bag contains 5 marbles. He loses 3 marbles. How many marbles does he have left? \n\nAnswer: 17 marbles\n\n\nProblem: Maria bought 2 packs of pencils. Each pack has 10 pencils. She gave 5 pencils to her sister. How many pencils does she have now? \n\nAnswer: 15 pencils\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        384,
+        0
+      ],
+      "id": "bbedc9ef-d3f0-43db-b0cb-1bf2fd34ee67",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-6-luna",
+          "mode": "list",
+          "cachedResultName": "gpt-6-luna"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        256,
+        208
+      ],
+      "id": "e25bf4a7-4bef-4d17-ac95-e03741a761e3",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "H4cKTvKaksp13ujE",
+          "name": "OpenAI account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "32e95671-6596-4f01-9d44-a7fd55a21460",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6363fa3d1ba2cceb8fc1707436de58e15821bf9f7bd4185a585b4fb047705ba0"
+  },
+  "nodeGroups": [],
+  "id": "VXq9DNIY2YkzoE2h",
+  "tags": []
+}

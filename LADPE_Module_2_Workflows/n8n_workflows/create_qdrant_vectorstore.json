@@ -1,0 +1,168 @@
+{
+  "name": "create_qdrant_vectorstore",
+  "nodes": [
+    {
+      "parameters": {
+        "mode": "insert",
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "oppenheimer",
+          "mode": "list",
+          "cachedResultName": "oppenheimer"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1.3,
+      "position": [
+        224,
+        0
+      ],
+      "id": "23b93404-7e81-4762-8f38-390e7c2adb53",
+      "name": "Qdrant Vector Store",
+      "credentials": {
+        "qdrantApi": {
+          "id": "Qy4o0pzCKVjogXzq",
+          "name": "Qdrant account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "text-embedding-3-large",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        176,
+        208
+      ],
+      "id": "43bc4390-28a6-45a3-b51f-cf262000d8d6",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "H4cKTvKaksp13ujE",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "dataType": "binary",
+        "textSplittingMode": "custom",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        368,
+        208
+      ],
+      "id": "daa46339-3b8d-4670-ac04-2a03d926e77e",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "chunkOverlap": 200
+      },
+      "type": "@n8n/n8n-nodes-langchain.textSplitterCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [
+        400,
+        400
+      ],
+      "id": "c86cbf16-89dd-47af-81c1-e4fd7aa7b952",
+      "name": "Character Text Splitter"
+    },
+    {
+      "parameters": {
+        "formTitle": "Upload documents",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Documents",
+              "fieldType": "file",
+              "fieldName": "documents",
+              "acceptFileTypes": ".pdf,.txt,.docx, .csv"
+            }
+          ]
+        },
+        "responseMode": "lastNode",
+        "options": {
+          "path": "upload-docs"
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        0,
+        0
+      ],
+      "id": "0c4c9193-7a9f-4aa4-ae87-48a4bfe8e4ac",
+      "name": "On form submission",
+      "webhookId": "b7ceb905-f11c-4eee-9ad9-6f9b5ff4e6c5"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Qdrant Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Qdrant Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Character Text Splitter": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Default Data Loader",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Qdrant Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": true
+  },
+  "versionId": "815a477b-4b38-4691-b53c-3a8802be4cd2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6363fa3d1ba2cceb8fc1707436de58e15821bf9f7bd4185a585b4fb047705ba0"
+  },
+  "nodeGroups": [],
+  "id": "tSH7w4T3D9bvEMin",
+  "tags": []
+}

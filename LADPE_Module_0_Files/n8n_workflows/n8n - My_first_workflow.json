@@ -1,0 +1,136 @@
+{
+  "name": "My_first_workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "80d837cc-23ff-40f1-86ca-b79fdfcc7d87",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "50641922-c60b-40f9-9bc3-7d556dd4046a"
+    },
+    {
+      "parameters": {
+        "needsFallback": true,
+        "options": {}
+      },
+      "id": "fa31344e-41cd-4bb2-8632-6976d6b93832",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        384,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-6-luna",
+          "mode": "list",
+          "cachedResultName": "gpt-6-luna",
+          "cachedResultUrl": ""
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "id": "46da5212-aa3e-430f-bd88-26e54084fed4",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        352,
+        192
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": null,
+          "name": "",
+          "__aiGatewayManaged": true
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "claude-sonnet-5-5",
+          "cachedResultName": "Claude Sonnet 5.5"
+        },
+        "options": {}
+      },
+      "id": "dd4360e2-b082-4098-9c43-c97c8b09403b",
+      "name": "Anthropic Chat Model (Fallback)",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.6,
+      "position": [
+        480,
+        224
+      ],
+      "credentials": {
+        "anthropicApi": {
+          "id": null,
+          "name": "Gateway credits",
+          "__aiGatewayManaged": true
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model (Fallback)": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 1
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "7bdc3b14-b9d6-43a3-bcf2-ff57ceb4091a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6363fa3d1ba2cceb8fc1707436de58e15821bf9f7bd4185a585b4fb047705ba0"
+  },
+  "nodeGroups": [],
+  "id": "IkhbVe7Om55UgMoP",
+  "tags": []
+}

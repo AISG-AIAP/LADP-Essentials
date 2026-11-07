@@ -1,0 +1,511 @@
+{
+  "name": "Report Writing Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {
+          "responseMode": "responseNodes"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        0,
+        0
+      ],
+      "id": "f7aeb2ac-14fb-4090-8b5a-bebf397361bf",
+      "name": "When chat message received",
+      "webhookId": "079680a1-f270-43ab-85a1-a506685a60cb"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-6-luna",
+          "mode": "list",
+          "cachedResultName": "gpt-6-luna"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        256,
+        208
+      ],
+      "id": "d736965c-3587-4fb5-9486-ec8eafe8f11a",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "H4cKTvKaksp13ujE",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"topic\": {\n      \"type\": \"string\",\n      \"description\": \"Topic of the research or discussion\"\n    },\n    \"key_findings\": {\n      \"type\": \"array\",\n      \"items\": { \"type\": \"string\" },\n      \"description\": \"List of key findings from the research\"\n    },\n    \"sources\": {\n      \"type\": \"array\",\n      \"items\": { \"type\": \"string\" },\n      \"description\": \"List of sources referenced\"\n    },\n    \"statistics\": {\n      \"type\": \"array\",\n      \"items\": { \"type\": \"string\" },\n      \"description\": \"List of relevant statistics\"\n    },\n    \"number_of_sources\": {\n      \"type\": \"number\",\n      \"description\": \"Number of sources found\"\n    },\n    \"is_statistics_available\": {\n      \"type\": \"boolean\",\n      \"description\": \"Is there any statistics available for this topic\"\n    }\n  },\n  \"required\": [\n    \"topic\",\n    \"key_findings\",\n    \"sources\",\n    \"statistics\",\n    \"number_of_sources\",\n    \"is_statistics_available\"\n  ]\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        560,
+        208
+      ],
+      "id": "4bb7103b-4cef-423a-81cb-6529685dcc7b",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "You are a research specialist. Your job is to search for credible information about the given topic and compile key findings.\n\nFor the topic provided, search for:\n1. Recent developments or news\n2. Key statistics and data\n3. Expert opinions or authoritative sources\n4. Important facts"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        384,
+        0
+      ],
+      "id": "cc74edc8-5e50-4c22-8e61-4f532eee788f",
+      "name": "Research Agent"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ JSON.stringify($json.output, null, 2) }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "You are a data analyst. Review the research findings and:\n\n1. Identify the most important insights\n2. Spot trends or patterns\n3. Determine what's most relevant for a business audience\n4. Rate the credibility of information\n\nFocus your analysis on business implications."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        752,
+        0
+      ],
+      "id": "33a977d2-aa85-4059-a469-2e4cc3bbb0c8",
+      "name": "Analyst Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-6-luna",
+          "mode": "list",
+          "cachedResultName": "gpt-6-luna"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        672,
+        256
+      ],
+      "id": "4e5ba803-45a0-44aa-9e1e-0139068633e5",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "H4cKTvKaksp13ujE",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"main_insights\": {\n      \"type\": \"array\",\n      \"items\": { \"type\": \"string\" },\n      \"description\": \"List of the main insights drawn from the research\"\n    },\n    \"trends\": {\n      \"type\": \"array\",\n      \"items\": { \"type\": \"string\" },\n      \"description\": \"List of trends identified in the research\"\n    },\n    \"credibility_rating\": {\n      \"type\": \"string\",\n      \"enum\": [\"high\", \"medium\", \"low\"],\n      \"description\": \"Credibility rating of the research: high, medium or low\"\n    },\n    \"recommended_focus\": {\n      \"type\": \"string\",\n      \"description\": \"What to emphasize in the report\"\n    }\n  },\n  \"required\": [\n    \"main_insights\",\n    \"trends\",\n    \"credibility_rating\",\n    \"recommended_focus\"\n  ]\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        928,
+        208
+      ],
+      "id": "455a977a-ad31-4f27-b150-1374b41b912c",
+      "name": "Structured Output Parser1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Create a comprehensive report on: {{ $('Research Agent').item.json.output.topic }}\n\nUse this research data:\n{{ JSON.stringify($('Research Agent').item.json.output, null, 2) }}\n\nAnd this analysis:\n{{ JSON.stringify($json.output, null, 2) }}\n\nGenerate a professional business report (500-700 words).",
+        "options": {
+          "systemMessage": "You are a professional report writer. Create a well-structured business report using:\n- The original research findings\n- The analytical insights provided\n\nFormat the report with:\n1. Executive Summary (2-3 sentences)\n2. Key Findings (bullet points)\n3. Detailed Analysis (2-3 paragraphs)\n4. Recommendations (3-5 actionable items)\n5. Sources\n\nKeep the tone professional but accessible.\n\nUse clear headers and formatting."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1120,
+        0
+      ],
+      "id": "7cb5d68f-1fba-41b2-b1c6-4ed6d63b0b40",
+      "name": "Report Writing Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-6-luna",
+          "mode": "list",
+          "cachedResultName": "gpt-6-luna"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        1040,
+        256
+      ],
+      "id": "eea1ff3a-98f1-417f-b326-96dc0f46c5a8",
+      "name": "OpenAI Chat Model2",
+      "credentials": {
+        "openAiApi": {
+          "id": "H4cKTvKaksp13ujE",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "endpointUrl": "https://search.parallel.ai/mcp",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.4,
+      "position": [
+        432,
+        304
+      ],
+      "id": "5bb5c223-1442-4843-afd0-fc6c7b8c549f",
+      "name": "Parallel Search MCP Client"
+    },
+    {
+      "parameters": {
+        "endpointUrl": "https://arxiv.caseyjhand.com/mcp",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.4,
+      "position": [
+        256,
+        416
+      ],
+      "id": "c45131d5-e4ec-422e-b4fc-3667344845d5",
+      "name": "Arxiv Paper MCP Client"
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "message": "={{ $json.output }}\n\n---\nIs this good enough? Reply \"yes\" to approve, or type what you want changed.",
+        "options": {
+          "memoryConnection": true
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        1488,
+        0
+      ],
+      "id": "cd5ae48b-ebdd-4712-a572-b346f2b3ccf1",
+      "name": "Chat",
+      "webhookId": "7953311e-3699-4235-a203-f63c8549d51d"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "fd2ae534-4c3f-4052-b19c-91867e267500",
+              "leftValue": "={{ ['yes', 'y', 'ok', 'okay', 'approve', 'approved', 'good'].includes(String($json.chatInput || '').trim().toLowerCase().replace(/[.!]+$/, '')) }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1712,
+        0
+      ],
+      "id": "13c44f89-ebdd-4930-95c6-2adece75b04c",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "folderId": "=",
+        "title": "={{ $('Research Agent').item.json.output.topic }} - Report {{ $now.toFormat('yyyy-MM-dd') }}"
+      },
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        1936,
+        -16
+      ],
+      "id": "623b4677-8bb3-4901-b01a-14acbde0a1c0",
+      "name": "Create a document",
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "UJWvURRChiRyYlkf",
+          "name": "Google Docs account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentURL": "={{ $json.id }}",
+        "actionsUi": {
+          "actionFields": [
+            {
+              "action": "insert",
+              "text": "={{ $('Report Writing Agent').item.json.output }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        2160,
+        -16
+      ],
+      "id": "7594ba28-4cfe-465c-869e-24c434c2c572",
+      "name": "Update a document",
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "UJWvURRChiRyYlkf",
+          "name": "Google Docs account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        1408,
+        320
+      ],
+      "id": "d3b82a75-8747-40fd-a2ee-b481022cf7e3",
+      "name": "Simple Memory"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Research Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Research Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Research Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Research Agent": {
+      "main": [
+        [
+          {
+            "node": "Analyst Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Analyst Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser1": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Analyst Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyst Agent": {
+      "main": [
+        [
+          {
+            "node": "Report Writing Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Report Writing Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parallel Search MCP Client": {
+      "ai_tool": [
+        [
+          {
+            "node": "Research Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Arxiv Paper MCP Client": {
+      "ai_tool": [
+        [
+          {
+            "node": "Research Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Report Writing Agent": {
+      "main": [
+        [
+          {
+            "node": "Chat",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chat": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Create a document",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Report Writing Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a document": {
+      "main": [
+        [
+          {
+            "node": "Update a document",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Chat",
+            "type": "ai_memory",
+            "index": 0
+          },
+          {
+            "node": "Report Writing Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": true
+  },
+  "versionId": "a450d3d0-6e2d-4db1-aa85-05ac97a3228b",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6363fa3d1ba2cceb8fc1707436de58e15821bf9f7bd4185a585b4fb047705ba0"
+  },
+  "nodeGroups": [],
+  "id": "t6xBk2QHjV3JihTY",
+  "tags": []
+}

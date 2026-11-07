@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LADP Essentials - Module 1.3.5 Prompt Chaining in n8n (Copy-Paste Guide)</title>
+  <style>
+    :root {
+      --bg: #f6f8fc;
+      --surface: #ffffff;
+      --text: #1f2937;
+      --muted: #4b5563;
+      --brand: #1d4ed8;
+      --brand-soft: #dbeafe;
+      --border: #d1d5db;
+      --shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+      --code-bg: #0f172a;
+      --code-text: #e5edff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background: linear-gradient(180deg, #eef4ff 0%, var(--bg) 180px);
+      padding: 32px 16px 40px;
+    }
+
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero {
+      padding: 28px 28px 18px;
+      background: linear-gradient(120deg, #eff6ff 0%, #ffffff 60%);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .content {
+      padding: 24px 28px 28px;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--brand-soft);
+      color: #1e3a8a;
+      font-weight: 600;
+      font-size: 0.84rem;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3 {
+      line-height: 1.25;
+      margin-top: 0;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      font-size: 2rem;
+      color: #0f172a;
+    }
+
+    h2 {
+      margin-top: 28px;
+      margin-bottom: 12px;
+      font-size: 1.35rem;
+      color: #111827;
+      border-left: 4px solid var(--brand);
+      padding-left: 10px;
+    }
+
+    h3 {
+      margin-top: 18px;
+      margin-bottom: 8px;
+      font-size: 1.08rem;
+      color: #1f2937;
+    }
+
+    p, ul, ol {
+      margin-top: 0;
+      margin-bottom: 14px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      margin-bottom: 0;
+      font-size: 1.02rem;
+    }
+
+    a {
+      color: #1d4ed8;
+      text-decoration: none;
+    }
+
+    a:hover,
+    a:focus {
+      text-decoration: underline;
+    }
+
+    .note {
+      margin: 10px 0 16px;
+      padding: 10px 12px;
+      border: 1px solid #bfdbfe;
+      border-radius: 8px;
+      background: #f0f7ff;
+      font-size: 0.95rem;
+    }
+
+    .warn {
+      margin: 10px 0 16px;
+      padding: 10px 12px;
+      border: 1px solid #fcd34d;
+      border-radius: 8px;
+      background: #fffbeb;
+      font-size: 0.95rem;
+    }
+
+    .flow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin: 16px 0 20px;
+      font-size: 0.95rem;
+    }
+
+    .flow .step {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 14px;
+      background: #fcfdff;
+      font-weight: 600;
+    }
+
+    .flow .arrow {
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .topic {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px 6px;
+      background: #ffffff;
+      margin-bottom: 18px;
+    }
+
+    .topic ul,
+    .topic ol {
+      padding-left: 20px;
+    }
+
+    .field {
+      margin: 14px 0 18px;
+    }
+
+    .field-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-bottom: none;
+      border-radius: 10px 10px 0 0;
+      background: #f3f6fd;
+    }
+
+    .field-label {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #111827;
+    }
+
+    .field-label span {
+      display: block;
+      font-weight: 400;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .copy-btn {
+      flex: none;
+      border: 1px solid var(--brand);
+      border-radius: 8px;
+      background: var(--brand);
+      color: #ffffff;
+      font: inherit;
+      font-size: 0.86rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      cursor: pointer;
+    }
+
+    .copy-btn:hover,
+    .copy-btn:focus {
+      background: #1a43b8;
+    }
+
+    .copy-btn.copied {
+      background: #047857;
+      border-color: #047857;
+    }
+
+    pre {
+      margin: 0;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 0 0 10px 10px;
+      background: var(--code-bg);
+      color: var(--code-text);
+      overflow-x: auto;
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    pre code {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      white-space: pre;
+    }
+
+    .inline-code {
+      padding: 2px 6px;
+      border-radius: 5px;
+      background: #eef2ff;
+      color: #1e3a8a;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 0.9em;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f3f6fd;
+    }
+
+    .footer {
+      font-size: 0.94rem;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    hr {
+      border: 0;
+      border-top: 1px solid #e5e7eb;
+      margin: 24px 0;
+    }
+
+    @media (max-width: 640px) {
+      .hero,
+      .content {
+        padding: 18px 16px;
+      }
+
+      h1 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <header class="hero">
+      <span class="badge">Module 1.3.5 - Hands-On</span>
+      <h1>Prompt Chaining in n8n</h1>
+      <p class="subtitle">Copy-paste reference for the Research Agent to Analyst Agent to Report Writing Agent demo. Click <strong>Copy</strong> on any block and paste it straight into n8n.</p>
+    </header>
+
+    <section class="content">
+      <p>Follow along with the video. Every prompt, expression, and JSON schema used in the demo is on this page, so you never have to type or memorise anything.</p>
+
+      <div class="flow">
+        <span class="step">Chat Trigger</span>
+        <span class="arrow">&rarr;</span>
+        <span class="step">Research Agent</span>
+        <span class="arrow">&rarr;</span>
+        <span class="step">Analyst Agent</span>
+        <span class="arrow">&rarr;</span>
+        <span class="step">Report Writing Agent</span>
+      </div>
+
+      <h2>Before You Start: The One Thing That Trips Everyone Up</h2>
+      <p>Every node in the chain gets its input from the node before it, and in n8n you wire that up with an <strong>expression</strong> rather than plain text. There are only two expressions to learn for this demo.</p>
+
+      <div class="field">
+        <div class="field-head">
+          <span class="field-label">1. The topic expression<span>First agent only - reads what the learner typed in the chat window</span></span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>{{ $json.chatInput }}</code></pre>
+      </div>
+
+      <div class="field">
+        <div class="field-head">
+          <span class="field-label">2. The chaining expression<span>Every agent after the first - passes the previous agent's structured output along</span></span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>{{ JSON.stringify($json.output, null, 2) }}</code></pre>
+      </div>
+
+      <div class="warn">
+        <strong>Switch the field to Expression first.</strong> In the <em>Prompt (User Message)</em> field, hover over it and choose <strong>Expression</strong> instead of <strong>Fixed</strong>. If the field stays on <strong>Fixed</strong>, n8n sends the literal text <span class="inline-code">{{ JSON.stringify($json.output, null, 2) }}</span> to the model instead of the research data. When it is set correctly, the <strong>Result</strong> preview under the field shows the actual JSON from the previous node.
+      </div>
+
+      <h3>What the expressions are doing</h3>
+      <table>
+        <tr>
+          <th>Part</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td><span class="inline-code">{{ ... }}</span></td>
+          <td>Tells n8n to run JavaScript instead of treating the text literally.</td>
+        </tr>
+        <tr>
+          <td><span class="inline-code">$json</span></td>
+          <td>The data coming out of the node immediately before this one.</td>
+        </tr>
+        <tr>
+          <td><span class="inline-code">.chatInput</span></td>
+          <td>The field a Chat Trigger node puts the user's typed message into. Only available when the chat trigger is the node feeding in.</td>
+        </tr>
+        <tr>
+          <td><span class="inline-code">.output</span></td>
+          <td>The field an AI Agent node writes its answer into. With a Structured Output Parser attached, this is a real object, not a string.</td>
+        </tr>
+        <tr>
+          <td><span class="inline-code">JSON.stringify(..., null, 2)</span></td>
+          <td>Turns that object back into readable, indented JSON text so the next model can read it cleanly.</td>
+        </tr>
+      </table>
+
+      <hr>
+
+      <h2>Step 1: Research Agent</h2>
+      <div class="topic">
+        <ol>
+          <li>Start with a <strong>Chat Trigger</strong> node (<em>When chat message received</em>). This is where the topic comes from.</li>
+          <li>Add an <strong>AI Agent</strong> node, rename it to <strong>Research Agent</strong> (the name matters for Step 3), and connect the trigger into it.</li>
+          <li>Connect a <strong>Chat Model</strong> to it.</li>
+          <li>Set <strong>Source for Prompt (User Message)</strong> to <strong>Define below</strong>, switch the field to <strong>Expression</strong>, and paste the expression below.</li>
+          <li>Turn on <strong>Require Specific Output Format</strong> and attach a <strong>Structured Output Parser</strong>.</li>
+          <li>In the parser, set the schema type to <strong>JSON Schema</strong> and paste the schema below.</li>
+        </ol>
+      </div>
+
+      <div class="field">
+        <div class="field-head">
+          <span class="field-label">System Message</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>You are a research specialist. Your job is to search for credible information about the given topic and compile key findings.
+
+For the topic provided, search for:
+1. Recent developments or news
+2. Key statistics and data
+3. Expert opinions or authoritative sources
+4. Important facts</code></pre>
+      </div>
+
+      <div class="field">
+        <div class="field-head">
+          <span class="field-label">Prompt (User Message)<span>Expression mode - takes the topic the learner types in the chat window</span></span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>{{ $json.chatInput }}</code></pre>
+      </div>
+
+      <p>The topic is not hardcoded. <span class="inline-code">chatInput</span> is the field the <strong>Chat Trigger</strong> node produces, so whatever you type in the chat window becomes the research topic. If you would rather wrap the topic in an instruction, use this version instead:</p>
+
+      <div class="field">
+        <div class="field-head">
+          <span class="field-label">Prompt (User Message) - instruction variant</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>Research this topic thoroughly: {{ $json.chatInput }}</code></pre>
+      </div>
+
+      <div class="note">
+        In the chat window, type the topic you want researched, for example <strong>autonomous vehicles</strong>. If <strong>Source for Prompt (User Message)</strong> is left as <strong>Connected Chat Trigger Node</strong>, n8n already passes <span class="inline-code">chatInput</span> for you and you do not need an expression at all. Set it to <strong>Define below</strong> when you want to control the wording, as in the variant above.
+      </div>
+
+      <div class="field">
+        <div class="field-head">
+          <span class="field-label">Structured Output Parser - JSON Schema</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>{
+  "type": "object",
+  "properties": {
+    "topic": {
+      "type": "string",
+      "description": "Topic of the research or discussion"
+    },
+    "key_findings": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of key findings from the research"
+    },
+    "sources": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of sources referenced"
+    },
+    "statistics": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of relevant statistics"
+    },
+    "number_of_sources": {
+      "type": "number",
+      "description": "Number of sources found"
+    },
+    "is_statistics_available": {
+      "type": "boolean",
+      "description": "Is there any statistics available for this topic"
+    }
+  },
+  "required": [
+    "topic",
+    "key_findings",
+    "sources",
+    "statistics",
+    "number_of_sources",
+    "is_statistics_available"
+  ]
+}</code></pre>
+      </div>
+
+      <div class="note">
+        Test this agent before building the rest. Open the chat panel, send your topic, and check the Output panel for an <span class="inline-code">output</span> object containing <span class="inline-code">topic</span>, <span class="inline-code">key_findings</span>, <span class="inline-code">sources</span>, and <span class="inline-code">statistics</span>. Steps 2 and 3 only work once this one does.
+      </div>
+
+      <hr>
+
+      <h2>Step 2: Analyst Agent</h2>
+      <div class="topic">
+        <ol>
+          <li>Add a second <strong>AI Agent</strong> node named <strong>Analyst Agent</strong> and connect the Research Agent into it.</li>
+          <li>Set <strong>Source for Prompt (User Message)</strong> to <strong>Define below</strong>.</li>
+          <li>Switch the <strong>Prompt (User Message)</strong> field from <strong>Fixed</strong> to <strong>Expression</strong>, then paste the expression below.</li>
+          <li>Attach a <strong>Structured Output Parser</strong> with the analysis schema.</li>
+        </ol>
+      </div>
+
+      <div class="field">
+        <div class="field-head">
+          <span class="field-label">Prompt (User Message)<span>Expression mode - this is the chaining step</span></span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>{{ JSON.stringify($json.output, null, 2) }}</code></pre>
+      </div>
+
+      <div class="field">
+        <div class="field-head">
+          <span class="field-label">System Message</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>You are a data analyst. Review the research findings and:
+
+1. Identify the most important insights
+2. Spot trends or patterns
+3. Determine what's most relevant for a business audience
+4. Rate the credibility of information
+
+Focus your analysis on business implications.</code></pre>
+      </div>
+
+      <div class="field">
+        <div class="field-head">
+          <span class="field-label">Structured Output Parser - JSON Schema</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>{
+  "type": "object",
+  "properties": {
+    "main_insights": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of the main insights drawn from the research"
+    },
+    "trends": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of trends identified in the research"
+    },
+    "credibility_rating": {
+      "type": "string",
+      "enum": ["high", "medium", "low"],
+      "description": "Credibility rating of the research: high, medium or low"
+    },
+    "recommended_focus": {
+      "type": "string",
+      "description": "What to emphasize in the report"
+    }
+  },
+  "required": [
+    "main_insights",
+    "trends",
+    "credibility_rating",
+    "recommended_focus"
+  ]
+}</code></pre>
+      </div>
+
+      <h3>Optional: label the research data for the model</h3>
+      <p>If you prefer to give the model a little context instead of a bare JSON blob, use this version in the same Expression field.</p>
+
+      <div class="field">
+        <div class="field-head">
+          <span class="field-label">Prompt (User Message) - labelled variant</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>Analyze these research findings:
+
+Research Data:
+{{ JSON.stringify($json.output, null, 2) }}
+
+Provide your analysis focusing on business implications.</code></pre>
+      </div>
+
+      <hr>
+
+      <h2>Step 3: Report Writing Agent</h2>
+      <div class="topic">
+        <ol>
+          <li>Add a third <strong>AI Agent</strong> node named <strong>Report Writing Agent</strong> and connect the Analyst Agent into it.</li>
+          <li>This agent needs <em>both</em> earlier outputs, so it reaches back to the Research Agent by node name.</li>
+          <li>Leave the output parser off here - you want readable prose, not JSON.</li>
+        </ol>
+      </div>
+
+      <div class="field">
+        <div class="field-head">
+          <span class="field-label">Prompt (User Message)<span>Expression mode - pulls from two nodes</span></span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>Create a comprehensive report on: {{ $('Research Agent').item.json.output.topic }}
+
+Use this research data:
+{{ JSON.stringify($('Research Agent').item.json.output, null, 2) }}
+
+And this analysis:
+{{ JSON.stringify($json.output, null, 2) }}
+
+Generate a professional business report (500-700 words).</code></pre>
+      </div>
+
+      <div class="warn">
+        <span class="inline-code">$('Research Agent')</span> must match your node name <strong>exactly</strong>, including spaces and capitals. If you renamed the node, update the text inside the quotes.
+      </div>
+
+      <div class="field">
+        <div class="field-head">
+          <span class="field-label">System Message</span>
+          <button class="copy-btn" type="button">Copy</button>
+        </div>
+        <pre><code>You are a professional report writer. Create a well-structured business report using:
+- The original research findings
+- The analytical insights provided
+
+Format the report with:
+1. Executive Summary (2-3 sentences)
+2. Key Findings (bullet points)
+3. Detailed Analysis (2-3 paragraphs)
+4. Recommendations (3-5 actionable items)
+5. Sources
+
+Keep the tone professional but accessible.
+
+Use clear headers and formatting.</code></pre>
+      </div>
+
+      <hr>
+
+      <h2>Troubleshooting</h2>
+      <table>
+        <tr>
+          <th>What you see</th>
+          <th>What to do</th>
+        </tr>
+        <tr>
+          <td>The model replies about "JSON.stringify" or says it received no data.</td>
+          <td>The field is still on <strong>Fixed</strong>. Switch it to <strong>Expression</strong> and check the <strong>Result</strong> preview shows real JSON.</td>
+        </tr>
+        <tr>
+          <td>The Result preview shows <span class="inline-code">undefined</span>.</td>
+          <td>The previous node has not run yet, or it does not produce the field you asked for. Run the earlier nodes once so real data exists, then recheck.</td>
+        </tr>
+        <tr>
+          <td><span class="inline-code">$json.chatInput</span> is empty or undefined in the Research Agent.</td>
+          <td>The node feeding the Research Agent is not a <strong>Chat Trigger</strong>, or no chat message has been sent yet. Send a message from the chat panel first. Note that only the first agent sees <span class="inline-code">chatInput</span>; later agents see the previous agent's <span class="inline-code">output</span> instead.</td>
+        </tr>
+        <tr>
+          <td>The next agent receives a wall of escaped text with <span class="inline-code">\n</span> everywhere.</td>
+          <td>You are stringifying a string instead of an object. Confirm the upstream agent has <strong>Require Specific Output Format</strong> turned on with a Structured Output Parser attached.</td>
+        </tr>
+        <tr>
+          <td><span class="inline-code">Referenced node doesn't exist</span> in Step 3.</td>
+          <td>The name inside <span class="inline-code">$('Research Agent')</span> does not match the node name. Copy the name from the canvas exactly.</td>
+        </tr>
+        <tr>
+          <td>Output is valid JSON but fields are missing.</td>
+          <td>Check that every field you need is listed under <span class="inline-code">"required"</span> in the schema.</td>
+        </tr>
+      </table>
+
+      <p class="footer"><em>LADP Essentials - AI Singapore</em></p>
+    </section>
+  </main>
+
+  <script>
+    document.querySelectorAll('.field').forEach(function (field) {
+      var button = field.querySelector('.copy-btn');
+      var code = field.querySelector('pre code');
+      if (!button || !code) {
+        return;
+      }
+
+      button.addEventListener('click', function () {
+        var text = code.textContent;
+
+        function selectBlock() {
+          var selection = window.getSelection();
+          var range = document.createRange();
+          range.selectNodeContents(code);
+          selection.removeAllRanges();
+          selection.addRange(range);
+        }
+
+        function done(ok) {
+          if (!ok) {
+            selectBlock();
+          }
+          button.textContent = ok ? 'Copied' : 'Selected - press Ctrl/Cmd+C';
+          button.classList.toggle('copied', ok);
+          setTimeout(function () {
+            button.textContent = 'Copy';
+            button.classList.remove('copied');
+          }, 2200);
+        }
+
+        function fallback() {
+          var area = document.createElement('textarea');
+          area.value = text;
+          area.setAttribute('readonly', '');
+          area.style.position = 'fixed';
+          area.style.top = '-1000px';
+          document.body.appendChild(area);
+          area.select();
+          var ok = false;
+          try {
+            ok = document.execCommand('copy');
+          } catch (err) {
+            ok = false;
+          }
+          document.body.removeChild(area);
+          done(ok);
+        }
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(function () {
+            done(true);
+          }, fallback);
+        } else {
+          fallback();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

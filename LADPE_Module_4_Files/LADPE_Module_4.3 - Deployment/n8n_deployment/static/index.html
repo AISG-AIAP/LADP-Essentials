@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Barbenheimer Q&amp;A</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0d0b10;
+      --card: #17141c;
+      --line: #2a2530;
+      --text: #f4f1f6;
+      --muted: #9a93a3;
+      --pink: #ff4fa3;
+      --fire: #ff8a3d;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; background: var(--bg); color: var(--text);
+      font-family: Inter, system-ui, sans-serif; line-height: 1.6;
+      background-image:
+        radial-gradient(600px 400px at 10% -10%, rgba(255,79,163,.18), transparent 70%),
+        radial-gradient(600px 400px at 90% -10%, rgba(255,138,61,.16), transparent 70%);
+    }
+    main { max-width: 720px; margin: 0 auto; padding: 64px 16px 48px; }
+
+    h1 {
+      font-family: "Bricolage Grotesque", sans-serif; font-size: clamp(40px, 9vw, 64px);
+      margin: 0; letter-spacing: -0.03em; line-height: 1;
+      background: linear-gradient(90deg, var(--pink), var(--fire));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .sub { color: var(--muted); margin: 12px 0 32px; }
+
+    form { display: flex; gap: 8px; background: var(--card); border: 1px solid var(--line);
+           border-radius: 16px; padding: 8px; transition: border-color .2s; }
+    form:focus-within { border-color: #4a3f55; }
+    input { flex: 1; background: none; border: 0; color: var(--text); font: inherit;
+            font-size: 16px; padding: 10px 12px; outline: none; min-width: 0; }
+    input::placeholder { color: var(--muted); }
+    button { border: 0; border-radius: 10px; padding: 10px 20px; font: inherit; font-weight: 600;
+             color: #fff; cursor: pointer; background: linear-gradient(90deg, var(--pink), var(--fire)); }
+    button:disabled { opacity: .5; cursor: wait; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 0; }
+    .chip { background: none; border: 1px solid var(--line); color: var(--muted); font-weight: 500;
+            font-size: 14px; padding: 6px 14px; border-radius: 999px; }
+    .chip:hover { color: var(--text); border-color: #4a3f55; }
+
+    .answer { margin-top: 32px; background: var(--card); border: 1px solid var(--line);
+              border-radius: 16px; padding: 24px; animation: up .3s ease; }
+    .answer p { margin: 0; font-size: 17px; white-space: pre-wrap; }
+    .error { color: #ff8080; }
+    @keyframes up { from { opacity: 0; transform: translateY(8px); } }
+
+    .loading span { display: inline-block; width: 8px; height: 8px; margin-right: 6px; border-radius: 50%;
+                    background: var(--pink); animation: blink 1s infinite; }
+    .loading span:nth-child(2) { background: #ff6c70; animation-delay: .15s; }
+    .loading span:nth-child(3) { background: var(--fire); animation-delay: .3s; }
+    @keyframes blink { 50% { opacity: .2; } }
+
+    details { margin-top: 20px; border-top: 1px solid var(--line); padding-top: 16px; }
+    summary { cursor: pointer; color: var(--muted); font-size: 14px; }
+    .src { margin-top: 12px; padding: 12px 14px; border-radius: 10px; background: #110f15;
+           font-size: 13px; color: #c9c2d0; white-space: pre-wrap; }
+    .tag { display: inline-block; font-size: 11px; font-weight: 600; text-transform: uppercase;
+           letter-spacing: .06em; padding: 2px 8px; border-radius: 6px; margin-bottom: 6px; }
+    .tag.barbie { background: rgba(255,79,163,.15); color: var(--pink); }
+    .tag.opp { background: rgba(255,138,61,.15); color: var(--fire); }
+
+    footer { margin-top: 48px; color: var(--muted); font-size: 13px; text-align: center; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Barbenheimer</h1>
+  <p class="sub">Ask anything about <b>Barbie</b> or <b>Oppenheimer</b>. Answers come from an n8n AI agent searching two vector stores.</p>
+
+  <form id="form">
+    <input id="q" placeholder="e.g. Who plays Ken?" autocomplete="off" autofocus />
+    <button id="btn">Ask</button>
+  </form>
+
+  <div class="chips">
+    <button class="chip">Who plays Ken in Barbie?</button>
+    <button class="chip">Who directed Oppenheimer?</button>
+    <button class="chip">What is Barbenheimer?</button>
+    <button class="chip">Which film made more money?</button>
+  </div>
+
+  <div id="out"></div>
+
+  <footer>Built with n8n · Flask · Docker · Google Cloud Run</footer>
+</main>
+
+<script>
+  const form = document.getElementById("form");
+  const input = document.getElementById("q");
+  const btn = document.getElementById("btn");
+  const out = document.getElementById("out");
+
+  // Make text safe to put into HTML, then support **bold** and *italic*
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const fmt = (s) => esc(s).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\*(.+?)\*/g, "<i>$1</i>");
+
+  // Clicking a suggestion fills the box and asks it
+  document.querySelectorAll(".chip").forEach((chip) =>
+    chip.addEventListener("click", () => { input.value = chip.textContent; form.requestSubmit(); })
+  );
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const question = input.value.trim();
+    if (!question) return;
+
+    btn.disabled = true;
+    out.innerHTML = `<div class="answer loading"><span></span><span></span><span></span></div>`;
+
+    try {
+      // Send the question to OUR server, which forwards it to n8n
+      const res = await fetch("/api/ask", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Something went wrong");
+
+      // Show the source chunks the agent used
+      const chunks = data.chunks || [];
+      const sources = chunks.map((c) => {
+        const isBarbie = /barbie/i.test(c.store || "");
+        return `<div class="src"><span class="tag ${isBarbie ? "barbie" : "opp"}">${isBarbie ? "Barbie" : "Oppenheimer"}${c.lines ? " · lines " + esc(c.lines) : ""}</span>\n${esc(c.content)}</div>`;
+      }).join("");
+
+      out.innerHTML = `<div class="answer">
+        <p>${fmt(data.answer || "No answer returned.")}</p>
+        ${chunks.length ? `<details><summary>${chunks.length} sources used</summary>${sources}</details>` : ""}
+      </div>`;
+    } catch (err) {
+      out.innerHTML = `<div class="answer"><p class="error">${esc(err.message)}</p></div>`;
+    } finally {
+      btn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>

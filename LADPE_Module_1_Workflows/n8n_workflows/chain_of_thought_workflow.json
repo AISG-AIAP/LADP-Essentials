@@ -1,0 +1,98 @@
+{
+  "name": "chain_of_thought_workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        0,
+        0
+      ],
+      "id": "31ffe0be-fc28-459a-a927-7573669a7094",
+      "name": "When chat message received",
+      "webhookId": "31545ebe-e6a3-463d-b4f8-4a3cf7579828"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a helpful assist who help learners solve their math problems. Solve the math problem step by step as follows:\n\nLet's solve the problem step by step: \n\nStep 1: \nStep 2: \nStep 3: \n\nFinal Answer:\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        384,
+        0
+      ],
+      "id": "800efb84-b2ad-4a54-aeb4-40f6fe0d99b8",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-6-luna",
+          "mode": "list",
+          "cachedResultName": "gpt-6-luna"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        256,
+        208
+      ],
+      "id": "473d83ca-96b1-4670-a84d-0e922cc1a1f8",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "H4cKTvKaksp13ujE",
+          "name": "OpenAI account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "d7c84874-c67b-4257-bb2c-585e3035643c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6363fa3d1ba2cceb8fc1707436de58e15821bf9f7bd4185a585b4fb047705ba0"
+  },
+  "nodeGroups": [],
+  "id": "YaeEcru0Bzu9Oj28",
+  "tags": []
+}

@@ -1,0 +1,183 @@
+{
+  "name": "create_pinecone_vectorstore",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Upload documents to the knowledge base",
+        "formDescription": "Upload PDF, TXT or DOCX files to embed and upsert into Pinecone.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Documents",
+              "fieldType": "file",
+              "fieldName": "documents",
+              "acceptFileTypes": ".pdf,.txt,.docx, .csv",
+              "requiredField": true
+            }
+          ]
+        },
+        "responseMode": "lastNode",
+        "options": {
+          "path": "upload-docs"
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        0,
+        0
+      ],
+      "id": "f6e41411-07b4-4cca-ab21-b4c3203a0a29",
+      "name": "On form submission",
+      "webhookId": "4151f358-ac22-49f5-91bc-ee0fa78721a0"
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "n8n-pdf",
+          "mode": "list",
+          "cachedResultName": "n8n-pdf"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        224,
+        0
+      ],
+      "id": "aa405b9c-16ee-428f-ab1c-70fd1290ee69",
+      "name": "Pinecone Vector Store",
+      "credentials": {
+        "pineconeApi": {
+          "id": "4JF7xDEV6f7FShlY",
+          "name": "Pinecone account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "text-embedding-3-large",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        144,
+        208
+      ],
+      "id": "9a5c85a8-6e9a-4ec5-8f7a-5a81ef321077",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "H4cKTvKaksp13ujE",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "dataType": "binary",
+        "textSplittingMode": "custom",
+        "options": {
+          "metadata": {
+            "metadataValues": [
+              {
+                "name": "source",
+                "value": "={{ $json.documents[0].filename }}"
+              },
+              {
+                "name": "uploaded_at",
+                "value": "={{ $json.submittedAt }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        368,
+        208
+      ],
+      "id": "327ed6d9-f9d0-473d-a8d7-101944bba83f",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "chunkOverlap": 200,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [
+        368,
+        400
+      ],
+      "id": "023a266d-7adc-4d50-baac-caff4b2582b2",
+      "name": "Recursive Character Text Splitter"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recursive Character Text Splitter": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Default Data Loader",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "340a0b00-e198-4be1-9a5a-7ba28b23b3a0",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6363fa3d1ba2cceb8fc1707436de58e15821bf9f7bd4185a585b4fb047705ba0"
+  },
+  "nodeGroups": [],
+  "id": "WIbkMOyB6KhfPDQC",
+  "tags": []
+}

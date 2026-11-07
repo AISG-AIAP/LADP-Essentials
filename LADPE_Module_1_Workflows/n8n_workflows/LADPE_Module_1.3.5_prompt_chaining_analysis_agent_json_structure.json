@@ -1,0 +1,30 @@
+{
+    "type": "object",
+    "properties": {
+      "main_insights": {
+        "type": "array",
+        "items": { "type": "string" },
+        "description": "List of the main insights drawn from the research"
+      },
+      "trends": {
+        "type": "array",
+        "items": { "type": "string" },
+        "description": "List of trends identified in the research"
+      },
+      "credibility_rating": {
+        "type": "string",
+        "enum": ["high", "medium", "low"],
+        "description": "Credibility rating of the research: high, medium or low"
+      },
+      "recommended_focus": {
+        "type": "string",
+        "description": "What to emphasize in the report"
+      }
+    },
+    "required": [
+      "main_insights",
+      "trends",
+      "credibility_rating",
+      "recommended_focus"
+    ]
+  }

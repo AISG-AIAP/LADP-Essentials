@@ -1,0 +1,285 @@
+{
+  "name": "rag_workflow_qdrant_eval_colab",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.question }}",
+        "options": {
+          "systemMessage": "You are a helpful assistant that search for barbie movie and oppenheimer movie info in the vectorstore. Only get the answer from the vector stores",
+          "returnIntermediateSteps": true
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        256,
+        0
+      ],
+      "id": "ce8374a6-4f32-4d5f-8939-780593b34109",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-6-luna",
+          "mode": "list",
+          "cachedResultName": "gpt-6-luna"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        144,
+        224
+      ],
+      "id": "d25a16bd-27d4-4f18-90e6-cb920b72e2bd",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "H4cKTvKaksp13ujE",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "text-embedding-3-large",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        368,
+        464
+      ],
+      "id": "29c28d42-0d2e-44fd-810b-d82596aca177",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "H4cKTvKaksp13ujE",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "text-embedding-3-large",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        704,
+        272
+      ],
+      "id": "e7408853-a00c-49a9-bd31-9593bab6d1ee",
+      "name": "Embeddings OpenAI1",
+      "credentials": {
+        "openAiApi": {
+          "id": "H4cKTvKaksp13ujE",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "Retrieves information about oppenheimer movie from vectorstore",
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "oppenheimer",
+          "mode": "list",
+          "cachedResultName": "oppenheimer"
+        },
+        "topK": 5,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1.3,
+      "position": [
+        624,
+        128
+      ],
+      "id": "2265abb4-f0e3-423b-9662-48beacdffd26",
+      "name": "Qdrant Oppenheimer Vector Store",
+      "credentials": {
+        "qdrantApi": {
+          "id": "Qy4o0pzCKVjogXzq",
+          "name": "Qdrant account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "Retrieves information about the barbie movie from vectorstore",
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "barbie",
+          "mode": "list",
+          "cachedResultName": "barbie"
+        },
+        "topK": 5,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1.3,
+      "position": [
+        368,
+        240
+      ],
+      "id": "9022ae34-7f73-405b-af18-19a7b045ebed",
+      "name": "Qdrant Barbie Vector Store",
+      "credentials": {
+        "qdrantApi": {
+          "id": "Qy4o0pzCKVjogXzq",
+          "name": "Qdrant account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "3f6db8d6-cc5a-49da-b479-e111fa767f91",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "96bb5a0e-2b1c-4f87-8b7b-46615c7b9edc",
+      "name": "Webhook",
+      "webhookId": "3f6db8d6-cc5a-49da-b479-e111fa767f91"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "bf2048bf-0dfb-4896-be58-3bbd52578117",
+              "name": "answer",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            },
+            {
+              "id": "d0ca5c9e-d2fe-4ab5-b63f-83677e9d650b",
+              "name": "chunks",
+              "value": "={{ ($json.intermediateSteps || []).filter(s => s.action && /^Qdrant_.*_Vector_Store$/.test(s.action.tool || '')).flatMap(s => { try { return JSON.parse(s.observation).flatMap(o => (o.response || []).map(r => Object.assign(JSON.parse(r.text), { _store: s.action.tool }))); } catch (e) { return []; } }).map(d => ({ store: d._store, id: d.id, content: d.pageContent, lines: d.metadata && d.metadata.loc && d.metadata.loc.lines ? d.metadata.loc.lines.from + '-' + d.metadata.loc.lines.to : null })) }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        624,
+        0
+      ],
+      "id": "44b39410-6a54-477c-9395-c0616ba035ca",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Qdrant Barbie Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Qdrant Oppenheimer Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qdrant Oppenheimer Vector Store": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qdrant Barbie Vector Store": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": true
+  },
+  "versionId": "46f0fe2c-0e49-4b1f-8807-ea4da48cb7f8",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6363fa3d1ba2cceb8fc1707436de58e15821bf9f7bd4185a585b4fb047705ba0"
+  },
+  "nodeGroups": [],
+  "id": "vOfZwJDQlfNQYIYU",
+  "tags": []
+}

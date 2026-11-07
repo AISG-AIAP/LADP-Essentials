@@ -1,0 +1,41 @@
+{
+    "type": "object",
+    "properties": {
+      "topic": {
+        "type": "string",
+        "description": "Topic of the research or discussion"
+      },
+      "key_findings": {
+        "type": "array",
+        "items": { "type": "string" },
+        "description": "List of key findings from the research"
+      },
+      "sources": {
+        "type": "array",
+        "items": { "type": "string" },
+        "description": "List of sources referenced"
+      },
+      "statistics": {
+        "type": "array",
+        "items": { "type": "string" },
+        "description": "List of relevant statistics"
+      },
+      "number_of_sources": {
+        "type": "number",
+        "description": "Number of sources found"
+      },
+      "is_statistics_available": {
+        "type": "boolean",
+        "description": "Is there any statistics available for this topic"
+      }
+    },
+    "required": [
+      "topic",
+      "key_findings",
+      "sources",
+      "statistics",
+      "number_of_sources",
+      "is_statistics_available"
+    ]
+  }
+  

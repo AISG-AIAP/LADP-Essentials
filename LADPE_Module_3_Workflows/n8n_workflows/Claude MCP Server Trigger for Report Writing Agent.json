@@ -1,0 +1,90 @@
+{
+  "name": "Claude MCP Server Trigger for Report Writing Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "authentication": "n8nOAuth2",
+        "path": "996aa381-4166-48cb-83c2-53ee1f2e38c3"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "3008cd82-a642-4185-9e10-a041f5f3957b",
+      "name": "MCP Server Trigger",
+      "webhookId": "996aa381-4166-48cb-83c2-53ee1f2e38c3"
+    },
+    {
+      "parameters": {
+        "description": "Creates a Google Doc in Google Drive from the user’s request. Returns the document link.",
+        "workflowId": {
+          "__rl": true,
+          "value": "K2FCvQ1OhPAEOrcO",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/K2FCvQ1OhPAEOrcO",
+          "cachedResultName": "Claude Report Writing Agent"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('message', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "message"
+          ],
+          "schema": [
+            {
+              "id": "message",
+              "displayName": "message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        256,
+        192
+      ],
+      "id": "c92948be-1479-4672-8694-137a186e3805",
+      "name": "Call 'Claude Report Writing Agent'"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Call 'Claude Report Writing Agent'": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": true
+  },
+  "versionId": "a6b683fe-50fd-49d9-a006-bafcd1d76432",
+  "meta": {
+    "instanceId": "6363fa3d1ba2cceb8fc1707436de58e15821bf9f7bd4185a585b4fb047705ba0"
+  },
+  "nodeGroups": [],
+  "id": "aK04xnqN4dErlJyl",
+  "tags": []
+}

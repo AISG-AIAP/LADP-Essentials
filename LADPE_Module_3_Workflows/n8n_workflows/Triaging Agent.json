@@ -1,0 +1,564 @@
+{
+  "name": "Triaging Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "inputText": "={{ $json.output }}",
+        "categories": {
+          "categories": [
+            {
+              "category": "AI and ML Resources",
+              "description": "Questions about courses and learning resources (AI, machine learning, Python, data science, AI ethics), including course availability, fees, charges and cost calculations"
+            },
+            {
+              "category": "About Movies",
+              "description": "Information about movies"
+            },
+            {
+              "category": "Misc question",
+              "description": "Any other questions"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "typeVersion": 1.1,
+      "position": [
+        192,
+        16
+      ],
+      "id": "bbc3ef2e-a371-45d5-87cf-465522b7b752",
+      "name": "Text Classifier"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        -336,
+        0
+      ],
+      "id": "637f12aa-76dc-4794-b731-9dba338f7070",
+      "name": "When chat message received",
+      "webhookId": "052dfa6a-a4dd-4647-83f7-f46d1b5892de"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-6-luna",
+          "mode": "list",
+          "cachedResultName": "gpt-6-luna"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        160,
+        208
+      ],
+      "id": "df8b3e84-7049-42cc-ba2a-b4935af8f29a",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "H4cKTvKaksp13ujE",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-6-luna",
+          "mode": "list",
+          "cachedResultName": "gpt-6-luna"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        -256,
+        208
+      ],
+      "id": "530020b0-b05f-487f-be13-76d094d6b524",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "H4cKTvKaksp13ujE",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 20
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        16,
+        688
+      ],
+      "id": "6acc1965-ecf3-409f-95be-41a1545a5c0c",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-6-luna",
+          "mode": "list",
+          "cachedResultName": "gpt-6-luna"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        560,
+        0
+      ],
+      "id": "fdd2bf3b-337d-4c7e-9a98-93f94cb1fc8b",
+      "name": "OpenAI Chat Model2",
+      "credentials": {
+        "openAiApi": {
+          "id": "H4cKTvKaksp13ujE",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "text-embedding-3-large",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        912,
+        224
+      ],
+      "id": "8fc466d2-f062-4c75-851c-1acb121045e1",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "H4cKTvKaksp13ujE",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-6-luna",
+          "mode": "list",
+          "cachedResultName": "gpt-6-luna"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        400,
+        528
+      ],
+      "id": "04c97b4e-7180-450b-9644-59fb35efaa4f",
+      "name": "OpenAI Chat Model3",
+      "credentials": {
+        "openAiApi": {
+          "id": "H4cKTvKaksp13ujE",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "text-embedding-3-large",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        832,
+        656
+      ],
+      "id": "362a7ce8-079b-4a8c-ab7a-37f93bf857f3",
+      "name": "Embeddings OpenAI1",
+      "credentials": {
+        "openAiApi": {
+          "id": "H4cKTvKaksp13ujE",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.output }}",
+        "options": {
+          "systemMessage": "You are a bot who provides information of films to customers. First, check if the movie is in your database. If the user is enquiry about a movie in your database, provide the information based on the doc in the knowledge base. Otherwise, say you do not know."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        528,
+        320
+      ],
+      "id": "ebf41084-6ea2-4960-929c-d723ab5714f0",
+      "name": "Movie Agent"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.output }}",
+        "options": {
+          "systemMessage": "You are a bot who advise customer the charges of courses. First, you check if the course is available in our knowledge base. If yes, advise customers on the applicable charges. Charges relating to python courses are priced at $10/day. Charges relating to AI ethics course are priced at $12.35/day. Charges relating to data science are priced at $15/day.\n\nIMPORTANT: Whenever an answer involves any arithmetic (e.g. daily rate x number of days, totals across several courses, discounts, or taxes), you MUST call the Calculator tool to compute the result. Never do the math yourself, even for simple sums. Pass the calculation as a plain math expression (for example \"10 * 3\"), then use the Calculator result in your reply and show the calculation to the customer."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        576,
+        -176
+      ],
+      "id": "cc09bd19-041b-40f5-9392-f297ffa19370",
+      "name": "AIML Resources Agent"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "Rewrite the user’s latest message into a fully self-contained question using the conversation history. Resolve references like “it,” “that course,” or “what if…” Output only the rewritten question, with no explanation. If the message is already standalone, return it unchanged."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -112,
+        0
+      ],
+      "id": "3417a809-d8b0-4004-879e-99ec4dd20fc9",
+      "name": "Query Rewriting Agent"
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "Retrieve information about AI and ML courses and resources",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "n8n-csv",
+          "mode": "list",
+          "cachedResultName": "n8n-csv"
+        },
+        "topK": 5,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        816,
+        16
+      ],
+      "id": "de220357-67ed-47c1-9b40-c37b13d2c576",
+      "name": "AIML Resources Vector Store",
+      "credentials": {
+        "pineconeApi": {
+          "id": "4JF7xDEV6f7FShlY",
+          "name": "Pinecone account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "Retrieve information about the barbie movie",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "n8n-pdf",
+          "mode": "list",
+          "cachedResultName": "n8n-pdf"
+        },
+        "topK": 5,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        816,
+        464
+      ],
+      "id": "881c05fc-e0fa-4b8d-a0ae-c35f20d724fd",
+      "name": "Barbie Movie Vector Store1",
+      "credentials": {
+        "pineconeApi": {
+          "id": "4JF7xDEV6f7FShlY",
+          "name": "Pinecone account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        752,
+        128
+      ],
+      "id": "5e24214d-c6b4-4b66-8428-a60dfbd7bd3a",
+      "name": "Calculator"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.output }}",
+        "options": {
+          "systemMessage": "You are a helpful assistant that answers questions not relating to AIML or Movies"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        352,
+        800
+      ],
+      "id": "54ad47a3-cd5f-48a1-a6c1-fee5848f910d",
+      "name": "AI Agent for Misc Questions"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-6-luna",
+          "mode": "list",
+          "cachedResultName": "gpt-6-luna"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        224,
+        1008
+      ],
+      "id": "21e2de95-cd63-4ae9-9fc0-77150cae6ef9",
+      "name": "OpenAI Chat Model4",
+      "credentials": {
+        "openAiApi": {
+          "id": "H4cKTvKaksp13ujE",
+          "name": "OpenAI account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Query Rewriting Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Query Rewriting Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Query Rewriting Agent",
+            "type": "ai_memory",
+            "index": 0
+          },
+          {
+            "node": "AI Agent for Misc Questions",
+            "type": "ai_memory",
+            "index": 0
+          },
+          {
+            "node": "Movie Agent",
+            "type": "ai_memory",
+            "index": 0
+          },
+          {
+            "node": "AIML Resources Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text Classifier": {
+      "main": [
+        [
+          {
+            "node": "AIML Resources Agent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Movie Agent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent for Misc Questions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AIML Resources Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "AIML Resources Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Movie Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Barbie Movie Vector Store1",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query Rewriting Agent": {
+      "main": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AIML Resources Vector Store": {
+      "ai_tool": [
+        [
+          {
+            "node": "AIML Resources Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Barbie Movie Vector Store1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Movie Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "node": "AIML Resources Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent for Misc Questions",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "32ea8ee0-5cad-4914-ba89-ffc0e2a05ea2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6363fa3d1ba2cceb8fc1707436de58e15821bf9f7bd4185a585b4fb047705ba0"
+  },
+  "nodeGroups": [],
+  "id": "sL68Dxsp1vt1udpv",
+  "tags": []
+}
