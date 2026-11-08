@@ -35,13 +35,14 @@ Flowise reached **end of life on 31 August 2026** and no longer receives fixes o
 Once Docker Desktop is running (see [Install Docker Desktop](#install-docker-desktop) above), run:
 
 ```bash
-docker run -d --name n8n -p 5678:5678 -v n8n_data:/home/node/.n8n docker.n8n.io/n8nio/n8n
+docker run -d --name n8n -p 5678:5678 -v n8n_data:/home/node/.n8n docker.n8n.io/n8nio/n8n:2.46.6
 ```
 
 - `-d` — runs n8n in the background
 - `--name n8n` — names the container so you can stop/start it easily
 - `-p 5678:5678` — makes n8n available on port 5678 of your computer
 - `-v n8n_data:/home/node/.n8n` — saves your workflows and credentials in a Docker volume called `n8n_data`, so **your work is kept** when the container is stopped, restarted or removed
+- `docker.n8n.io/n8nio/n8n:2.46.6` — the official n8n image, pinned to version **2.46.6** so everyone uses the same version as the course materials. Newer versions may look slightly different from the course workflows
 
 Then open **http://localhost:5678** and create your local owner account.
 
