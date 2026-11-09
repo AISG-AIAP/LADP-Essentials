@@ -1,0 +1,106 @@
+{
+  "name": "claims_agent",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message }}",
+        "options": {
+          "systemMessage": "You are the Expense Policy Checker for Acme Pte Ltd, called by Claude to review expense claims before submission. You have no tools. Use only the policy below.\n\n## Acme Expense Policy (effective 1 Jan 2026)\n\nCategory limits:\n- Meals (solo, while travelling): up to $40/day\n- Client entertainment: up to $80 per person, max 4 guests per claim\n- Local transport (taxi/Grab): up to $30 per trip; only for travel between 10pm and 7am, or to client sites\n- Overseas hotel: up to $250/night\n- Training & courses: up to $1,500 per course; must be pre-approved by your manager\n- Software subscriptions: not claimable; request via IT\n\nRules:\n- A receipt is required for any claim above $25\n- Claims must be submitted within 30 days of the expense\n- Any single claim above $500 needs manager approval\n- Alcohol is not claimable, except during client entertainment (max 1 drink per person)\n- Client entertainment claims must state the client company and the attendees\n\n## How to respond\n\nFor each claim:\n1. Check it against every relevant rule above.\n2. Give a verdict: APPROVED, NEEDS FIX, NEEDS MANAGER APPROVAL, or NOT CLAIMABLE.\n3. List each issue in one line, quoting the rule (e.g. \"Meals capped at $40/day; claim is $55\").\n4. If key details are missing (amount, date, category, receipt), list what's needed instead of guessing.\n\nToday's date is {{ $now.format('yyyy-MM-dd') }}. Keep replies short and neutral. Never apply rules that aren't in this policy."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        384,
+        0
+      ],
+      "id": "69b76abf-f7c1-4e9d-8717-af7d71000d92",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-6-luna",
+          "mode": "list",
+          "cachedResultName": "gpt-6-luna"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        256,
+        208
+      ],
+      "id": "beba973a-1ddb-46e8-8076-3a5df4fc654e",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "RnwzaJlblkyNMYkg",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "message"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "7fecc587-e18f-498a-90b9-274296e83971",
+      "name": "When Executed by Another Workflow"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": true
+  },
+  "versionId": "3908b811-4db8-4413-abd3-caadfdfcea00",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "57b649fd095ca9426d3a22a4d8e65b6c31a4d777264e24ce4562511ee3ef2e9f"
+  },
+  "nodeGroups": [],
+  "id": "vjXP2kQuFDuKGFs3",
+  "tags": []
+}

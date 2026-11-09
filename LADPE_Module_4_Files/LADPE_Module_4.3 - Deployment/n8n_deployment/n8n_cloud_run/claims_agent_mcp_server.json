@@ -1,0 +1,88 @@
+{
+  "name": "claims_agent_mcp_server",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "0a310059-ccc8-42e5-9f68-aba0eb9cf874"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "6a8abc41-84de-4ef9-966c-17ba518b7315",
+      "name": "MCP Server Trigger",
+      "webhookId": "0a310059-ccc8-42e5-9f68-aba0eb9cf874"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "vjXP2kQuFDuKGFs3",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/vjXP2kQuFDuKGFs3",
+          "cachedResultName": "claims_agent"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('message', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "message"
+          ],
+          "schema": [
+            {
+              "id": "message",
+              "displayName": "message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        96,
+        208
+      ],
+      "id": "06acc0d5-ac1b-485d-9a21-8b6f60bc00e3",
+      "name": "Call 'claims_agent'"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Call 'claims_agent'": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": true
+  },
+  "versionId": "acf2c670-089e-4ddf-b9c9-2cb2fbbb347d",
+  "meta": {
+    "instanceId": "57b649fd095ca9426d3a22a4d8e65b6c31a4d777264e24ce4562511ee3ef2e9f"
+  },
+  "nodeGroups": [],
+  "id": "ECTixWobEPGkkvXe",
+  "tags": []
+}
