@@ -263,7 +263,41 @@ gcloud services enable run.googleapis.com cloudbuild.googleapis.com artifactregi
 ```
 > Your project needs **billing enabled**. Cloud Run has a generous free tier.
 
-### 4c. Deploy
+### 4c. Give the build robot permission to build (one time)
+
+When you deploy with `--source .`, Google uses a "robot" account in your project (the **default
+compute service account**) to build your container. **New projects don't give this robot any
+permissions**, so without this step the deploy fails with:
+
+```
+PERMISSION_DENIED: Build failed because the default service account is missing required IAM permissions
+```
+
+Run these commands to give the robot the **Cloud Run Builder** role. They find your project number for you.
+
+**Mac (Terminal):**
+```bash
+PROJECT_ID=$(gcloud config get-value project)
+PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format="value(projectNumber)")
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+  --member="serviceAccount:${PROJECT_NUMBER}-compute@developer.gserviceaccount.com" \
+  --role="roles/run.builder"
+```
+
+**Windows (PowerShell):**
+```powershell
+$PROJECT_ID = gcloud config get-value project
+$PROJECT_NUMBER = gcloud projects describe $PROJECT_ID --format="value(projectNumber)"
+gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:${PROJECT_NUMBER}-compute@developer.gserviceaccount.com" --role="roles/run.builder"
+```
+
+You should see a list of roles ending with `version: 1` (or similar). **Wait about 1 minute**
+before deploying so the permission has time to take effect.
+
+> You need to be the **Owner** of the project to run this. If you created the project yourself,
+> you are. On a work or school account, ask your admin to run it for you.
+
+### 4d. Deploy
 
 ```bash
 gcloud run deploy barbenheimer --source . --allow-unauthenticated
@@ -301,7 +335,10 @@ gcloud run services update barbenheimer --set-env-vars N8N_WEBHOOK_URL=https://Y
 | `python3: command not found` (Windows) | On Windows, type `python` instead of `python3`. |
 | `'python' is not recognized` (Windows) | Reinstall Python and **tick "Add python.exe to PATH"**, then open a new PowerShell. |
 | `Cannot connect to the Docker daemon` | Open Docker Desktop and wait until it says it's running. |
-| Cloud Run: `PERMISSION_DENIED` / billing error | Enable billing on the project and re-run step 4b. |
+| Cloud Run: `PERMISSION_DENIED: Build failed because the default service account is missing required IAM permissions` | You skipped step **4c**. Run it, wait 1 minute, then deploy again. |
+| Cloud Run: `PERMISSION_DENIED` on `add-iam-policy-binding` | Your account isn't the project **Owner**. Use a project you created, or ask your admin to run step 4c. |
+| Cloud Run: `Service account ...-compute@developer.gserviceaccount.com does not exist` / is disabled | Make sure step 4b finished, then run `gcloud iam service-accounts list`. If it's disabled, enable it with `gcloud iam service-accounts enable PROJECT_NUMBER-compute@developer.gserviceaccount.com`. |
+| Cloud Run: billing error | Enable billing on the project and re-run step 4b. |
 | Cloud Run page says `Forbidden` | You forgot `--allow-unauthenticated`. Re-run the deploy command with it. |
 
 ---
