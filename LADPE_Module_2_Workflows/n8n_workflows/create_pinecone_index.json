@@ -1,0 +1,96 @@
+{
+  "name": "create_pinecone_index",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Create a Pinecone index",
+        "formDescription": "Creates a classic dense-vector index (3072 dimensions, cosine) that the n8n Pinecone node can write to. Use lowercase letters, numbers and dashes only.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "index name",
+              "fieldName": "index_name",
+              "placeholder": "e.g. my-knowledge-base",
+              "requiredField": true
+            }
+          ]
+        },
+        "responseMode": "lastNode",
+        "options": {
+          "path": "create-pinecone-index"
+        }
+      },
+      "id": "3b38ea4c-5c9b-42a3-a578-c9acabad8def",
+      "name": "On form submission",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "44387d5d-eb1e-42a2-adae-bae17e724430"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.pinecone.io/indexes",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "pineconeApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Pinecone-API-Version",
+              "value": "2026-04"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ name: String($json.index_name || \"\").trim().toLowerCase().replace(/[^a-z0-9-]+/g, \"-\").replace(/^-+|-+$/g, \"\"), vector_type: \"dense\", dimension: 3072, metric: \"cosine\", spec: { serverless: { cloud: \"aws\", region: \"us-east-1\" } }, deletion_protection: \"disabled\", tags: { embedding_model: \"text-embedding-3-large\" } }) }}",
+        "options": {}
+      },
+      "id": "67497d91-8a41-43aa-b93f-b63fcc837f82",
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        224,
+        0
+      ],
+      "credentials": {
+        "pineconeApi": {
+          "id": "AenxqhStbcGSe8W4",
+          "name": "Pinecone account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": true
+  },
+  "versionId": "6d34b974-f4fc-4097-957b-c48dcf51029c",
+  "meta": {
+    "instanceId": "57b649fd095ca9426d3a22a4d8e65b6c31a4d777264e24ce4562511ee3ef2e9f"
+  },
+  "nodeGroups": [],
+  "id": "C2MAazHdnAwN3hoQ",
+  "tags": []
+}
