@@ -9,6 +9,7 @@ Configuration comes from environment variables:
     SMTP_PORT       (optional)  default: 587 (STARTTLS)
     MAIL_TO         (optional)  default: ladp-team@aisingapore.org
     MAIL_FROM       (optional)  default: SMTP_USERNAME
+    MAIL_REPLY_TO   (optional)  default: MAIL_TO
 """
 
 import os
@@ -33,11 +34,14 @@ def send_email(subject, text_body, html_body=None):
     port = int(os.environ.get("SMTP_PORT", "587"))
     mail_to = os.environ.get("MAIL_TO", "ladp-team@aisingapore.org")
     mail_from = os.environ.get("MAIL_FROM", username)
+    # Sender may be a no-reply account, so route replies back to the team.
+    reply_to = os.environ.get("MAIL_REPLY_TO", mail_to)
 
     msg = EmailMessage()
     msg["Subject"] = subject
     msg["From"] = formataddr(("LADP-Essentials notifier", mail_from))
     msg["To"] = mail_to
+    msg["Reply-To"] = reply_to
     msg["Date"] = formatdate(localtime=False)
     msg.set_content(text_body)
     if html_body:
