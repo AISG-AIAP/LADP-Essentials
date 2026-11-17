@@ -1,10 +1,10 @@
 # Module 2: Retrieval Augmented Generation (RAG)
 
-Reference materials for Module 2 — covering RAG fundamentals, embeddings, and vector databases.
+Reference materials for Module 2 — covering RAG fundamentals, embeddings, and vector databases, plus the demo workflow files. The n8n demos are the main track; the Flowise demo is optional.
 
 ---
 
-## 2.1 Introduction to RAG
+## 2.1 Retrieval Augmented Generation
 
 ### Key Concepts
 - **RAG** — a technique that augments LLM responses with retrieved external knowledge to reduce hallucinations and provide up-to-date information
@@ -18,7 +18,8 @@ Reference materials for Module 2 — covering RAG fundamentals, embeddings, and 
 ### Further Reading
 - [Lewis et al. — Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks (2020)](https://arxiv.org/abs/2005.11401) — The original RAG paper
 - [LangChain — RAG Tutorial](https://python.langchain.com/docs/tutorials/rag/) — Step-by-step guide to building a RAG pipeline
-- [Flowise — RAG with Flowise](https://docs.flowiseai.com/tutorials/rag) — Building RAG applications with Flowise
+- [n8n — RAG in n8n](https://docs.n8n.io/advanced-ai/rag-in-n8n/) — Building RAG workflows with vector stores in n8n
+- [Flowise — RAG with Flowise](https://docs.flowiseai.com/tutorials/rag) — Building RAG applications in Flowise (Flowise track, optional)
 - [LangChain — Text Splitters](https://python.langchain.com/docs/concepts/text_splitters/) — Implementations of various chunking strategies
 - [Greg Kamradt — Semantic Chunking (Video)](https://www.youtube.com/watch?v=8OJC21T2SL4) — Visual explanation of semantic chunking
 - [ChunkViz](https://www.chunkviz.com/) — Visualizing Chunks
@@ -27,7 +28,7 @@ Reference materials for Module 2 — covering RAG fundamentals, embeddings, and 
 
 ---
 
-## 2.2 Understanding Embeddings
+## 2.2 Embeddings
 
 ### Key Concepts
 - **Embeddings** — vector representations that capture semantic meaning of text
@@ -51,7 +52,7 @@ Reference materials for Module 2 — covering RAG fundamentals, embeddings, and 
 
 ---
 
-## 2.3 Vector Indexes and Databases
+## 2.3 Vector Stores
 
 ### Key Concepts
 - **Vector Store vs. Vector Index**: a store is a full database (storage, metadata, CRUD); an index is the data structure enabling fast search
@@ -79,11 +80,17 @@ Reference materials for Module 2 — covering RAG fundamentals, embeddings, and 
 - [Milvus](https://milvus.io/) — Scalable open-source vector database for production workloads
 - [Malkov & Yashunin — HNSW Paper (2018)](https://arxiv.org/abs/1603.09320) — The original HNSW algorithm paper
 
-### Qdrant Vector Store (used in the n8n demos)
+---
+
+## 2.3.1 Demo: Building a RAG Application (n8n)
+
+Sample documents for ingestion are in [`documents_for_rag/`](documents_for_rag/).
+
+### Demo: Building a RAG Application in n8n with Qdrant
 - **Qdrant** — an open-source vector database (uses HNSW indexing, supports metadata filtering and hybrid search). Run it locally with Docker or use the free tier of **Qdrant Cloud**
 - **Collection** — Qdrant's equivalent of a table; this course uses one per document (`barbie`, `oppenheimer`)
 - **Vector size must match your embedding model** — e.g., OpenAI `text-embedding-3-large` produces 3072-dimensional vectors, `text-embedding-3-small` produces 1536. Use the same embedding model for ingestion and retrieval
-- **n8n demo workflows** — `n8n_workflows/create_qdrant_vectorstore.json` uploads a PDF via a form, chunks it, embeds it, and inserts it into a Qdrant collection; `n8n_workflows/rag_workflow_qdrant.json` is an AI Agent that uses the Barbie and Oppenheimer collections as retrieval tools
+- **n8n demo workflows** — [`create_qdrant_vectorstore.json`](n8n_workflows/create_qdrant_vectorstore.json) uploads a PDF via a form, chunks it, embeds it, and inserts it into a Qdrant collection; [`rag_workflow_qdrant.json`](n8n_workflows/rag_workflow_qdrant.json) is an AI Agent that uses the Barbie and Oppenheimer collections as retrieval tools
 - **Credentials** — in n8n, create a **Qdrant API** credential with your cluster URL and API key
 
 - [Qdrant — Cloud Quickstart](https://qdrant.tech/documentation/cloud-quickstart/) — Create a free Qdrant Cloud cluster and get your URL and API key
@@ -92,4 +99,27 @@ Reference materials for Module 2 — covering RAG fundamentals, embeddings, and 
 - [Qdrant — Hybrid Queries](https://qdrant.tech/documentation/concepts/hybrid-queries/) — Combining dense and sparse (keyword) search in Qdrant
 - [n8n — Qdrant Vector Store Node](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.vectorstoreqdrant/) — Insert, retrieve, and use Qdrant as an agent tool in n8n
 - [n8n — Qdrant Credentials](https://docs.n8n.io/integrations/builtin/credentials/qdrant/) — Connecting n8n to your Qdrant cluster
-- [Flowise — Qdrant](https://docs.flowiseai.com/integrations/langchain/vector-stores/qdrant) — Using Qdrant as the vector store in Flowise
+- [Flowise — Qdrant](https://docs.flowiseai.com/integrations/langchain/vector-stores/qdrant) — Using Qdrant as the vector store in Flowise (Flowise track, optional)
+
+### Demo: Building a RAG Application in n8n with Pinecone
+- **Pinecone** — a fully managed vector database with a free Starter plan. Each **index** holds the vectors for a knowledge base
+- **n8n demo workflows** — [`create_pinecone_vectorstore.json`](n8n_workflows/create_pinecone_vectorstore.json) uploads PDF, TXT or DOCX files via a form, chunks and embeds them, and inserts them into a Pinecone index; [`Rag_workflow.json`](n8n_workflows/Rag_workflow.json) is an AI Agent that uses Pinecone indexes as retrieval tools
+- **Credentials** — in n8n, create a **Pinecone API** credential with your Pinecone API key
+
+- [n8n — Pinecone Vector Store Node](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.vectorstorepinecone/) — Insert, retrieve, and use Pinecone as an agent tool in n8n
+- [n8n — Pinecone Credentials](https://docs.n8n.io/integrations/builtin/credentials/pinecone/) — Connecting n8n to Pinecone
+
+### Follow-up: Setting Up a Pinecone Index in n8n with an HTTP Request
+- **Why** — after Pinecone's update to integrated embedding models, new indexes created in the Pinecone console may not work with the n8n Pinecone node. This follow-up creates a classic dense-vector index (3072 dimensions, cosine, matching OpenAI `text-embedding-3-large`) with an HTTP request, so you can finish the Pinecone demo above
+- **n8n workflow** — [`create_pinecone_index.json`](n8n_workflows/create_pinecone_index.json): a form asks for the index name, then an **HTTP Request** node calls the Pinecone API to create the index. It uses your Pinecone API credential
+
+- [Pinecone — Create an Index (API reference)](https://docs.pinecone.io/reference/api/latest/control-plane/create_index) — The API call the workflow makes
+- [n8n — HTTP Request Node](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.httprequest/) — Calling any API from n8n
+
+---
+
+## 2.3.2 Demo: Building a RAG Application (Flowise, optional)
+
+Optional. For learners following the Flowise track.
+
+- [`LADPE_Module_2.3_demo - my_rag_bot Agents.json`](flowise_workflows/LADPE_Module_2.3_demo%20-%20my_rag_bot%20Agents.json) — The RAG chatbot built in the Flowise demo

@@ -1,10 +1,10 @@
-# Module 1: Foundations of LLM Applications
+# Module 1: LLM Foundations & Prompt Engineering
 
-Reference materials for Module 1 — covering tokenization, LLM communication basics, and prompt engineering.
+Reference materials for Module 1 — covering tokenization, LLM communication, and prompt engineering, plus the demo workflow files for each lesson. The n8n demos are the main track; the Flowise demos are optional.
 
 ---
 
-## 1.1 Foundations and Tokenization
+## 1.1 Why Tokens?
 
 ### Key Concepts
 - **Tokenization** — the process of breaking text into smaller units (tokens) that LLMs can process
@@ -24,7 +24,7 @@ Reference materials for Module 1 — covering tokenization, LLM communication ba
 
 ---
 
-## 1.2 LLM Communication Basics
+## 1.2 LLM Communications
 
 ### Key Concepts
 - **Message types**: User Message, System Message, Assistant Message
@@ -38,6 +38,21 @@ Reference materials for Module 1 — covering tokenization, LLM communication ba
 - [PromptHub - The Difference Between System Messages and User Messages in Prompt Engineering](https://www.prompthub.us/blog/the-difference-between-system-messages-and-user-messages-in-prompt-engineering) — Covers the difference between system messages and user messages in Prompt Engineering
 - [Liu et al. — Lost in the Middle (2023)](https://arxiv.org/abs/2307.03172) — The research paper behind the Lost-in-the-Middle finding
 - [Agenta — Top techniques to Manage Context Lengths in LLMs](https://agenta.ai/blog/top-6-techniques-to-manage-context-length-in-llms) — Cover several techniques to overcome LLM token limits
+
+---
+
+## 1.2.1 Demo: Working with LLM Messages (n8n)
+
+- [`Working_with_LLM_messages.json`](n8n_workflows/Working_with_LLM_messages.json) — Import into n8n to follow *Demo: Working with LLM Messages in n8n*
+
+---
+
+## 1.2.2 Demo: Working with LLM Messages (Flowise, optional)
+
+Optional. For learners following the Flowise track.
+
+- [`LADPE_Module_1.2_demo_1 - my_first_chatbot Chatflow.json`](flowise_workflows/LADPE_Module_1.2_demo_1%20-%20my_first_chatbot%20Chatflow.json) — My first chatbot
+- [`LADPE_Module_1.2_demo_2 - my_first_agent Agents.json`](flowise_workflows/LADPE_Module_1.2_demo_2%20-%20my_first_agent%20Agents.json) — My first agent
 
 ---
 
@@ -60,3 +75,41 @@ Reference materials for Module 1 — covering tokenization, LLM communication ba
 - [OpenAI — Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs) — Guide to getting reliable JSON from LLMs
 - [Anthropic — Tool Use for Structured Output](https://docs.anthropic.com/en/docs/build-with-claude/tool-use#json-mode) — Using tool definitions to enforce output schemas
 - [Humanloop - Structured Outputs: Everything You Should Know](https://humanloop.com/blog/structured-outputs) - Guide on structured outputs
+
+---
+
+## 1.3.1 Demo: Basic Prompt Engineering (n8n)
+
+- [`prompt_engineering_workflow.json`](n8n_workflows/prompt_engineering_workflow.json) — Import into n8n to follow *Demo: Basic Prompt Engineering in n8n*
+
+---
+
+## 1.3.2 Demo: Chain-of-Thought Prompting (n8n)
+
+- [`chain_of_thought_workflow.json`](n8n_workflows/chain_of_thought_workflow.json) — Import into n8n to follow *Demo: Chain-of-Thought Prompting in n8n*
+
+---
+
+## 1.3.3 Demo: Prompt Chaining (n8n)
+
+- **Setup Guide:** [Prompt Chaining in n8n — copy-paste guide](n8n_workflows/LADPE_Module_1.3.5_prompt_chaining_n8n_copy_paste_guide.html) — The prompts, settings and JSON structures to paste into each node
+- [`Prompt_chaining_workflow.json`](n8n_workflows/Prompt_chaining_workflow.json) — The finished prompt chaining workflow
+- [`LADPE_Module_1.3.5_prompt_chaining_research_agent_json_structure.json`](n8n_workflows/LADPE_Module_1.3.5_prompt_chaining_research_agent_json_structure.json) and [`LADPE_Module_1.3.5_prompt_chaining_analysis_agent_json_structure.json`](n8n_workflows/LADPE_Module_1.3.5_prompt_chaining_analysis_agent_json_structure.json) — Structured output schemas for the Research and Analysis agents
+
+---
+
+## 1.3.4 Demo: Basic Prompt Engineering (Flowise, optional)
+
+Optional. For learners following the Flowise track.
+
+- [`LADPE_Module_1.3_demo_Part1_demo_1 - zero_shot_example Agents.json`](flowise_workflows/LADPE_Module_1.3_demo_Part1_demo_1%20-%20zero_shot_example%20Agents.json) — Zero-shot example
+- [`LADPE_Module_1.3_demo_Part1_demo_2 - few_shot_example Agents.json`](flowise_workflows/LADPE_Module_1.3_demo_Part1_demo_2%20-%20few_shot_example%20Agents.json) — Few-shot example
+- [`LADPE_Module_1.3_demo_Part1_demo_3 - COT_example Agents.json`](flowise_workflows/LADPE_Module_1.3_demo_Part1_demo_3%20-%20COT_example%20Agents.json) — Chain-of-thought example
+
+---
+
+## 1.3.5 Demo: Prompt Chaining (Flowise, optional)
+
+Optional. For learners following the Flowise track.
+
+- [`LADPE_Module_1.3_demo_Part2 - prompt_chaining_example Agents.json`](flowise_workflows/LADPE_Module_1.3_demo_Part2%20-%20prompt_chaining_example%20Agents.json) — Prompt chaining example

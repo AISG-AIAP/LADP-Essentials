@@ -1,14 +1,54 @@
-# Module 0: Setup and Prerequisites
+# Module 0: Course Overview
 
 **Module 0** is the introductory module for this course: it gives an overview of the programme and what follows, then moves into practical setup.
 
-Reference materials for getting started — installing Docker, setting up Flowise (used in the current videos) or n8n (coming soon), and provisioning LLM API credentials.
+Reference materials for getting started — setting up n8n (used in the course videos; n8n Cloud recommended, or run it locally with Docker), and provisioning LLM API credentials. Setup steps for the optional Flowise track are further down.
 
 ---
 
-## Install Docker Desktop
+## What's in Module 0
 
-Docker is the primary way to run both **n8n** and **Flowise** on your own computer. The Docker image comes with everything pre-installed, so you don't need to set up Node.js.
+| Chapter | Track |
+|---|---|
+| Welcome to LADP Essentials and Course Introduction | Core |
+| 0.1 Introduction to NLP and LLMs | Core |
+| 0.2 How to Use This Course: Learning Tracks and Resources | Core |
+| [0.3 Set Up n8n: Hosted Access](#03-set-up-n8n-hosted-access-n8n-cloud-recommended) | n8n |
+| [0.4 Set Up n8n Locally with Docker](#04-set-up-n8n-locally-with-docker-alternative-to-hosted) (alternative to hosted) | n8n |
+| [0.5 Install an IDE and Clone the Course Repo](#05-install-an-ide-and-clone-the-course-repo) | Core |
+| [0.6 Set Up Flowise on Mac or Windows](#06-set-up-flowise-on-mac-or-windows-flowise-optional) | Flowise (optional) |
+
+You need either 0.3 or 0.4, not both. Everyone needs an LLM API key, see [Provisioning LLM API Credentials](#provisioning-llm-api-credentials).
+
+---
+
+## Learning Tracks: n8n and Flowise (optional)
+
+Flowise reached **end of life on 31 August 2026** and no longer receives fixes or updates, so the course now uses **n8n**. Each module has **Core** lessons for everyone, **n8n** demos (the main track), and **Flowise** demos (optional). The n8n workflow files for each module are in its `n8n_workflows/` folder, and the Flowise ones are in `flowise_workflows/`. The concepts (prompts, chain-of-thought, prompt chaining, RAG, agents, tools) are the same in any tool.
+
+> **New to the course? Use n8n.** The n8n demos are the main track, and all new learners should follow them. The Flowise demos are optional, for learners who started with Flowise (see [0.6 Set Up Flowise](#06-set-up-flowise-on-mac-or-windows-flowise-optional) below). Flowise no longer receives updates and may be removed from the course in future. The [Flowise to n8n table](#flowise-to-n8n-what-maps-to-what) below compares the equivalent pieces in each tool.
+
+---
+
+## 0.3 Set Up n8n: Hosted Access (n8n Cloud, recommended)
+
+**n8n Cloud is the recommended way to follow the course.** It runs in your browser, so there is nothing to install.
+
+1. Sign up at [n8n.io](https://n8n.io/). New users get a **2-week free trial** (at the time of writing). The trial starts when you sign up, so you may want to watch the videos first and sign up when you're ready to build
+2. Once your workspace opens, import the course workflows and add your LLM credentials (see [Your First n8n Workflow](#your-first-n8n-workflow) below)
+3. **Export your workflows as JSON before the trial ends** so you keep a copy. To keep going after the trial, subscribe to a Cloud plan or switch to [0.4 Set Up n8n Locally with Docker](#04-set-up-n8n-locally-with-docker-alternative-to-hosted) and import your exported files
+
+If you already have an n8n account (e.g., through work), just log in. n8n Cloud is kept up to date automatically, so some screens may look slightly different from the course videos.
+
+---
+
+## 0.4 Set Up n8n Locally with Docker (alternative to hosted)
+
+Use this if you prefer not to use n8n Cloud, or want to keep using n8n for free after the trial. The free **Community Edition** runs on your own computer.
+
+### Step 1 — Install Docker Desktop
+
+Docker runs n8n (and Flowise, for the optional Flowise track) on your own computer. The Docker image comes with everything pre-installed, so you don't need to set up Node.js.
 
 1. Download [Docker Desktop](https://www.docker.com/products/docker-desktop/) for your computer (Mac: pick **Apple Silicon** or **Intel chip**; Windows: install **WSL 2** first with `wsl --install` in an administrator PowerShell, then restart)
 2. Install it and open Docker Desktop. Wait until it shows **"Engine running"**
@@ -23,16 +63,9 @@ You should see **"Hello from Docker!"**. For detailed, screen-by-screen Mac and 
 
 > Docker Desktop must be **open and running** whenever you use `docker` commands.
 
----
+### Step 2 — Start n8n
 
-## n8n Setup
-
-Flowise reached **end of life on 31 August 2026** and no longer receives fixes or updates, so we are moving the course to **n8n**, which will become the primary tool once the n8n demo videos are released. n8n versions of the hands-on demos are already provided as workflow files. The concepts (prompts, chain-of-thought, prompt chaining, RAG, agents, tools) are the same in any tool.
-
-> **n8n demo videos are coming soon.** The demo videos using n8n have not been released yet, so please stay tuned. Until they are released, please **continue to follow the Flowise videos and use the Flowise demo workflows** (see [Flowise Installation](#flowise-installation) below). The n8n workflow files are available if you'd like to try n8n early, and the [Flowise to n8n table](#flowise-to-n8n-what-maps-to-what) below helps you find the equivalent pieces.
-
-### Option A — Run n8n with Docker (free, Community Edition)
-Once Docker Desktop is running (see [Install Docker Desktop](#install-docker-desktop) above), run:
+Once Docker Desktop is running, run:
 
 ```bash
 docker run -d --name n8n -p 5678:5678 -v n8n_data:/home/node/.n8n docker.n8n.io/n8nio/n8n:2.46.6
@@ -46,9 +79,6 @@ docker run -d --name n8n -p 5678:5678 -v n8n_data:/home/node/.n8n docker.n8n.io/
 
 Then open **http://localhost:5678** and create your local owner account.
 
-### Option B — n8n Cloud (nothing to install)
-New users get a **2-week free trial** (at the time of writing). The trial starts when you sign up, so watch the videos first (or wait for the n8n demo videos, which are coming soon) and sign up at [n8n.io](https://n8n.io/) when you're ready to build. Export your workflows as JSON before the trial ends. If you already have an n8n account (e.g., through work), just log in.
-
 ### Everyday Docker Commands
 These work for both n8n and Flowise; replace `n8n` with `flowise` for the Flowise container.
 
@@ -61,6 +91,10 @@ docker ps            # list running containers
 
 > **Don't run the `docker run` command a second time.** It will fail with *"container name already in use"*. Use `docker start n8n` instead. To start completely fresh, run `docker rm -f n8n` and then the `docker run` command again; your data in the `n8n_data` volume is kept.
 
+---
+
+## Using n8n
+
 ### Your First n8n Workflow
 1. Download [My_first_workflow.json](n8n_workflows/My_first_workflow.json) from this folder
 2. In n8n, create a new workflow, open the **…** menu (top right) and choose **Import from File**
@@ -68,7 +102,7 @@ docker ps            # list running containers
 4. Click **Open chat** at the bottom of the canvas and send a message to test it
 
 ### Flowise to n8n: What Maps to What
-If you are watching a Flowise video and building in n8n, use this table to find the equivalent piece.
+If you have used Flowise or watched both the Flowise and n8n videos, use this table to compare the equivalent pieces in each tool.
 
 | In Flowise | In n8n |
 |---|---|
@@ -91,7 +125,7 @@ If you are watching a Flowise video and building in n8n, use this table to find 
 | Imported workflow shows red warning icons on the Chat Model nodes | Credentials are not included in workflow files. Open each Chat Model node and select or create your own credential |
 | The model name in an imported workflow is not available | Pick any current model from the dropdown in the Chat Model node. The demo concepts do not depend on a specific model |
 | **Import from File** is greyed out or missing | Make sure you are inside a workflow (create a new one first). You can also copy the JSON and paste it onto the canvas with Ctrl/Cmd + V |
-| The Cloud trial has ended and I can no longer edit workflows | Subscribe to a Cloud plan, or [run n8n with Docker](#option-a--run-n8n-with-docker-free-community-edition) and import the JSON files you exported |
+| The Cloud trial has ended and I can no longer edit workflows | Subscribe to a Cloud plan, or [run n8n locally with Docker](#04-set-up-n8n-locally-with-docker-alternative-to-hosted) and import the JSON files you exported |
 | `localhost:5678` does not load after running Docker | Check Docker Desktop is running and that nothing else is using port 5678. Run `docker logs n8n` to look for errors |
 | Data passed between nodes looks wrong or shows `undefined` | Check the field is set to **Expression** (not **Fixed**) and the expression points at the right node. See the [n8n Expressions docs](https://docs.n8n.io/code/expressions/) |
 
@@ -102,12 +136,31 @@ If you are watching a Flowise video and building in n8n, use this table to find 
 
 ---
 
-## Flowise Installation
+---
 
-The course videos demonstrate the demos in Flowise. If you'd like to follow them in Flowise, **Docker is the primary way to install it**.
+## 0.5 Install an IDE and Clone the Course Repo
+
+An IDE (code editor) makes it easy to open the course files, such as workflow JSON files, notebooks and deployment code. Cloning the repo gives you a local copy of all the course materials.
+
+1. Install an IDE, for example [Visual Studio Code](https://code.visualstudio.com/download)
+2. Install [Git](https://git-scm.com/downloads) if you don't have it (check with `git --version`)
+3. Clone the course repo and open it in your IDE:
+
+```bash
+git clone https://github.com/AISG-AIAP/LADP-Essentials.git
+cd LADP-Essentials
+```
+
+To get the latest updates later, run `git pull` inside the folder. If you'd rather not use Git, click **Code > Download ZIP** on the [GitHub page](https://github.com/AISG-AIAP/LADP-Essentials).
+
+---
+
+## 0.6 Set Up Flowise on Mac or Windows (Flowise, optional)
+
+This section is for learners following the optional Flowise track. New learners should use [n8n](#learning-tracks-n8n-and-flowise-optional) instead. Flowise reached end of life and may be removed from the course in future. If you do use Flowise, **Docker is the primary way to install it**.
 
 ### Install via Docker
-Once Docker Desktop is running (see [Install Docker Desktop](#install-docker-desktop) above), run:
+Once Docker Desktop is running (see [Step 1 — Install Docker Desktop](#step-1--install-docker-desktop) above), run:
 
 ```bash
 docker run -d --name flowise -p 3000:3000 -v flowise_data:/root/.flowise flowiseai/flowise:3.1.3
@@ -117,19 +170,19 @@ docker run -d --name flowise -p 3000:3000 -v flowise_data:/root/.flowise flowise
 - `--name flowise` — names the container so you can stop/start it easily
 - `-p 3000:3000` — makes Flowise available on port 3000 of your computer
 - `-v flowise_data:/root/.flowise` — saves your flows, credentials and settings in a Docker volume called `flowise_data`, so **your work is kept** when the container is stopped, restarted or removed. Flowise 3.1.3 runs as the root user and stores its data in `/root/.flowise`. (From Flowise 3.1.4, the image runs as the `node` user and the path is `/home/node/.flowise` instead, so keep the path matched to the version you run.)
-- `flowiseai/flowise:3.1.3` — pins Flowise **3.1.3** (works on Mac Apple Silicon, Mac Intel and Windows). The course videos use 3.1.0; 3.1.3 is a later patch release in the same 3.1 line. As Flowise is end of life, pinning a version keeps your setup stable
+- `flowiseai/flowise:3.1.3` — pins Flowise **3.1.3** (works on Mac Apple Silicon, Mac Intel and Windows). The Flowise videos use 3.1.0; 3.1.3 is a later patch release in the same 3.1 line. As Flowise is end of life, pinning a version keeps your setup stable
 
 The first run downloads the image, which takes a few minutes. Then open **http://localhost:3000** in your browser. Use the [everyday Docker commands](#everyday-docker-commands) above with `flowise` as the container name (e.g., `docker start flowise`).
 
-### Install via npm (as shown in the course videos)
-The course videos install Flowise with npm, using **Flowise 3.1.0** on **Node.js 20.20.1**. This requires [Node.js](https://nodejs.org/):
+### Install via npm (as shown in the Flowise videos)
+The Flowise videos install Flowise with npm, using **Flowise 3.1.0** on **Node.js 20.20.1**. This requires [Node.js](https://nodejs.org/):
 
 ```bash
 npm install -g flowise@3.1.0
 npx flowise start
 ```
 
-The npm method stays on **3.1.0** because Flowise **3.1.3 and later require Node.js 24**, while the videos use Node.js 20. The Docker image includes its own Node.js, which is why the Docker method can use the newer 3.1.3. If you run into errors, see the [FAQ](../FAQ.md#3-a-dependency-expects-node-22-or-my-node-version-is-eol).
+The npm method stays on **3.1.0** because Flowise **3.1.3 and later require Node.js 24**, while those videos use Node.js 20. The Docker image includes its own Node.js, which is why the Docker method can use the newer 3.1.3. If you run into errors, see the [FAQ](../FAQ.md#3-a-dependency-expects-node-22-or-my-node-version-is-eol).
 
 ### References
 - [Flowise](https://flowiseai.com/) — Official Flowise website
@@ -140,7 +193,7 @@ The npm method stays on **3.1.0** because Flowise **3.1.3 and later require Node
 - [Node.js Download](https://nodejs.org/en/download) — Install Node.js (required for the npm method)
 
 ### Flowise Cloud
-Flowise Cloud, the hosted version of Flowise, has been shut down as part of the Flowise sunset, so it's no longer an option. To use Flowise, install it with Docker or npm as above. If you don't want to install anything, use [n8n Cloud](#option-b--n8n-cloud-nothing-to-install) instead.
+Flowise Cloud, the hosted version of Flowise, has been shut down as part of the Flowise sunset, so it's no longer an option. To use Flowise, install it with Docker or npm as above. If you don't want to install anything, use [n8n Cloud](#03-set-up-n8n-hosted-access-n8n-cloud-recommended) instead.
 
 ---
 
@@ -252,7 +305,7 @@ To see the full, up-to-date list, filter the [model catalogue by price = 0](http
 
 ---
 
-## Connecting Credentials in Flowise
+## Connecting Credentials in Flowise (Flowise, optional)
 
 In Flowise, credentials are added via the **Credentials** section in the sidebar. Each LLM node (e.g., ChatOpenAI, ChatAnthropic) will prompt you to select or create a credential where you paste your API key.
 

@@ -1,10 +1,10 @@
-# LADP Essentials — Phase 2: Capstone Project
+# LADP Essentials — Module 5: Capstone Project
 
 ## Overview
 
 In this capstone project, you will build a working LLM application using either a **RAG (Retrieval Augmented Generation)** pipeline or an **Agentic Workflow** — applying the concepts you learned in Modules 1–4.
 
-**Choose your framework:** You may use **Flowise** or **n8n** (both covered in the course), or another low-code / LLM framework you're comfortable with. The scenarios describe *what* to build, not which tool to build it in.
+**Choose your framework:** We recommend **n8n**, the tool used in the course videos. You may also use **Flowise** (the optional Flowise track, now end of life) or another low-code / LLM framework you're comfortable with. The scenarios describe *what* to build, not which tool to build it in.
 
 Choose **one** of the 7 scenarios below. Each scenario uses a publicly available knowledge base document — download the document you need from the source links below.
 
@@ -82,8 +82,8 @@ Example: `git checkout -b add-alice-tan-contribution`
 
    **a. Exported Workflow File**
    - Export your completed workflow from the framework you used:
-     - **Flowise:** `Chatflow/Agentflow > Settings > Export`
      - **n8n:** open the workflow → `...` menu (beside workflow name) → `Export JSON`
+     - **Flowise:** `Chatflow/Agentflow > Settings > Export`
      - **Other frameworks:** export the workflow file in its native format (or include your source code if there's no export option)
    - Filename: `<your_name>_scenario_<number>.json` (use the matching extension if your framework doesn't export JSON)
    - Example: `alice_tan_scenario_3.json`
@@ -93,7 +93,7 @@ Example: `git checkout -b add-alice-tan-contribution`
 
    A markdown file (1 page max) explaining your workflow, covering:
    - Which scenario you chose and why
-   - Which framework you used (Flowise, n8n, etc.)
+   - Which framework you used (n8n, Flowise, etc.)
    - Your design decisions (e.g., chunking strategy, model choice, prompt design)
    - Any challenges faced and how you resolved them
    - Screenshots of your workflow canvas and at least 3 sample conversations
@@ -346,7 +346,7 @@ Once approved, your instructor will merge the PR and your contribution will appe
 
 ## General Requirements (All Scenarios)
 
-1. **Framework**: Use Flowise, n8n, or another framework of your choice
+1. **Framework**: Use n8n (recommended), Flowise, or another framework of your choice
 2. **Model**: Use any LLM available in your chosen framework (e.g., OpenAI GPT-4o-mini, Azure OpenAI, etc.)
 3. **Embeddings**: Use an appropriate embedding model for RAG scenarios
 4. **Vector Store**: Use any vector store supported by your framework (e.g., In-Memory, Chroma, Qdrant, Pinecone, etc.)
