@@ -1,10 +1,10 @@
 # LADP Essentials — Frequently Asked Questions
 
-A central place for common questions and fixes across the course — n8n and Flowise setup, installation issues, and general course questions.
+A central place for common questions and fixes across the course — general course questions, n8n and Flowise setup, and installation issues.
 
 If your problem isn't covered here, please [open an issue](https://github.com/AISG-AIAP/LADP-Essentials/issues) or contact the LADP team.
 
-> **Course update: n8n demo videos coming soon.** We are preparing new demo videos that walk through the hands-on exercises in **n8n**, and this repository is being updated gradually to match (n8n workflows, setup guides and deployment guides are being added module by module). Until the n8n videos are released, please **continue to follow the Flowise videos and use the Flowise demo workflows** (in each module's `flowise_workflows/` folder). The n8n workflow files are already available if you'd like to try n8n early. Setup steps for both are in [Module 0](LADPE_Module_0_Files/README.md). Please stay tuned for more updates.
+> **Course update: the course now uses n8n.** Flowise reached end of life on 31 August 2026, so the hands-on demos have moved to **n8n**, and the n8n demo videos are now the main course videos. New learners should follow the n8n videos and use the n8n workflows (in each module's `n8n_workflows/` folder). The Flowise demos and workflows (in `flowise_workflows/`) are kept as an optional track for learners who started with them, but Flowise no longer receives fixes or updates and may be removed from the course in future. Setup steps for both are in [Module 0](LADPE_Module_0_Files/README.md).
 
 <!--
 ──────────────────────────────────────────────────────────────────────
@@ -49,40 +49,44 @@ Adding content is meant to be a copy-paste job — follow the patterns below.
 
 ## Contents
 
-- **Installation and Setup**
+- **Installation and Setup (Flowise, optional)**
   - [1. Which version of Flowise should I install?](#1-which-version-of-flowise-should-i-install)
   - [2. The install keeps looping / distutils error](#2-the-install-keeps-looping--modulenotfounderror-no-module-named-distutils)
   - [3. A dependency expects Node 22, or my Node version is EOL](#3-a-dependency-expects-node-22-or-my-node-version-is-eol)
   - [4. flowise start fails with a missing module (e.g. turndown)](#4-flowise-start-fails-with-cannot-find-module-turndown-or-another-module)
   - [5. How do I switch to a clean Docker setup (e.g. after a broken local install)?](#5-how-do-i-switch-to-a-clean-docker-setup-eg-after-a-broken-local-install)
 - **General Course Questions**
-  - [6. Flowise is being discontinued. Is the course still worth taking?](#6-flowise-is-being-discontinued-is-the-course-still-worth-taking)
+  - [6. Flowise has been discontinued. Is the course still worth taking?](#6-flowise-has-been-discontinued-is-the-course-still-worth-taking)
   - [7. Do I need coding experience to take this course?](#7-do-i-need-coding-experience-to-take-this-course)
-  - [8. Do I have to install Flowise locally? Can I use the hosted version?](#8-do-i-have-to-install-flowise-locally-can-i-use-the-hosted-version)
+  - [8. Do I have to install anything locally? Can I use a hosted version?](#8-do-i-have-to-install-anything-locally-can-i-use-a-hosted-version)
   - [9. Which LLM provider / API key do I need?](#9-which-llm-provider--api-key-do-i-need)
-  - [10. Do I have to use Flowise? What about other tools?](#10-do-i-have-to-use-flowise-what-about-other-tools)
+  - [10. Which tool should I use, n8n or Flowise? What about other tools?](#10-which-tool-should-i-use-n8n-or-flowise-what-about-other-tools)
   - [11. How do I submit my capstone project?](#11-how-do-i-submit-my-capstone-project)
 - **Building & Running Workflows**
   - [12. Tavily search errors in the agent](#12-tavily-search-errors-in-the-agent)
   - [13. Adding an MCP server to Flowise when running in Docker](#13-adding-an-mcp-server-to-flowise-when-running-in-docker)
   - [14. Azure OpenAI vs Azure AI Foundry credentials](#14-azure-openai-vs-azure-ai-foundry-credentials)
   - [15. Azure OpenAI 429 rate-limit error](#15-azure-openai-429-rate-limit-error)
+  - [16. Where do I find help for n8n problems?](#16-where-do-i-find-help-for-n8n-problems)
 
 ---
 
-## Installation and Setup
+## Installation and Setup (Flowise, optional)
 
-For step-by-step installation instructions, see **[Module 0](LADPE_Module_0_Files/README.md)**. Most local installation problems come down to your **Node.js version**, your **Python build tools**, or a known **Flowise packaging bug** — *not* the Flowise version you picked. Installing an older Flowise version usually won't help, so work through the issues below instead.
+> **On the n8n track?** You can skip this section. n8n setup (the hosted **n8n Cloud** free trial, recommended, or a local Docker install) is covered in [Module 0](LADPE_Module_0_Files/README.md#03-set-up-n8n-hosted-access-n8n-cloud-recommended), and common n8n problems are in [question 16](#16-where-do-i-find-help-for-n8n-problems).
+
+The questions in this section are for learners on the **optional Flowise track**. For step-by-step installation instructions, see **[Module 0](LADPE_Module_0_Files/README.md#06-set-up-flowise-on-mac-or-windows-flowise-optional)**. Most local installation problems come down to your **Node.js version**, your **Python build tools**, or a known **Flowise packaging bug** — *not* the Flowise version you picked. Installing an older Flowise version usually won't help, so work through the issues below instead.
 
 > **Tip:** If you get stuck, the fastest path to a working setup is the **Docker method**, where everything is pre-installed and there is no local build step (see [Module 0](LADPE_Module_0_Files/README.md)). Flowise Cloud, the hosted version, has been shut down, so a local install is the only way to run Flowise. The fixes below are for those who want the local npm install.
 
 ### 1. Which version of Flowise should I install?
 
-The course videos use **Flowise 3.1.0** on a **Node.js / npm environment version 20.20.1**. By the time you watch this, there will likely be a newer release. You have a few options:
+Use **Flowise 3.1.3**. Don't install the latest version: later builds have shipped broken (for example, 3.1.4 failed to start), and as Flowise has reached end of life, pinning a version keeps your setup stable.
 
-- **Match the videos exactly** — follow the installation steps shown in the video but pin the Flowise version: `npm install -g flowise@3.1.0` (on Node 20.20.1).
-- **Use the latest version** — follow the [official Flowise documentation](https://docs.flowiseai.com/getting-started) to install the current release. Newer versions may require a newer Node.js (see [question 3](#3-a-dependency-expects-node-22-or-my-node-version-is-eol) below).
-- **Use Docker (simplest)** — skip the Node.js/npm setup entirely. The Docker image comes with everything pre-installed, so you avoid the version and build issues below (see [question 5](#5-how-do-i-switch-to-a-clean-docker-setup-eg-after-a-broken-local-install)).
+- **Docker (recommended)** — run the image pinned to **3.1.3**: `flowiseai/flowise:3.1.3`. It comes with everything pre-installed, so you avoid the Node.js and build issues below (see [question 5](#5-how-do-i-switch-to-a-clean-docker-setup-eg-after-a-broken-local-install)). Always include the `:3.1.3` tag; an untagged image pulls `latest`.
+- **npm (as shown in the Flowise videos)** — the videos use **Flowise 3.1.0** on **Node.js 20.20.1**, so pin that version: `npm install -g flowise@3.1.0`. The npm method stays on 3.1.0 because Flowise 3.1.3 and later require Node.js 24. Don't run `npm install -g flowise` without a version, as that installs the latest release.
+
+3.1.3 is a later patch release in the same 3.1 line as the videos, so everything in the Flowise videos works the same way.
 
 ### 2. The install keeps looping / `ModuleNotFoundError: No module named 'distutils'`
 
@@ -102,7 +106,7 @@ pip3 install setuptools --break-system-packages
 # 3. Clear the half-finished install and reinstall cleanly
 npm uninstall -g flowise
 npm cache clean --force
-npm install -g flowise
+npm install -g flowise@3.1.0
 ```
 
 ### 3. A dependency expects Node 22, or my Node version is EOL
@@ -120,7 +124,7 @@ nvm alias default 22
 node -v          # should now show v22.x
 ```
 
-Then reinstall Flowise (see step 3 of [question 2](#2-the-install-keeps-looping--modulenotfounderror-no-module-named-distutils) above). On Node 22 the current version normally installs cleanly. If you want to match the course videos exactly, you can pin the version with `npm install -g flowise@3.1.0`.
+Then reinstall Flowise (see step 3 of [question 2](#2-the-install-keeps-looping--modulenotfounderror-no-module-named-distutils) above). Keep the version pinned (`npm install -g flowise@3.1.0`) rather than installing the latest release; see [question 1](#1-which-version-of-flowise-should-i-install). If the npm install still fails, switch to Docker with Flowise 3.1.3 ([question 5](#5-how-do-i-switch-to-a-clean-docker-setup-eg-after-a-broken-local-install)).
 
 ### 4. `flowise start` fails with `Cannot find module 'turndown'` (or another module)
 
@@ -194,7 +198,7 @@ docker run -d --name flowise -p 3000:3000 -v flowise_data:/root/.flowise flowise
 > docker run -d --name flowise -p 3000:3000 -v flowise_data:/root/.flowise flowiseai/flowise:3.1.3
 > ```
 
-That's the whole setup. **Open Docker Desktop each time** you want to start Flowise. Everything in the course works exactly the same once Flowise is open in the browser — only the way you start it up changes.
+That's the whole setup. **Open Docker Desktop each time** you want to start Flowise. Everything in the Flowise track works exactly the same once Flowise is open in the browser — only the way you start it up changes.
 
 Handy commands for later:
 
@@ -210,59 +214,61 @@ docker logs -f flowise   # view logs
 
 ## General Course Questions
 
-### 6. Flowise is being discontinued. Is the course still worth taking?
+### 6. Flowise has been discontinued. Is the course still worth taking?
 
-**Programme Update:** We want to make learners aware of a recent announcement regarding Flowise, the visual AI platform used in portions of LADP. We understand some of you may have questions about what this means for the programme. The good news is that there is **no change to the learning outcomes or the value of the course**, and we've answered the most common questions below.
+**Programme Update:** We want to make learners aware that Flowise, the visual AI platform originally used for the hands-on demos in LADP, has reached end of life. We understand some of you may have questions about what this means for the programme. The good news is that there is **no change to the learning outcomes or the value of the course**, and we've answered the most common questions below.
 
-<ins>**Update: Flowise is being discontinued. Is the course still worth taking?**</ins> <br>
-**Yes—absolutely**. Flowise has been the platform we use to demonstrate concepts, but it has never been the end goal of the programme. The core skills you develop in LADP—prompt engineering, Retrieval-Augmented Generation (RAG), agentic workflows, evaluation, deployment, and responsible AI—are applicable across AI platforms and frameworks. These are the capabilities that remain valuable regardless of which tools are popular in the future.
+<ins>**Update: Flowise has been discontinued. Is the course still worth taking?**</ins> <br>
+**Yes—absolutely**. Flowise was the platform we originally used to demonstrate concepts, but it was never the end goal of the programme, and the hands-on demos have now moved to **n8n**. The core skills you develop in LADP—prompt engineering, Retrieval-Augmented Generation (RAG), agentic workflows, evaluation, deployment, and responsible AI—are applicable across AI platforms and frameworks. These are the capabilities that remain valuable regardless of which tools are popular in the future.
 
 **What has changed?**<br>
-**In July 2026**, the Flowise team [announced](https://flowiseai.com/sunset) that they will be winding down active development of the project. Their published timeline is:
-- **27 July 2026** – Feature development stops (code freeze); no new pull requests will be accepted.
-- **10 August 2026** – The GitHub repository will be archived, and npm packages and Docker images will be marked as deprecated.
-- **31 August 2026** – Official support through Discord and GitHub ends.
+**In July 2026**, the Flowise team [announced](https://flowiseai.com/sunset) that they were winding down active development of the project. Their published timeline was:
+- **27 July 2026** – Feature development stopped (code freeze); no new pull requests accepted.
+- **10 August 2026** – The GitHub repository archived, and npm packages and Docker images marked as deprecated.
+- **31 August 2026** – Official support through Discord and GitHub ended.
 
-While active development and official support are ending, **Flowise itself will continue to be available as open-source software under the Apache 2.0 licence**. The source code, Docker images, and npm packages remain accessible, allowing learners to continue installing and using the platform to complete the programme's hands-on exercises.
+Active development and official support have ended, but **Flowise itself remains available as open-source software under the Apache 2.0 licence**. The source code, Docker images, and npm packages remain accessible, so learners who started with Flowise can still install and use it to complete the hands-on exercises. It no longer receives fixes or updates.
 
 **What does this mean for our LADP learners?**<br>
 _Your learning outcomes remain unchanged._
 
-From the beginning of the programme, our focus has been on teaching the principles behind building AI applications—not on mastering a single tool. Flowise has served as a visual, low-code environment that makes it easier to understand how prompts, retrieval, agents, memory, and evaluation work together before introducing more advanced implementation approaches.
+From the beginning of the programme, our focus has been on teaching the principles behind building AI applications—not on mastering a single tool. A visual, low-code tool (first Flowise, now n8n) makes it easier to understand how prompts, retrieval, agents, memory, and evaluation work together before introducing more advanced implementation approaches.
 
 These concepts transfer directly to other platforms and frameworks, including Langflow, Dify, n8n, LangChain, LangGraph, CrewAI, and coding agents such as Claude Code and Codex. As the AI ecosystem continues to evolve, the ability to understand these underlying concepts becomes even more valuable than familiarity with any individual platform.
 
-**Moving the hands-on demos to n8n**<br>
-The current course videos use Flowise, and it remains an effective way to see how the concepts fit together, so you can still follow those videos and complete the exercises in Flowise. However, because Flowise no longer receives updates, we are **moving the hands-on demos to n8n**, and n8n will become the primary tool once the n8n demo videos are released. Until then, please continue with the Flowise videos and demos. Ready-made n8n versions of the demo workflows are already provided in each module if you'd like to try n8n early (setup steps are in [Module 0](LADPE_Module_0_Files/README.md)). Either way, you will gain the intended skills and knowledge.
+**The hands-on demos have moved to n8n**<br>
+Because Flowise no longer receives updates, the hands-on demos have moved to **n8n**, and the **n8n demo videos are now the main course videos**. New learners should follow the n8n videos and import the ready-made workflows from each module's `n8n_workflows/` folder (setup steps are in [Module 0](LADPE_Module_0_Files/README.md)). The Flowise videos and workflows are kept as an **optional track** for learners who started with them, but they may be removed from the course in future. Either way, you will gain the intended skills and knowledge.
 
 The industry will continue to introduce new tools and retire others. Our objective is to equip you with the understanding and practical experience to adapt confidently, regardless of which platform you use in the future.
 
-A useful way to think about it is this: learning with Flowise is like learning to drive in a particular model of car. Even if that model is eventually discontinued, the driving skills you develop stay with you and transfer to any other vehicle. In the same way, the platform may evolve, but the knowledge and skills you gain through LADP remain relevant.
+A useful way to think about it is this: learning with a particular tool is like learning to drive in a particular model of car. Even if that model is eventually discontinued, the driving skills you develop stay with you and transfer to any other vehicle. In the same way, the platform may evolve, but the knowledge and skills you gain through LADP remain relevant.
 
-**What's next: n8n demo videos**<br>
-We are adding **n8n** versions of the hands-on demos. The n8n demo videos **have not been released yet** and are coming soon, and the repository is being updated gradually with n8n workflows and guides. Until the n8n videos are released, please **continue to follow the Flowise videos and use the Flowise demo workflows** (in each module's `flowise_workflows/` folder). The n8n workflow files are already available if you'd like to try n8n early. Stay tuned for updates.
+**I already started with Flowise. What should I do?**<br>
+You can finish the course in Flowise: the Flowise videos and the `flowise_workflows/` folders are still here, and everything you have learned so far carries over. We do encourage you to move to n8n when convenient, since that is where the course is maintained from now on. You don't need to redo earlier modules. The [Flowise to n8n table in Module 0](LADPE_Module_0_Files/README.md#flowise-to-n8n-what-maps-to-what) shows the equivalent pieces in each tool, and your capstone project can be built in either.
 
 ### 7. Do I need coding experience to take this course?
 
-No. LADP Essentials is a **no-code / low-code** course. You build everything visually in **Flowise**, as shown in the current videos (and in **n8n** once the n8n demo videos are released), so you can focus on the concepts (prompt engineering, RAG, agents, evaluation, deployment) rather than writing application code. A few later exercises (e.g. Module 4 evaluations) involve running a provided notebook, but no prior coding is required.
+No. LADP Essentials is a **no-code / low-code** course. You build everything visually in **n8n**, as shown in the course videos (or in **Flowise** if you are on the optional Flowise track), so you can focus on the concepts (prompt engineering, RAG, agents, evaluation, deployment) rather than writing application code. A few later exercises (e.g. Module 4 evaluations) involve running a provided notebook, but no prior coding is required.
 
-### 8. Do I have to install Flowise locally? Can I use the hosted version?
+### 8. Do I have to install anything locally? Can I use a hosted version?
 
-**Flowise Cloud, the hosted version of Flowise, has been shut down** as part of the Flowise sunset (see [question 6](#6-flowise-is-being-discontinued-is-the-course-still-worth-taking)), so it is no longer an option. To use Flowise, install it locally. **Docker is the primary way** (everything is pre-installed), and the npm method shown in the course videos also works. Both are described in [Module 0](LADPE_Module_0_Files/README.md).
+**For n8n (the main track), no.** We recommend **n8n Cloud**, the hosted version, which gives new users a free trial, so there is nothing to install. The trial is time-limited and starts when you sign up, so you may want to watch the videos first and sign up when you're ready to build. Export your workflows as JSON before the trial ends so you keep a copy. If you'd rather not use n8n Cloud, or want to keep using n8n for free after the trial, run the free Community Edition locally with Docker. Both options are described in [Module 0](LADPE_Module_0_Files/README.md#03-set-up-n8n-hosted-access-n8n-cloud-recommended).
 
-Until the n8n demo videos are released, please continue with the Flowise videos and demos using a local Flowise install. If you'd like to try n8n early without installing anything, **n8n Cloud** offers new users a free trial (see the n8n Setup section of [Module 0](LADPE_Module_0_Files/README.md)), and n8n can also be run locally for free with Docker. As the trial is time-limited, you may want to wait until the n8n videos are released before signing up.
+**For Flowise (optional track), yes.** Flowise Cloud, the hosted version of Flowise, has been shut down as part of the Flowise sunset (see [question 6](#6-flowise-has-been-discontinued-is-the-course-still-worth-taking)), so Flowise must be installed locally. **Docker is the primary way** (everything is pre-installed), and the npm method shown in the Flowise videos also works. Both are described in [Module 0](LADPE_Module_0_Files/README.md#06-set-up-flowise-on-mac-or-windows-flowise-optional).
 
 ### 9. Which LLM provider / API key do I need?
 
-You only need **one** provider. The current course videos use **OpenAI** and **Anthropic (Claude)**, which both require billing (a credit card) to be set up.
+You only need **one** provider. The course videos use **OpenAI** and **Anthropic (Claude)**, which both require billing (a credit card) to be set up.
 
 If you'd rather not pay, **Google AI Studio (Gemini)** and **OpenRouter** both give free API keys with access to capable free models, which is enough to follow the demos. Free tiers have low rate limits, and on Google's free tier your prompts may be used to improve their products, so don't send personal or confidential data.
 
 Step-by-step instructions for every option (OpenAI, Anthropic, Azure OpenAI / Microsoft Foundry, Google AI Studio and OpenRouter) are in the **Provisioning LLM API Credentials** section of [Module 0](LADPE_Module_0_Files/README.md), including which n8n and Flowise nodes to use.
 
-### 10. Do I have to use Flowise? What about other tools?
+### 10. Which tool should I use, n8n or Flowise? What about other tools?
 
-For now, yes: please **continue with the Flowise videos and demos** until the n8n demo videos are released. We are moving the hands-on demos to **n8n**, which will become the primary tool once those videos are out, so please stay tuned. Ready-made n8n workflow files are already in each module (see [Module 0](LADPE_Module_0_Files/README.md) for setup) if you'd like to try n8n early.
+Use **n8n**. It is the main track: the course videos and demos use it, and all new learners should follow it. Ready-made workflow files are in each module's `n8n_workflows/` folder (see [Module 0](LADPE_Module_0_Files/README.md) for setup).
+
+The **Flowise** demos are kept as an optional track for learners who started with them. Flowise has reached end of life, no longer receives fixes or updates, and may be removed from the course in future, so we don't recommend starting with it. You only need to follow one demo track, not both.
 
 The tool is only the vehicle for teaching the concepts. Once you understand prompt engineering, RAG, agentic workflows, evaluation, deployment, and responsible AI, you can apply them on other no-code/low-code tools (e.g., Dify) or coding frameworks (LangChain, LangGraph, CrewAI). Your capstone project can also be built in any framework (see [question 11](#11-how-do-i-submit-my-capstone-project)).
 
@@ -274,7 +280,7 @@ Submit a **Pull Request** to this repository, adding your work to a new folder u
 
 ## Building & Running Workflows
 
-*Errors learners have hit while building and running workflows, with concise fixes. The code patches below apply to **Flowise 3.1.x running in Docker** — run the commands in Terminal (macOS) or PowerShell (Windows) with the container running.*
+*Errors learners have hit while building and running workflows, with concise fixes. Questions 12–14 apply to the **optional Flowise track**, and their code patches are for **Flowise 3.1.x running in Docker** — run the commands in Terminal (macOS) or PowerShell (Windows) with the container running. For n8n, see [question 16](#16-where-do-i-find-help-for-n8n-problems).*
 
 ### 12. Tavily search errors in the agent
 
@@ -378,6 +384,19 @@ Azure now steers new users toward **Azure AI Foundry**, but Flowise's **Azure Op
 A **"429 … exceeded rate limit"** means your deployment's per-minute request/token (TPM) quota was exceeded — common when an agent fans out many parallel tool calls. Fixes: slow the workflow down (fewer parallel tool calls / retries), wait and retry, or raise the deployment's TPM quota in the Azure portal (or request a quota increase).
 
 > If the rate limit keeps blocking you, switch to a plain **OpenAI** or **Anthropic (Claude)** key — set up as shown in the course videos. Either avoids the Azure per-deployment quotas and works for every exercise.
+
+### 16. Where do I find help for n8n problems?
+
+Start with the **[n8n Troubleshooting table in Module 0](LADPE_Module_0_Files/README.md#n8n-troubleshooting)**. It covers the issues learners hit most often:
+
+- **Red warning icons on Chat Model nodes after importing a workflow** — credentials are never included in workflow files, so open each Chat Model node and select or create your own.
+- **The model named in an imported workflow isn't available** — pick any current model from the dropdown; the demos don't depend on a specific model.
+- **Import from File is greyed out or missing** — create or open a workflow first, or paste the JSON straight onto the canvas.
+- **The n8n Cloud trial has ended** — subscribe to a Cloud plan, or run n8n locally with Docker and import the JSON files you exported.
+- **localhost:5678 doesn't load (Docker)** — check Docker Desktop is running and nothing else is using port 5678, then run `docker logs n8n`.
+- **Data between nodes looks wrong or shows undefined** — check the field is set to **Expression** (not **Fixed**) and points at the right node.
+
+If your problem isn't listed there, please [open an issue](https://github.com/AISG-AIAP/LADP-Essentials/issues).
 
 ---
 
